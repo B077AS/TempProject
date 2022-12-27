@@ -34,16 +34,15 @@ public class EmailBuilder {
 		property.put("mail.smtps.ssl.enable", "true");
 		
 		try {
-			EmailAccount ea=new EmailAccount("Files/EmailDetails.csv");
+			EmailAccount ea=new EmailAccount();
 			String accountEmail=ea.getEmail();
 			String accountPassword=ea.getPassword();
 			
 			Auth a=new Auth(accountEmail, accountPassword);
-			
 			Session session =Session.getInstance(property, a);
 			
 			Message message =prepareMessage(session, accountEmail, ricevitore, number);//preparo l'oggetto messaggio che contiene il messaggio e destinatario
-			
+
 			Transport.send(message);
 			System.out.println("Message sent");
 		} catch (FileNotFoundException e) {

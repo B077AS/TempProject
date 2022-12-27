@@ -5,27 +5,39 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-public class EmailAccount {//le credenziali dell'account email che passo all'emailBuilder le tengo salvate in un file
-							//questa classe la uso per prelevare le credenziali dal file
+import DataBase.DBConnection;
+import Exceptions.LoginException;
+
+public class EmailAccount {
 	
 	private String email;
 	private String password;
 	
-	public EmailAccount(String path) throws FileNotFoundException, IOException {
+	public EmailAccount() throws FileNotFoundException, IOException {
 		
-		File f=new File(path);
-		FileReader r=new FileReader(f);
-		BufferedReader b=new BufferedReader(r);
-		String[] details;
-		String account;
-		account=b.readLine();
-		details=account.split(",");
-		
-		this.email=details[0];
-		this.password=details[1];
-		
-		r.close();
+		try {
+
+			Connection conn=DBConnection.connect();
+
+			String query="select * from email";
+			Statement statement = conn.prepareStatement(query);
+			ResultSet result=statement.executeQuery(query);
+			result.next();
+			
+			this.email=result.getString(1);
+			this.password=result.getString(2);
+			
+			conn.close();
+			
+		} catch (Exception e1) {
+			new LoginException();
+			return;
+		}
+
 	}
 
 	

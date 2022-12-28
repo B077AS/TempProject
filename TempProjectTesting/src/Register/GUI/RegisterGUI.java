@@ -19,6 +19,7 @@ import Register.GUI.MainPanel;
 import Login.PanelLogo;
 
 public class RegisterGUI extends JFrame {
+	private JLabel ll;
 
 	public RegisterGUI() {
 		openRegisterGUI();
@@ -30,20 +31,20 @@ public class RegisterGUI extends JFrame {
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;//finestra delle dimensioni dello schermo
 		int screenWidth = screenSize.width;
-		
+
 		ImageIcon Icon=new ImageIcon("Immagini\\background_v2.jpeg");
 		Image image = Icon.getImage();
 		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
-	
+
 		Icon = new ImageIcon(newimg);
-		
-		JLabel ll= new JLabel(Icon);
+
+		ll= new JLabel(Icon);
 		add(ll);
-		
+
 
 		setSize(screenWidth,screenHeight);
 		JLayeredPane pane = this.getLayeredPane();
-		
+
 
 		PanelLogo panellogo=new PanelLogo();
 		panellogo.setBounds(0, 0, 120, 120);
@@ -61,6 +62,10 @@ public class RegisterGUI extends JFrame {
 		setVisible(true);
 	}
 
+	public JLabel getBack() {
+		return this.ll;
+	}
+
 }
 
 class MainPanel extends JPanel{
@@ -72,7 +77,7 @@ class MainPanel extends JPanel{
 		setLayout (new GridBagLayout());//crea una griglia cartesiana, uso le coordinate per mettere i componenti
 		GridBagConstraints c=new GridBagConstraints();
 		setBackground(new Color (0,0,0,0));
-		
+
 		c.anchor = GridBagConstraints.EAST;
 		JLabel nameLabel=new JLabel("Name: ");
 		nameLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
@@ -132,6 +137,16 @@ class MainPanel extends JPanel{
 		//
 		c.anchor = GridBagConstraints.WEST;
 		JComboBox<String> emailSelect=new JComboBox<String>(this.emailTerminations);
+		emailSelect.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.revalidate();
+				frame.repaint();
+
+			}
+
+		});
 		emailSelect.setBackground(Color.WHITE);
 		emailSelect.setForeground(new Color(145,0,0));
 		c.gridx=2;
@@ -176,6 +191,14 @@ class MainPanel extends JPanel{
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JComboBox<UserType> userTypeSelect= new JComboBox<UserType>(UserType.values());//menu a tendina a cui passo la enum
+		userTypeSelect.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.revalidate();
+				frame.repaint();
+
+			}});
 		userTypeSelect.setBackground(Color.WHITE);
 		userTypeSelect.setFont(new Font("Comic Sans MS", Font.PLAIN,10));
 		userTypeSelect.setForeground(new Color(145,0,0));
@@ -302,16 +325,16 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 	}
 
 	public void CheckDuplicate(String email, String ID) throws Exception{
-			Connection conn=DBConnection.connect();
+		Connection conn=DBConnection.connect();
 
-			String query="select * from users where User_Code=? or Email=?";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, ID);
-			preparedStmt.setString(2, email);
-			ResultSet result=preparedStmt.executeQuery();
-			if(result.next()==true) {
-				throw new IllegalArgumentException();
-			}
+		String query="select * from users where User_Code=? or Email=?";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setString(1, ID);
+		preparedStmt.setString(2, email);
+		ResultSet result=preparedStmt.executeQuery();
+		if(result.next()==true) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public void EmailVerification(int number, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber,String email, char[] password, UserType type){

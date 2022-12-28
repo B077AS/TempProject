@@ -143,9 +143,7 @@ class MainPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				frame.revalidate();
 				frame.repaint();
-
 			}
-
 		});
 		emailSelect.setBackground(Color.WHITE);
 		emailSelect.setForeground(new Color(145,0,0));

@@ -26,7 +26,7 @@ public class LoginGUI extends JFrame{
 		setSize(screenWidth,screenHeight);
 		setTitle("FindMe");*/
 
-		ImageIcon Icon=new ImageIcon("Immagini\\background_v2.jpeg");
+		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
 		Image image = Icon.getImage();
 		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
 	

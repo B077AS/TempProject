@@ -19,7 +19,6 @@ import Register.GUI.MainPanel;
 import Login.PanelLogo;
 
 public class RegisterGUI extends JFrame {
-	private JLabel ll;
 
 	public RegisterGUI() {
 		openRegisterGUI();
@@ -38,7 +37,7 @@ public class RegisterGUI extends JFrame {
 
 		Icon = new ImageIcon(newimg);
 
-		ll= new JLabel(Icon);
+		JLabel ll= new JLabel(Icon);
 		add(ll);
 
 
@@ -61,11 +60,6 @@ public class RegisterGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-
-	public JLabel getBack() {
-		return this.ll;
-	}
-
 }
 
 class MainPanel extends JPanel{
@@ -138,7 +132,6 @@ class MainPanel extends JPanel{
 		c.anchor = GridBagConstraints.WEST;
 		JComboBox<String> emailSelect=new JComboBox<String>(this.emailTerminations);
 		emailSelect.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.revalidate();

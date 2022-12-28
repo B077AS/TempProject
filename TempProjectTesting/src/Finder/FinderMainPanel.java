@@ -2,35 +2,34 @@ package Finder;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import javax.swing.*;
 import Finder.Filter.FilterCheckBox;
 import Finder.Filter.FilterRoomType;
 import Finder.Filter.FilterSeatsNumber;
+import Rooms.Booking;
+
 
 public class FinderMainPanel extends JPanel{
 
 	private JScrollPane scroll;
-	private LinkedList<FreeForBooking> freeRooms;
-	private LinkedList<FreeForBooking> freeRoomsBackUp;
+	private List<Booking> freeRooms;
+	private List<Booking> freeRoomsBackUp;
 	private LinkedList<FilterCheckBox> allFilters;
 
-	public FinderMainPanel(LinkedList<FreeForBooking> freeRooms, LinkedList<FreeForBooking> freeRoomsBackUp) {
+	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp) {
 		this.allFilters=new LinkedList<FilterCheckBox>();
 		this.freeRooms=freeRooms;
 		this.freeRoomsBackUp=freeRoomsBackUp;
 		removeAll();
-		String[] freeRoomsArray=new String[freeRooms.size()];
-		for(int i=0; i<freeRooms.size(); i++) {
-			FreeForBooking freeRoom=freeRooms.get(i);
-			freeRoomsArray[i]=freeRoom.toString();
-		}
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
-		JList<String> list=new JList<String>(freeRoomsArray);
+		JList<Booking> list=new JList(freeRooms.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
 		c.gridx=0;
 		c.gridy=0;
@@ -84,7 +83,7 @@ public class FinderMainPanel extends JPanel{
 		repaint();
 	}
 
-	public LinkedList<FreeForBooking> getFreeRooms(){
+	public List<Booking> getFreeRooms(){
 		return this.freeRoomsBackUp;
 	}
 
@@ -92,10 +91,10 @@ public class FinderMainPanel extends JPanel{
 
 class BookListener implements ActionListener{
 
-	private JList<String> scroll;
+	private JList<Booking> scroll;
 
-	public BookListener(JList<String> scroll) {
-		this.scroll=scroll;
+	public BookListener(JList<Booking> list) {
+		this.scroll=list;
 	}
 
 	@Override
@@ -107,13 +106,13 @@ class BookListener implements ActionListener{
 
 class FilterListener implements ActionListener{
 	private FinderMainPanel panel;
-	private LinkedList<FreeForBooking> freeRooms;
-	private LinkedList<FreeForBooking> filteredRooms;
-	private HashMap<String, LinkedList<FreeForBooking>> allFiltered;
+	private List<Booking> freeRooms;
+	private List<Booking> filteredRooms;
+	private HashMap<String, List<Booking>> allFiltered;
 	private LinkedList<FilterCheckBox> allFilters;
 	public FilterListener(FinderMainPanel panel, LinkedList<FilterCheckBox> allFilters) {
-		this.filteredRooms=new LinkedList<FreeForBooking>();
-		this.allFiltered=new HashMap<String, LinkedList<FreeForBooking>>();
+		this.filteredRooms=new ArrayList<Booking>();
+		this.allFiltered=new HashMap<String, List<Booking>>();
 		this.panel=panel;
 		this.allFilters=allFilters;
 	}
@@ -128,7 +127,7 @@ class FilterListener implements ActionListener{
 			}
 		}
 
-		for(HashMap.Entry<String, LinkedList<FreeForBooking>> list: this.allFiltered.entrySet()) {
+		for(HashMap.Entry<String, List<Booking>> list: this.allFiltered.entrySet()) {
 			this.filteredRooms.addAll(list.getValue());
 		}
 		this.panel.removeAll();

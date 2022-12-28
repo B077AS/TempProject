@@ -12,13 +12,14 @@ import Rooms.Rooms;
 
 public class FinderDB {
 	private HashMap<String, Integer> months;
-	private LinkedList<FreeForBooking> freeRooms;
 	private HashMap<String, Rooms> allRooms;
+	private List<Booking> free;
 
 
 	public FinderDB(int year, String month, int day, String start, String end) {
 		this.allRooms=new HashMap<String, Rooms>();
-		this.freeRooms=new LinkedList<FreeForBooking>();
+		this.free= new ArrayList<Booking>();
+		
 		setMonthsMap();
 		int monthNumber=months.get(month);
 		LocalDate myDate = LocalDate.of(year, monthNumber, day);
@@ -60,7 +61,7 @@ public class FinderDB {
 					ResultSet result=preparedStmt.executeQuery();
 					while(result.next()) {
 						if(this.allRooms.containsKey(result.getString(5))==true) {
-							setAvailability(this.allRooms.get(result.getString(5)), result.getString(2), result.getString(3), result.getString(4), result.getString(6));
+							setAvailability(this.allRooms.get(result.getString(5)), result.getString(2), result.getString(3));
 							//break;
 						}
 
@@ -92,8 +93,8 @@ public class FinderDB {
 		this.months=months;
 	}
 
-	public void setAvailability(Rooms r, String start, String end, String subject, String day) {
-		r.setAvailability(start+"-"+end, new Booking(start, end, subject, day));
+	public void setAvailability(Rooms r, String start, String end) {
+		r.setAvailability(start+"-"+end, new Booking(start, end, r));
 
 	}
 
@@ -104,7 +105,7 @@ public class FinderDB {
 	}
 
 	public void checkAvailability(HashMap<String, Rooms> rooms, int endNumber, int startNumber, int loopCount, String start, String end) {
-		this.freeRooms.clear();
+		this.free.clear();
 		for(HashMap.Entry<String, Rooms> room: rooms.entrySet()) {
 			HashMap<String, Booking> availability=room.getValue().getAvailability();
 			for(int i=0; i<loopCount; i++) {
@@ -115,17 +116,18 @@ public class FinderDB {
 						//System.out.println(room.getValue().getCode()+" OCCUPATO from: "+start+" to "+end+" for "+availability.get(start+"-"+end).getSubject());
 					}
 					else {
-						this.freeRooms.add(new FreeForBooking(room.getValue().getCode(), start, end, room.getValue().getSeats()));
+						//this.freeRooms.add(new FreeForBooking(room.getValue().getCode(), start, end, room.getValue().getSeats()));
+						this.free.add(new Booking(start, end, room.getValue()));
 						//System.out.println(room.getValue().getCode()+" LIBERO from: "+start+" to "+end+" posti: "+room.getValue().getSeats());
 					}
 				}
 			}
 		}
-		Collections.sort(this.freeRooms);
+		Collections.sort(this.free);
 	}
 
-	public LinkedList<FreeForBooking> getFreeRooms(){
-		return this.freeRooms;
+	public List<Booking> getFreeRooms(){
+		return this.free;
 	}
 
 }

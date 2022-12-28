@@ -1,20 +1,16 @@
 package Rooms;
 
-import java.util.LinkedList;
-
-public class Booking {
+public class Booking implements Comparable<Booking>{
 	
 	private String startTime;
 	private String endTime;
-	private String subject;
-	private String day;
+	private Rooms room;
 
 	
-	public Booking(String startTime, String endTime, String subject, String day) {
+	public Booking(String startTime, String endTime, Rooms room) {
 		this.startTime=startTime;
 		this.endTime=endTime;
-		this.subject=subject;
-		this.day=day;
+		this.room=room;
 	}
 	
 	
@@ -26,12 +22,19 @@ public class Booking {
 		return this.endTime;
 	}
 	
-	public String getSubject() {
-		return this.subject;
+	public Rooms getRoom() {
+		return this.room;
+	}
+
+
+	@Override
+	public int compareTo(Booking o) {
+		return this.room.getCode().compareTo(o.getRoom().getCode());
 	}
 	
-	public String getDay() {
-		return this.day;
+	@Override
+	public String toString() {
+		return this.room.getCode()+" From: "+this.startTime+" To: "+this.endTime;
 	}
 	
 }

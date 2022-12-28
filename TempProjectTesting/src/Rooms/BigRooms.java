@@ -18,5 +18,10 @@ public class BigRooms extends Rooms{
 		
 	}
 
+	@Override
+	public void schedule() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

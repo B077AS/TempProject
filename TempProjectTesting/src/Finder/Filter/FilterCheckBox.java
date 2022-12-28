@@ -1,8 +1,8 @@
 package Finder.Filter;
 
-import java.util.LinkedList;
+import java.util.List;
 import javax.swing.JCheckBox;
-import Finder.FreeForBooking;
+import Rooms.Booking;
 
 public class FilterCheckBox extends JCheckBox implements Filterable{
 
@@ -10,7 +10,7 @@ public class FilterCheckBox extends JCheckBox implements Filterable{
 	protected String start;
 	protected String end;
 	protected int seats;
-	protected LinkedList<FreeForBooking> filteredRooms;
+	protected List<Booking> filteredRooms;
 
 
 	public void setSeats(int i) {
@@ -30,7 +30,7 @@ public class FilterCheckBox extends JCheckBox implements Filterable{
 	}
 
 	@Override
-	public LinkedList<FreeForBooking> filter(LinkedList<FreeForBooking> freeRooms, FilterCheckBox CheckBox) {
+	public List<Booking> filter(List<Booking> freeRooms, FilterCheckBox CheckBox) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,11 +1,11 @@
 package Finder.Filter;
 
-import java.util.LinkedList;
-
-import Finder.FreeForBooking;
+import java.util.List;
+import Rooms.Booking;
 
 public interface Filterable {
 	
-	public LinkedList<FreeForBooking> filter(LinkedList<FreeForBooking> freeRooms, FilterCheckBox CheckBox);
+	public List<Booking> filter(List<Booking> freeRooms, FilterCheckBox CheckBox);
+
 
 }

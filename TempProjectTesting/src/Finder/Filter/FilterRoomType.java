@@ -1,9 +1,10 @@
 package Finder.Filter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import Finder.FreeForBooking;
+import java.util.List;
 import MyLoader.RoomLoader;
+import Rooms.Booking;
 import Rooms.Rooms;
 
 public class FilterRoomType extends FilterCheckBox{
@@ -14,15 +15,15 @@ public class FilterRoomType extends FilterCheckBox{
 	
 	
 	@Override
-	public LinkedList<FreeForBooking>  filter(LinkedList<FreeForBooking> freeRooms, FilterCheckBox filterLab){
+	public List<Booking>  filter(List<Booking> freeRooms, FilterCheckBox filterLab){
 		
-		this.filteredRooms=new LinkedList<FreeForBooking>();
+		this.filteredRooms=new ArrayList<Booking>();
 		String[] temp;
 		HashMap<String, Rooms> uniRooms;
 		try {
 			uniRooms = new RoomLoader().getRooms();
-		for(FreeForBooking book: freeRooms) {
-			String code=book.getRoomCode();
+		for(Booking book: freeRooms) {
+			String code=book.getRoom().getCode();
 			Rooms room=uniRooms.get(code);
 			if (room.getType().equals(filterLab.getIdentifier())) {
 				this.filteredRooms.add(book);

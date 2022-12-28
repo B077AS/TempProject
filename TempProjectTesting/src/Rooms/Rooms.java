@@ -28,9 +28,6 @@ public abstract class Rooms implements Bookable{
 		return this.seats;
 	}
 	
-	public void schedule(String startTime, String endTime, String subject, String day) {
-		schedules.add(new Booking(startTime, endTime, subject, day));
-	}
 	
 	public LinkedList<Booking> getSchedule(){
 		return this.schedules;

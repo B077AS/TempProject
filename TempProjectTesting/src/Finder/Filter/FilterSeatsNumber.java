@@ -1,7 +1,8 @@
 package Finder.Filter;
 
-import java.util.LinkedList;
-import Finder.FreeForBooking;
+import java.util.ArrayList;
+import java.util.List;
+import Rooms.Booking;
 
 public class FilterSeatsNumber extends FilterCheckBox{
 	
@@ -11,10 +12,10 @@ public class FilterSeatsNumber extends FilterCheckBox{
 	
 	@Override
 	
-	public LinkedList<FreeForBooking> filter(LinkedList<FreeForBooking> freeRooms, FilterCheckBox seatsCheckBox) {
-		this.filteredRooms=new LinkedList<FreeForBooking>();
-		for(FreeForBooking book: freeRooms) {
-			if(book.getSeats()==seatsCheckBox.getSeats()) {
+	public List<Booking> filter(List<Booking> freeRooms, FilterCheckBox seatsCheckBox) {
+		this.filteredRooms=new ArrayList<Booking>();
+		for(Booking book: freeRooms) {
+			if(book.getRoom().getSeats()==seatsCheckBox.getSeats()) {
 				filteredRooms.add(book);
 			}
 		}

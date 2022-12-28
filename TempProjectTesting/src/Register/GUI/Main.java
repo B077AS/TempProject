@@ -6,8 +6,8 @@ import Login.*;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		LoginGUI g=new LoginGUI();
-	}
-
+	} 
+    
 }
 
 //william.solari01@universitadipavia.it 

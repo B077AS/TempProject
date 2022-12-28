@@ -1,12 +1,10 @@
 package Login;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.*;
 import DataBase.DBConnection;
-import Exceptions.LoginException;
+import Exceptions.ExceptionPanel;
 import Users.GeneralUser.*;
 
 public class Login {
@@ -40,7 +38,7 @@ public class Login {
 			email=result.getString(5);
 
 		} catch (Exception e1) {
-			new LoginException();
+			new ExceptionPanel("\u274C Wrong Email or Password");
 			return;
 		}
 

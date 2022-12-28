@@ -5,7 +5,6 @@ import java.sql.*;
 import java.time.*;
 import java.util.*;
 import DataBase.DBConnection;
-import Exceptions.LoginException;
 import MyLoader.RoomLoader;
 import Rooms.Booking;
 import Rooms.Rooms;
@@ -70,7 +69,6 @@ public class FinderDB {
 			}
 			checkAvailability(this.allRooms, endNumber, startNumber, loopCount, start, end);
 		} catch (Exception e1) {
-			new LoginException();
 			return;
 		}
 

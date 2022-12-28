@@ -18,7 +18,7 @@ public class EmailBuilder {
 			sendMail(this.email);
 		} catch (MessagingException e) {
 			System.out.println("errore creazione emailbuilder");
-			//TODO ECCEZIONE
+			e.printStackTrace();
 		}
 	}
 
@@ -45,9 +45,8 @@ public class EmailBuilder {
 
 			Transport.send(message);
 			System.out.println("Message sent");
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println("file non trovato");
-		} catch (IOException e) {
 		}
 
 	}
@@ -64,13 +63,14 @@ public class EmailBuilder {
 			return message;
 			
 		} catch (AddressException e) {
-			EmailFormatEx ex=new EmailFormatEx();
+			ExceptionPanel ex=new ExceptionPanel("\u274C Email not Valid");
 		} catch (MessagingException e) {
 			System.out.println("errore messaggio");
 			e.printStackTrace();
 		}
 		return null;
 	}
+	
 }
 
 class  Auth extends Authenticator{

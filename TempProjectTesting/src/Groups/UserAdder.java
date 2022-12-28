@@ -23,25 +23,25 @@ import Users.Students.StudentsGUI;
 
 public class UserAdder extends JFrame{
 	
-	public UserAdder(JList<String> list, HashMap<String, StudentsGroup> groups, StudentsGUI studentsGUI, Students user) {
+	public UserAdder(JList<StudentsGroup> list, StudentsGUI studentsGUI, Students user) {
 		setSize(400,200);
-		setTitle("Insert User Email");
+		setTitle("Add User");
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
-		JLabel insertName=new JLabel("Insert email");
+		JLabel insertName=new JLabel("Insert Email or ID");
 		c.gridx=0;
 		c.gridy=0;
 		add(insertName, c);
 
-		JTextField nameField=new JTextField(25);
+		JTextField nameField=new JTextField(20);
 		c.gridx=1;
 		c.gridy=0;
 		add(nameField, c);
 
 		JButton okButton=new JButton("OK");
-		OkListener listener=new OkListener(list, groups, nameField, this, studentsGUI, user);
+		OkListener listener=new OkListener(list, nameField, this, studentsGUI, user);
 		okButton.addActionListener(listener);
 		c.gridx=2;
 		c.gridy=0;
@@ -56,17 +56,15 @@ public class UserAdder extends JFrame{
 
 class OkListener implements ActionListener{
 	
-	private JList<String> list;
-	private HashMap<String, StudentsGroup> groups;
-	private JTextField email;
+	private JList<StudentsGroup> list;
+	private JTextField emailOrID;
 	private JFrame frame;
 	private StudentsGUI studentsGUI;
 	private Students user;
 	
-	public OkListener(JList<String> list, HashMap<String, StudentsGroup> groups, JTextField email, JFrame frame, StudentsGUI studentsGUI, Students user) {
+	public OkListener(JList<StudentsGroup> list, JTextField emailOrID, JFrame frame, StudentsGUI studentsGUI, Students user) {
 		this.list=list;
-		this.groups=groups;
-		this.email=email;
+		this.emailOrID=emailOrID;
 		this.frame=frame;
 		this.user=user;
 		this.studentsGUI=studentsGUI;
@@ -75,10 +73,9 @@ class OkListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String[] groupInfo=this.list.getSelectedValue().split(" ");
 	
 		try {
-			this.groups.get(groupInfo[0]).addNewStudent(this.email.getText(), this.groups.get(groupInfo[0]).getAdmin(), this.groups.get(groupInfo[0]), this.groups);
+			this.list.getSelectedValue().addNewStudent(this.emailOrID.getText(), this.list.getSelectedValue());
 			this.studentsGUI.removePanel();
 			this.studentsGUI.addSecondPanel(new GroupsPanel(this.user, this.studentsGUI));
 			this.studentsGUI.revalidate();

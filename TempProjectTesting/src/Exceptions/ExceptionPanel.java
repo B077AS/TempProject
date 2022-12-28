@@ -1,5 +1,8 @@
 package Exceptions;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,7 +10,7 @@ import javax.swing.JPanel;
 
 public class ExceptionPanel {
 	
-	public ExceptionPanel(String message) {
+	public ExceptionPanel(String message) {// \u274C
 		ExceptionHandler(message);
 	}
 
@@ -16,10 +19,13 @@ public class ExceptionPanel {
 		JPanel p=new JPanel();
 		JLabel l=new JLabel(message);
 		JButton b=new JButton("OK");
+		b.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				f.dispose();
+			}
+		});
 		p.add(l);
-		
-		ButtonListener bl=new ButtonListener(f);
-		b.addActionListener(bl);
 		p.add(b);
 		f.add(p);
 		

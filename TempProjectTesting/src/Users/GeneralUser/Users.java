@@ -34,6 +34,9 @@ public abstract class Users {
 		return this.email;
 	}
 	
+	public String getID() {
+		return this.ID;
+	}
 	
 	
 	public abstract void GUI(LoginGUI frame);

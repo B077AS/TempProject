@@ -23,8 +23,8 @@ public class LoginGUI extends JFrame{
 	/*	MainPanel p=new MainPanel(this);
 		add(p);
 
-		setSize(screenWidth,screenHeight);
-		setTitle("FindMe");*/
+		setSize(screenWidth,screenHeight);*/
+		setTitle("FindMe");
 
 		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
 		Image image = Icon.getImage();

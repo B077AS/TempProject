@@ -1,23 +1,16 @@
 package Email;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
+import java.sql.*;
 import DataBase.DBConnection;
-import Exceptions.LoginException;
+
 
 public class EmailAccount {
 	
 	private String email;
 	private String password;
 	
-	public EmailAccount() throws FileNotFoundException, IOException {
+	public EmailAccount(){
 		
 		try {
 
@@ -34,7 +27,6 @@ public class EmailAccount {
 			conn.close();
 			
 		} catch (Exception e1) {
-			new LoginException();
 			return;
 		}
 

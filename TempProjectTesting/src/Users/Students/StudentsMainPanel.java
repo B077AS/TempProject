@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import Groups.GroupsPanel;
 import MyTimer.MyTimer;
+import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 
 public class StudentsMainPanel extends JPanel{
@@ -54,7 +55,19 @@ public class StudentsMainPanel extends JPanel{
 			Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 			friendsIcon = new ImageIcon(newimg);
 			JButton groupsButton=new JButton(friendsIcon);
-			groupsButton.addActionListener(new NewPanelListener(studentsGUI, new GroupsPanel(user, studentsGUI)));
+			groupsButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					studentsGUI.removePanel();
+					studentsGUI.addSecondPanel(new GroupsPanel(user, studentsGUI));
+					studentsGUI.revalidate();
+					studentsGUI.repaint();
+					
+				}
+				
+			});
+			//groupsButton.addActionListener(new NewPanelListener(studentsGUI, new GroupsPanel(user, studentsGUI)));
 			c.gridx=1;
 			c.gridy=3;
 			add(groupsButton, c);

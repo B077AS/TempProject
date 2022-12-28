@@ -1,48 +1,41 @@
 package Groups;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.LinkedList;
-
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.util.List;
 import javax.swing.*;
+import java.sql.*;
+import DataBase.DBConnection;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
+
 public class GroupsPanel extends JPanel{
-	private HashMap<String, StudentsGroup> groups;
+	private HashMap<String, StudentsGroup> userSpcificGroups;
 
 	public GroupsPanel(Students user, StudentsGUI studentsGUI) {
-
+		this.userSpcificGroups=new HashMap<String, StudentsGroup>();
 		try {
-			user.loadGroups();
-		} catch (IOException e1) {
-			System.out.println("errore caricamento gruppi");
-		}
 
-		this.groups=user.getGroups();
-		LinkedList<String> filteredGroups=new LinkedList<String>();
+			Connection conn=DBConnection.connect();
 
-		int i=0;
-		for(HashMap.Entry<String, StudentsGroup> group: groups.entrySet()) {
-			if(group.getValue().getAdmin().equals(user.getEmail()) || group.getValue().getStudentsList().containsKey(user.getEmail())==false) {
-				filteredGroups.add(i, group.getValue().toString());
-				i++;
+			String query="select * from (select * from allgroups where Group_ID in (select Group_ID from allgroups where Partecipant=?)) temp, users where temp.Partecipant=users.User_Code";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, Integer.parseInt(user.getID()));
+			ResultSet result=preparedStmt.executeQuery();
+			while(result.next()) {
+				if(this.userSpcificGroups.containsKey(result.getString(1))==false) {
+					this.userSpcificGroups.put(result.getString(1), new StudentsGroup(result.getString(1), result.getString(2)));
+				}
+				else {
+					this.userSpcificGroups.get(result.getString(1)).addStudent(result.getString(1), new Students(result.getString(6), result.getString(7), result.getString(4), result.getString(8), result.getString(9)));
+				}			
 			}
-		}
-		String[] groupsList=new String[filteredGroups.size()];
-		i=0;
-		for(String group: filteredGroups) {
-			groupsList[i]=group;
-			i++;
+
+			conn.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 
 		setLayout (new GridBagLayout());
@@ -59,19 +52,24 @@ public class GroupsPanel extends JPanel{
 		c.gridy=0;
 		add(createGroup, c);
 
-		JList<String> list=new JList<String>(groupsList);
+		List<StudentsGroup> filteredGroups = new ArrayList<StudentsGroup>();
+		for(HashMap.Entry<String, StudentsGroup> entry : this.userSpcificGroups.entrySet()) {
+			filteredGroups.add(entry.getValue());
+		}
+
+		JList<StudentsGroup> list=new JList(filteredGroups.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(200, 300));
 		c.gridx=0;
 		c.gridy=1;
 		add(listScroller, c);
 
-		if(user.getGroups().isEmpty()==false) {
+		if(this.userSpcificGroups.isEmpty()==false) {
 			JButton addUser=new JButton("Add User");
 			addUser.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					UserAdder add=new UserAdder(list, getGroups(), studentsGUI, user);
+					UserAdder add=new UserAdder(list, studentsGUI, user);
 				}
 			});
 			c.gridx=0;
@@ -80,8 +78,4 @@ public class GroupsPanel extends JPanel{
 		}
 
 	}
-	public HashMap<String, StudentsGroup> getGroups(){
-		return this.groups;
-	}
-
 }

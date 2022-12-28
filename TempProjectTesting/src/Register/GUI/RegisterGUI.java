@@ -249,21 +249,21 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 		try {
 			EmailCheck(this.email.getText());
 		} catch (IllegalArgumentException e1) {
-			EmailFormatEx ex=new EmailFormatEx();
+			new ExceptionPanel("\u274C Email not Valid");
 			return;
 		}
 
 		try {
 			PasswordCheck(this.password.getPassword(), this.confirmPassword.getPassword());//controllo che le due password siano uguali (prima verifico la loro lunghezza e poi il loro contenuto)
 		}catch(IllegalArgumentException e2) {
-			PasswordMismatchEx pm=new PasswordMismatchEx();
+			new ExceptionPanel("\u274C Password Mismatch");
 			return;
 		}
 
 		try {
 			CheckDuplicate(this.emailString, this.idNumber.getText());
 		} catch (Exception e1) {
-			DuplicateAccountEx daex=new DuplicateAccountEx();
+			new ExceptionPanel("\u274C Email already registered");
 			return;
 		}
 

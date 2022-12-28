@@ -31,7 +31,7 @@ public class RegisterGUI extends JFrame {
 		int screenHeight = screenSize.height;//finestra delle dimensioni dello schermo
 		int screenWidth = screenSize.width;
 
-		ImageIcon Icon=new ImageIcon("Immagini\\background_v2.jpeg");
+		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
 		Image image = Icon.getImage();
 		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
 

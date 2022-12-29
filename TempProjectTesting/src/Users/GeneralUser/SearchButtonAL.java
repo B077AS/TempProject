@@ -13,15 +13,15 @@ public class SearchButtonAL implements ActionListener{
 	private JComboBox<String> daySelect;
 	private JComboBox<String> startTimeBox;
 	private JComboBox<String> endTimeBox;
-	private StudentsGUI studentsGUI;
+	private UsersGUI userMainGUI;
 
-	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, StudentsGUI studentsGUI) {
+	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, UsersGUI userMainGUI) {
 		this.yearSelect=yearSelect;
 		this.monthSelect=monthSelect;
 		this.daySelect=daySelect;
 		this.startTimeBox=startTimeBox;
 		this.endTimeBox=endTimeBox;
-		this.studentsGUI=studentsGUI;
+		this.userMainGUI=userMainGUI;
 	}
 
 	@Override
@@ -34,10 +34,10 @@ public class SearchButtonAL implements ActionListener{
 
 		FinderDB f=new FinderDB(year, month, day, start, end);
 
-		this.studentsGUI.removePanel();
-		this.studentsGUI.addSecondPanel(new FinderMainPanel(f.getFreeRooms(), f.getFreeRooms()));
-		this.studentsGUI.revalidate();
-		this.studentsGUI.repaint();
+		this.userMainGUI.removePanel();
+		this.userMainGUI.addSecondPanel(new FinderMainPanel(f.getFreeRooms(), f.getFreeRooms()));
+		this.userMainGUI.revalidate();
+		this.userMainGUI.repaint();
 	}
 
 }

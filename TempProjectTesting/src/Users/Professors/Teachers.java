@@ -12,6 +12,7 @@ public class Teachers extends Users{
 
 	@Override
 	public void GUI(LoginGUI frame) {
+		TeachersGUI gui=new TeachersGUI(this.name, this.lastName, this.email, this);
 		frame.dispose();
 		
 	}

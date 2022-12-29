@@ -263,21 +263,21 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 		try {
 			EmailCheck(this.email.getText());
 		} catch (IllegalArgumentException e1) {
-			new ExceptionPanel("\u274C Email not Valid");
+			new ExceptionFrame("\u274C Email not Valid");
 			return;
 		}
 
 		try {
 			PasswordCheck(this.password.getPassword(), this.confirmPassword.getPassword());//controllo che le due password siano uguali (prima verifico la loro lunghezza e poi il loro contenuto)
 		}catch(IllegalArgumentException e2) {
-			new ExceptionPanel("\u274C Password Mismatch");
+			new ExceptionFrame("\u274C Password Mismatch");
 			return;
 		}
 
 		try {
 			CheckDuplicate(this.emailString, this.idNumber.getText());
 		} catch (Exception e1) {
-			new ExceptionPanel("\u274C Email already registered");
+			new ExceptionFrame("\u274C Email already registered");
 			return;
 		}
 
@@ -329,9 +329,15 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 	}
 
 	public void EmailVerification(int number, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber,String email, char[] password, UserType type){
-		EmailBuilder eb=new EmailBuilder(this.emailString, number);
+
+		try {
+			EmailBuilder eb=new EmailBuilder(this.emailString, number);
+		} catch (Exception e) {
+			return;
+		}
 		VerificationPanel v=new VerificationPanel(number, mainRegisterFrame, name, lastName, idNumber, email, password, type);
 	}
+
 
 	public void TypeCheck(String emailTermination, UserType type) throws IllegalArgumentException{
 		if(emailTermination=="@universitadipavia.it" && type!=UserType.STUDENT) {

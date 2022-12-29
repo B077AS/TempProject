@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import ENUM.UserType;
-import Exceptions.ExceptionPanel;
+import Exceptions.ExceptionFrame;
 import Exceptions.VerificationCodeEx;
 import Login.LoginGUI;
 
@@ -80,7 +80,7 @@ class ButtonListener implements ActionListener{
 
 		}
 		else {
-			new ExceptionPanel("\u274C Wronge Code!");
+			new ExceptionFrame("\u274C Wronge Code!");
 		}
 
 	}

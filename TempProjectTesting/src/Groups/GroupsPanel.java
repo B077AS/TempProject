@@ -12,10 +12,10 @@ import Users.Students.StudentsGUI;
 
 
 public class GroupsPanel extends JPanel{
-	private HashMap<String, StudentsGroup> userSpcificGroups;
+	private HashMap<String, Group> userSpcificGroups;
 
 	public GroupsPanel(Students user, StudentsGUI studentsGUI) {
-		this.userSpcificGroups=new HashMap<String, StudentsGroup>();
+		this.userSpcificGroups=new HashMap<String, Group>();
 		try {
 
 			Connection conn=DBConnection.connect();
@@ -26,7 +26,7 @@ public class GroupsPanel extends JPanel{
 			ResultSet result=preparedStmt.executeQuery();
 			while(result.next()) {
 				if(this.userSpcificGroups.containsKey(result.getString(1))==false) {
-					this.userSpcificGroups.put(result.getString(1), new StudentsGroup(result.getString(1), result.getString(2)));
+					this.userSpcificGroups.put(result.getString(1), new Group(result.getString(1), result.getString(2)));
 				}
 				else {
 					this.userSpcificGroups.get(result.getString(1)).addStudent(result.getString(1), new Students(result.getString(6), result.getString(7), result.getString(4), result.getString(8), result.getString(9)));
@@ -45,19 +45,19 @@ public class GroupsPanel extends JPanel{
 		createGroup.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				NewGroupName group=new NewGroupName(user, studentsGUI);
+				NewGroupNameFrame group=new NewGroupNameFrame(user, studentsGUI);
 			}
 		});
 		c.gridx=0;
 		c.gridy=0;
 		add(createGroup, c);
 
-		List<StudentsGroup> filteredGroups = new ArrayList<StudentsGroup>();
-		for(HashMap.Entry<String, StudentsGroup> entry : this.userSpcificGroups.entrySet()) {
+		List<Group> filteredGroups = new ArrayList<Group>();
+		for(HashMap.Entry<String, Group> entry : this.userSpcificGroups.entrySet()) {
 			filteredGroups.add(entry.getValue());
 		}
 
-		JList<StudentsGroup> list=new JList(filteredGroups.toArray());
+		JList<Group> list=new JList(filteredGroups.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(200, 300));
 		c.gridx=0;
@@ -69,7 +69,7 @@ public class GroupsPanel extends JPanel{
 			addUser.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					UserAdder add=new UserAdder(list, studentsGUI, user);
+					UserAdderFrame add=new UserAdderFrame(list, studentsGUI, user);
 				}
 			});
 			c.gridx=0;

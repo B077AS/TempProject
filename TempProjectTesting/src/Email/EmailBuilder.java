@@ -10,16 +10,11 @@ import Exceptions.*;
 public class EmailBuilder {
 	private int number;
 	private String email;
-	public EmailBuilder(String email, int number) {
+	public EmailBuilder(String email, int number) throws Exception {
 		this.email=email;
 		this.number=number;
 		
-		try {
 			sendMail(this.email);
-		} catch (MessagingException e) {
-			System.out.println("errore creazione emailbuilder");
-			e.printStackTrace();
-		}
 	}
 
 	public void sendMail(String ricevitore) throws MessagingException {
@@ -33,7 +28,6 @@ public class EmailBuilder {
 		property.put("mail.smtp.port", "587");
 		property.put("mail.smtps.ssl.enable", "true");
 		
-		try {
 			EmailAccount ea=new EmailAccount();
 			String accountEmail=ea.getEmail();
 			String accountPassword=ea.getPassword();
@@ -45,9 +39,7 @@ public class EmailBuilder {
 
 			Transport.send(message);
 			System.out.println("Message sent");
-		} catch (Exception e) {
-			System.out.println("file non trovato");
-		}
+
 
 	}
 
@@ -63,7 +55,7 @@ public class EmailBuilder {
 			return message;
 			
 		} catch (AddressException e) {
-			ExceptionPanel ex=new ExceptionPanel("\u274C Email not Valid");
+			ExceptionFrame ex=new ExceptionFrame("\u274C Email not Valid");
 		} catch (MessagingException e) {
 			System.out.println("errore messaggio");
 			e.printStackTrace();

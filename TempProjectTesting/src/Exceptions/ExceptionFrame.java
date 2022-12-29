@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ExceptionPanel {
+public class ExceptionFrame {
 	
-	public ExceptionPanel(String message) {// \u274C
+	public ExceptionFrame(String message) {// \u274C
 		ExceptionHandler(message);
 	}
 

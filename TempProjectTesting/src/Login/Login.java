@@ -4,7 +4,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 import DataBase.DBConnection;
-import Exceptions.ExceptionPanel;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.*;
 
 public class Login {
@@ -38,7 +38,7 @@ public class Login {
 			email=result.getString(5);
 
 		} catch (Exception e1) {
-			new ExceptionPanel("\u274C Wrong Email or Password");
+			new ExceptionFrame("\u274C Wrong Email or Password");
 			return;
 		}
 

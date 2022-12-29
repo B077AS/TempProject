@@ -16,14 +16,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextField;
+
+import Exceptions.ExceptionFrame;
 import Login.Login;
 import Users.GeneralUser.Users;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
-public class UserAdder extends JFrame{
+public class UserAdderFrame extends JFrame{
 	
-	public UserAdder(JList<StudentsGroup> list, StudentsGUI studentsGUI, Students user) {
+	public UserAdderFrame(JList<Group> list, StudentsGUI studentsGUI, Students user) {
 		setSize(400,200);
 		setTitle("Add User");
 
@@ -56,13 +58,13 @@ public class UserAdder extends JFrame{
 
 class OkListener implements ActionListener{
 	
-	private JList<StudentsGroup> list;
+	private JList<Group> list;
 	private JTextField emailOrID;
 	private JFrame frame;
 	private StudentsGUI studentsGUI;
 	private Students user;
 	
-	public OkListener(JList<StudentsGroup> list, JTextField emailOrID, JFrame frame, StudentsGUI studentsGUI, Students user) {
+	public OkListener(JList<Group> list, JTextField emailOrID, JFrame frame, StudentsGUI studentsGUI, Students user) {
 		this.list=list;
 		this.emailOrID=emailOrID;
 		this.frame=frame;
@@ -73,6 +75,10 @@ class OkListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if(this.emailOrID.getText().equals(this.user.getID()) || this.emailOrID.getText().equals(this.user.getEmail())) {
+			new ExceptionFrame("\u274C You are already part of this Group!");
+			return;
+		}
 	
 		try {
 			this.list.getSelectedValue().addNewStudent(this.emailOrID.getText(), this.list.getSelectedValue());
@@ -83,8 +89,8 @@ class OkListener implements ActionListener{
 			this.frame.dispose();
 			
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			new ExceptionFrame("\u274C No Groupd Selected!");
+			return;
 		}
 	}
 	

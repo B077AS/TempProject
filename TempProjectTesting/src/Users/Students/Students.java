@@ -1,24 +1,28 @@
 package Users.Students;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.*;
+
+import javax.management.Notification;
+
 import DataBase.DBConnection;
-import Exceptions.ExceptionPanel;
+import Exceptions.ExceptionFrame;
 import Login.*;
+import Notifications.JoinGroupNotification;
 import Users.GeneralUser.Users;
-import Groups.StudentsGroup;
+import Groups.Group;
 
 
 public class Students extends Users{
 	
-	private HashMap<String, StudentsGroup> groups;
+	private HashMap<String, Group> groups;
+	List<JoinGroupNotification>  notifications;
 
 	public Students(String name, String lastName, String ID, String email, String password) {
 		super(name, lastName, ID, email, password);
-		this.groups=new HashMap<String, StudentsGroup>();
+		this.groups=new HashMap<String, Group>();
+		this.notifications=new ArrayList<JoinGroupNotification>();
 	}
 
 	@Override
@@ -44,12 +48,21 @@ public class Students extends Users{
 			
 			
 		} catch (Exception e) {
-			new ExceptionPanel("\u274C Group Name too Long");
+			new ExceptionFrame("\u274C Group Name not Valid!");
 			return;
 		}	
 	}
+	
+	
+	public void loadNotifications(JoinGroupNotification notification) {
+		this.notifications.add(notification);
+	}
+	
+	public List<JoinGroupNotification> getNotifications(){
+		return this.notifications;
+	}
 
-	public HashMap<String, StudentsGroup> getGroups(){
+	public HashMap<String, Group> getGroups(){
 		return this.groups;
 	}
 	

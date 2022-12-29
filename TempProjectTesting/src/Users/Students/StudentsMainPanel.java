@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import Groups.GroupsPanel;
+import MyTimer.MyTimer;
+import Users.Admin.ViewCoursesPanel;
+import Users.GeneralUser.*;
 
 public class StudentsMainPanel extends JPanel{
 		public StudentsMainPanel(String name, String lastName, String email, StudentsGUI studentsGUI, Students user) {		

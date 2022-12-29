@@ -5,16 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashMap;
-
 import javax.swing.*;
-
-import Exceptions.NameGroupTakenEX;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
-public class NewGroupName extends JFrame{
+public class NewGroupNameFrame extends JFrame{
 
-	public NewGroupName(Students user, StudentsGUI studentsGUI) {
+	public NewGroupNameFrame(Students user, StudentsGUI studentsGUI) {
 		setSize(400,200);
 		setTitle("Insert Group Name");
 
@@ -62,23 +59,11 @@ class ConfirmListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			HashMap<String, StudentsGroup> groups=this.user.getGroups();
-
-			if(groups.containsKey(this.name.getText()) && groups.get(this.name.getText()).getAdmin().equals(this.user.getEmail())) {
-				throw new IllegalArgumentException();
-			}
-			else {
 				this.user.createGroup(this.name.getText());
 				this.studentsGUI.removePanel();
 				this.studentsGUI.addSecondPanel(new GroupsPanel(this.user, this.studentsGUI));
 				this.studentsGUI.revalidate();
 				this.studentsGUI.repaint();
 				frame.dispose();
-			} 
-		}
-		catch (Exception e1) {
-			NameGroupTakenEX ex=new NameGroupTakenEX();
-		}
 	}
 }

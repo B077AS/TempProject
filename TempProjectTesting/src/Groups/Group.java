@@ -4,10 +4,10 @@ package Groups;
 import java.sql.*;
 import java.util.HashMap;
 import DataBase.DBConnection;
-import Exceptions.ExceptionPanel;
+import Exceptions.ExceptionFrame;
 import Users.Students.Students;
 
-public class StudentsGroup {
+public class Group {
 
 	private String groupID;
 	private String groupAdmin;
@@ -15,7 +15,7 @@ public class StudentsGroup {
 	private int studentsNumber;
 	private HashMap<String, Students> studentsList;
 
-	public StudentsGroup(String ID, String admin) {
+	public Group(String ID, String admin) {
 		this.studentsList=new HashMap<String, Students>();
 		this.groupID=ID;
 		this.groupAdmin=admin;
@@ -30,12 +30,12 @@ public class StudentsGroup {
 
 	}
 
-	public void addNewStudent(String emailOrID, StudentsGroup group){
+	public void addNewStudent(String emailOrID, Group group){
 
 		try {
 
 			Connection conn=DBConnection.connect();
-			String query="select * from users where User_Code=? or Email=?";
+			String query="select User_Code from users where User_Code=? or Email=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setInt(1, Integer.parseInt(emailOrID));
 			preparedStmt.setString(2, emailOrID);
@@ -43,12 +43,12 @@ public class StudentsGroup {
 
 			if (result.next() == true) {
 
-				query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
+				query="insert into group_notifications (Sender, Receiver, Group_ID)"+"values (?, ?, ?)";
 				preparedStmt = conn.prepareStatement(query);
 
-				preparedStmt.setString(1, group.getID());
-				preparedStmt.setString(2, group.getAdmin());
-				preparedStmt.setString(3, emailOrID);
+				preparedStmt.setString(1, group.getAdmin());
+				preparedStmt.setString(2, result.getString(1));
+				preparedStmt.setString(3, group.getID());
 				preparedStmt.execute();
 
 				conn.close();
@@ -56,7 +56,8 @@ public class StudentsGroup {
 
 
 		} catch (Exception e) {
-			new ExceptionPanel("\u274C User Already added to the Group!");
+			new ExceptionFrame("\u274C User Already invited to the Group!");
+			return;
 		}	
 
 

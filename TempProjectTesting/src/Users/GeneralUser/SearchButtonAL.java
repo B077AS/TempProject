@@ -2,6 +2,8 @@ package Users.GeneralUser;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import Exceptions.ExceptionFrame;
 import Finder.FinderDB;
 import Finder.FinderMainPanel;
 import Users.Students.StudentsGUI;
@@ -26,6 +28,7 @@ public class SearchButtonAL implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		try {
 		int year=Integer.parseInt((String)this.yearSelect.getSelectedItem());
 		String month=(String)this.monthSelect.getSelectedItem();
 		int day=Integer.parseInt((String)this.daySelect.getSelectedItem());
@@ -38,6 +41,11 @@ public class SearchButtonAL implements ActionListener{
 		this.userMainGUI.addSecondPanel(new FinderMainPanel(f.getFreeRooms(), f.getFreeRooms()));
 		this.userMainGUI.revalidate();
 		this.userMainGUI.repaint();
+		}
+		catch(Exception ex) {
+			new ExceptionFrame("\u274C Not Valid Parameters!");
+			return;
+		}
 	}
 
 }

@@ -9,7 +9,7 @@ public class VerificationCodeEx implements ExHandler{
 		}
 	@Override
 	public void ExceptionHandler(String message) {
-		ExceptionPanel ex=new ExceptionPanel(message);
+		ExceptionFrame ex=new ExceptionFrame(message);
 		
 	}
 

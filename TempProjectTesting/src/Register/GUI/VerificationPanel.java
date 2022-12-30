@@ -17,16 +17,30 @@ public class VerificationPanel{
 
 
 		mainPanel.setLayout(new BorderLayout());
+		mainPanel.setBackground(new Color(0,0,0,0));
+		
 		JLabel info=new JLabel("Check your emails for the verification code", SwingConstants.CENTER);
-		info.setFont(new Font("", Font.PLAIN, 20));
+		info.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		info.setForeground(new Color(145,0,0));
 		mainPanel.add(info, BorderLayout.NORTH);
 
 		JPanel secondPanel=new JPanel();
+		secondPanel.setBackground(new Color(0,0,0,0));
+		
+		//
 		mainPanel.add(secondPanel, BorderLayout.CENTER);
-
+		
 		JLabel l=new JLabel("Insert Code:");
+		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		l.setForeground(new Color(145,0,0));
+		//
 		JTextField t=new JTextField(3);
+		//
 		JButton b=new JButton("OK");
+		b.setFont(new Font("Comic Sans MS", Font.PLAIN,10));
+		b.setForeground(Color.white);
+		b.setBackground(new Color(145,0,0));
+		//
 		secondPanel.add(l);
 		secondPanel.add(t);
 		ButtonListener bl=new ButtonListener(mainFrame, t, number, mainPanel, mainRegisterFrame, name, lastName, idNumber, email, password, type);
@@ -35,6 +49,7 @@ public class VerificationPanel{
 
 
 		mainFrame.add(mainPanel);
+		mainFrame.setBackground(Color.WHITE);
 
 		mainFrame.setSize(500,300);
 		mainFrame.setTitle("Error");
@@ -92,10 +107,16 @@ class VerificationSuccess extends JFrame{
 
 	public VerificationSuccess(RegisterGUI mainRegisterFrame){
 		JPanel p=new JPanel();
+		p.setBackground(Color.WHITE);
+		
 		JLabel l=new JLabel ("Verification Successful! \u2714", SwingConstants.CENTER);
-		l.setFont(new Font("", Font.PLAIN, 20));
+		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		l.setForeground(new Color(145,0,0));
 		p.add(l);
 		JButton b=new JButton("OK");
+		b.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		b.setForeground(Color.white);
+		b.setBackground(new Color(145,0,0));
 
 		add(p);
 		FinalButton fb=new FinalButton(this, mainRegisterFrame);

@@ -71,62 +71,75 @@ class MainPanel extends JPanel{
 		setLayout (new GridBagLayout());//crea una griglia cartesiana, uso le coordinate per mettere i componenti
 		GridBagConstraints c=new GridBagConstraints();
 		setBackground(new Color (0,0,0,0));
+		
+		
+		c.anchor = GridBagConstraints.CENTER;
+		JLabel introLabel=new JLabel("Compila qui sotto...");
+		introLabel.setFont(new Font("Comic Sans MS", Font.BOLD,20));
+		introLabel.setForeground(new Color(145,0,0));
+		c.insets= new Insets (0,0,50,0);
+		c.gridx=1;
+		c.gridy=0;
+		add(introLabel, c);
+		
+		
+		
 
 		c.anchor = GridBagConstraints.EAST;
 		JLabel nameLabel=new JLabel("Name: ");
-		nameLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		nameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		nameLabel.setForeground(new Color(145,0,0));
-		c.insets= new Insets (20,0,0,0);
+		c.insets= new Insets (0,0,20,0);
 		c.gridx=0;
-		c.gridy=0;
+		c.gridy=1;
 		add(nameLabel, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JTextField nameField=new JTextField(20);
 		c.gridx=1;
-		c.gridy=0;
+		c.gridy=1;
 		add(nameField, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel lastNameLabel=new JLabel("Last Name: ");
-		lastNameLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		lastNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		lastNameLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=1;
+		c.gridy=2;
 		add(lastNameLabel, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JTextField lastNameField=new JTextField(20);
 		c.gridx=1;
-		c.gridy=1;
+		c.gridy=2;
 		add(lastNameField, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel idNumber=new JLabel("Identification Number: ");
-		idNumber.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		idNumber.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		idNumber.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=2;
+		c.gridy=3;
 		add(idNumber, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JTextField idNumberField=new JTextField(20);
 		c.gridx=1;
-		c.gridy=2;
+		c.gridy=3;
 		add(idNumberField, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel emailLabel=new JLabel("E-mail: ");
-		emailLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		emailLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		emailLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=3;
+		c.gridy=4;
 		add(emailLabel, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JTextField emailField=new JTextField(20);
 		c.gridx=1;
-		c.gridy=3;
+		c.gridy=4;
 		add(emailField, c);
 		//
 		c.anchor = GridBagConstraints.WEST;
@@ -141,43 +154,43 @@ class MainPanel extends JPanel{
 		emailSelect.setBackground(Color.WHITE);
 		emailSelect.setForeground(new Color(145,0,0));
 		c.gridx=2;
-		c.gridy=3;
+		c.gridy=4;
 		add(emailSelect, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel passwordLabel=new JLabel("Password: ");
-		passwordLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		passwordLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		passwordLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=4;
+		c.gridy=5;
 		add(passwordLabel, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JPasswordField passwordField=new JPasswordField(20);
 		c.gridx=1;
-		c.gridy=4;
+		c.gridy=5;
 		add(passwordField, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel confirmPasswordLabel=new JLabel("Confirm Password: ");
-		confirmPasswordLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		confirmPasswordLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		confirmPasswordLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=5;
+		c.gridy=6;
 		add(confirmPasswordLabel, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
 		JPasswordField confirmPasswordField=new JPasswordField(20);
 		c.gridx=1;
-		c.gridy=5;
+		c.gridy=6;
 		add(confirmPasswordField, c);
 		//
 		c.anchor = GridBagConstraints.EAST;
 		JLabel userTypeField=new JLabel("Select User Type: ");
-		userTypeField.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		userTypeField.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		userTypeField.setForeground(new Color(145,0,0));
 		c.gridx=0;
-		c.gridy=6;
+		c.gridy=7;
 		add(userTypeField, c);
 		//
 		c.anchor = GridBagConstraints.CENTER;
@@ -194,7 +207,7 @@ class MainPanel extends JPanel{
 		userTypeSelect.setFont(new Font("Comic Sans MS", Font.PLAIN,10));
 		userTypeSelect.setForeground(new Color(145,0,0));
 		c.gridx=1;
-		c.gridy=6;
+		c.gridy=7;
 		add(userTypeSelect, c);
 		//
 		JButton registerButton=new JButton("Register");
@@ -202,14 +215,14 @@ class MainPanel extends JPanel{
 		registerButton.setForeground(Color.white);
 		registerButton.setBackground(new Color(145,0,0));
 		c.gridx=1;
-		c.gridy=7;
+		c.gridy=8;
 		RegisterButtonListener rbl=new RegisterButtonListener(nameField, lastNameField, idNumberField,emailField, emailSelect, passwordField, confirmPasswordField, userTypeSelect, frame);
 		registerButton.addActionListener(rbl);
 		add(registerButton, c);
 		//
 		JButton backButton=new JButton("Back");
 		c.gridx=1;
-		c.gridy=8;
+		c.gridy=9;
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		backButton.setForeground(Color.white);
 		backButton.setBackground(new Color(145,0,0));

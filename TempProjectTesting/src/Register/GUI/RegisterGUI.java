@@ -331,7 +331,7 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 	public void EmailVerification(int number, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber,String email, char[] password, UserType type){
 
 		try {
-			EmailBuilder eb=new EmailBuilder(this.emailString, number);
+			EmailTemplate eTemp=new EmailTemplate(this.emailString, "Verify your Account", "Verification Code: "+number);
 		} catch (Exception e) {
 			return;
 		}

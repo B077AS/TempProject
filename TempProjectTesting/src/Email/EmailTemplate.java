@@ -1,23 +1,24 @@
 package Email;
 
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.io.*;
 import java.util.Properties;
-import Exceptions.*;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
+import Exceptions.ExceptionFrame;
 
-public class EmailBuilder {
-	private int number;
-	private String email;
-	public EmailBuilder(String email, int number) throws Exception {
-		this.email=email;
-		this.number=number;
-		
-			sendMail(this.email);
+public class EmailTemplate {
+	public EmailTemplate(String email, String subject, String messageBody) throws Exception {
+		sendMail(email, subject, messageBody);
 	}
 
-	public void sendMail(String ricevitore) throws MessagingException {
+	public void sendMail(String receiver, String subject, String messageBody) throws MessagingException {
 		
 		System.out.println("Sending");
 		Properties property =new Properties();// file di proprietà, ogni proprietà ha una key e una value
@@ -35,7 +36,7 @@ public class EmailBuilder {
 			Auth a=new Auth(accountEmail, accountPassword);
 			Session session =Session.getInstance(property, a);
 			
-			Message message =prepareMessage(session, accountEmail, ricevitore, number);//preparo l'oggetto messaggio che contiene il messaggio e destinatario
+			Message message =prepareMessage(session, accountEmail, receiver, subject, messageBody);
 
 			Transport.send(message);
 			System.out.println("Message sent");
@@ -43,15 +44,15 @@ public class EmailBuilder {
 
 	}
 
-	private Message prepareMessage(Session session, String accountEmail, String ricevitore, int number) {
+	private Message prepareMessage(Session session, String accountEmail, String receiver, String subject, String messageBody){
 		
 		Message message=new MimeMessage(session);
 		
 		try {
 			message.setFrom(new InternetAddress(accountEmail));//mittente
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(ricevitore));//destinatario
-			message.setSubject("Verifica Account");//oggetto della mail
-			message.setText("Codice Conferma: "+number);//messaggio
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(receiver));//destinatario
+			message.setSubject(subject);//oggetto della mail
+			message.setText(messageBody);//messaggio
 			return message;
 			
 		} catch (AddressException e) {

@@ -4,6 +4,7 @@ package Groups;
 import java.sql.*;
 import java.util.HashMap;
 import DataBase.DBConnection;
+import Email.EmailTemplate;
 import Exceptions.ExceptionFrame;
 import Users.Students.Students;
 
@@ -35,7 +36,7 @@ public class Group {
 		try {
 
 			Connection conn=DBConnection.connect();
-			String query="select User_Code from users where User_Code=? or Email=?";
+			String query="select User_Code, Email from users where User_Code=? or Email=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setInt(1, Integer.parseInt(emailOrID));
 			preparedStmt.setString(2, emailOrID);
@@ -50,13 +51,14 @@ public class Group {
 				preparedStmt.setString(2, result.getString(1));
 				preparedStmt.setString(3, group.getID());
 				preparedStmt.execute();
-
-				conn.close();
+				//EmailTemplate eTemp=new EmailTemplate(result.getString(2), "Notification", "You have been invited by "+group.getAdmin()+" to join the Group: "+group.getID());
 			}
-
+			
+			conn.close();
 
 		} catch (Exception e) {
 			new ExceptionFrame("\u274C User Already invited to the Group!");
+			e.printStackTrace();
 			return;
 		}	
 

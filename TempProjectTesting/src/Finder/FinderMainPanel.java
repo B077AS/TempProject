@@ -31,6 +31,7 @@ public class FinderMainPanel extends JPanel{
 		removeAll();
 
 		setLayout (new GridBagLayout());
+	
 		GridBagConstraints c=new GridBagConstraints();
 
 		JList<Booking> list=new JList(freeRooms.toArray());

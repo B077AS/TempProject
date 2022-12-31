@@ -17,6 +17,17 @@ public class UsersGUI extends JFrame{
 		int screenWidth = screenSize.width;
 		
 		setLayout(new BorderLayout());
+		
+/*
+		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
+		Image image = Icon.getImage();
+		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
+	
+		Icon = new ImageIcon(newimg);
+		
+		JLabel ll= new JLabel(Icon);
+		add(ll);
+*/
 
 		setSize(screenWidth,screenHeight);
 		setTitle("UserProfile");

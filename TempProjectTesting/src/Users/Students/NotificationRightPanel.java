@@ -16,7 +16,9 @@ public class NotificationRightPanel extends JPanel{
 	public NotificationRightPanel(Users user, UsersGUI main) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
-
+		
+		//setBackground(new Color(0,0,0,0));
+		
 		JButton notificationsButton=user.checkNotifications();
 		notificationsButton.addActionListener(new ActionListener() {
 

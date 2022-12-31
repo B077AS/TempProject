@@ -41,7 +41,7 @@ public class LoginGUI extends JFrame{
 
 	
 		PanelLogo panel=new PanelLogo();
-		panel.setBounds(0, 0, 120, 120);
+		panel.setBounds(0, 0, 200, 200);
 		MainPanel p=new MainPanel(this);
 		p.setBounds(10, 120, screenWidth, screenHeight);
 		pane.add(panel, new Integer(1));
@@ -116,7 +116,7 @@ class MainPanel extends JPanel{
 
 		c.anchor = GridBagConstraints.PAGE_START;
 		JLabel intro= new JLabel("BENVENUTI SU FindMe");
-		intro.setFont(new Font("Comic Sans MS", Font.PLAIN,30));
+		intro.setFont(new Font("Comic Sans MS", Font.BOLD,30));
 		intro.setForeground(new Color(145,0,0));
 		c.weightx= 0.5;
 		c.weighty=0;
@@ -127,7 +127,7 @@ class MainPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.PAGE_START;
 		JLabel intro_acc= new JLabel("Accedi al tuo account");
-		intro_acc.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
+		intro_acc.setFont(new Font("Comic Sans MS", Font.BOLD,25));
 		intro_acc.setForeground(new Color(145,0,0));
 	//	c.weightx= 0.5;
 		//c.weighty=0;
@@ -138,7 +138,7 @@ class MainPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel emailLabel= new JLabel("E-mail");
-		emailLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		emailLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		emailLabel.setForeground(new Color(145,0,0));
 		c.weightx= 0.1;
 		c.weighty=0.1;
@@ -157,7 +157,7 @@ class MainPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel passwordLabel= new JLabel("Password");
-		passwordLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		passwordLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		passwordLabel.setForeground(new Color(145,0,0));
 		
 	//	c.weightx= 0.1;
@@ -191,7 +191,7 @@ class MainPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel intro_no= new JLabel("Non hai ancora un account: ");
-		intro_no.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		intro_no.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		intro_no.setForeground(new Color(145,0,0));
 	//	c.weightx= 0.1;
 	//	c.weighty=0.1;

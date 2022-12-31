@@ -1,6 +1,7 @@
 package Users.GeneralUser;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -11,6 +12,7 @@ public class UsersHeadPanel extends JPanel{
 	
 	public UsersHeadPanel(String name, String lastName, String email, Users user, UsersGUI gui) {
 		setLayout(new BorderLayout());
+	//	setBackground(new Color(0,0,0,0));
 		add(user.getMainPanel(gui), BorderLayout.NORTH);
 		add(new FindPanel(gui, user), BorderLayout.CENTER);
 		add(new NotificationRightPanel(user, gui), BorderLayout.EAST);

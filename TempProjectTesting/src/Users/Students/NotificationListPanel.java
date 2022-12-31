@@ -1,5 +1,6 @@
 package Users.Students;
 
+import java.awt.Color;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
@@ -89,6 +90,8 @@ public class NotificationListPanel extends JPanel{
 			}
 			
 		});
+		
+		//setBackground(new Color(0,0,0,0));
 		
 		add(accept);
 		add(reject);

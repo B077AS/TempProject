@@ -12,9 +12,13 @@ public class StudentsMainPanel extends JPanel{
 		public StudentsMainPanel(String name, String lastName, String email, UsersGUI studentsGUI, Users user) {		
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
-
+			
+			setBackground(new Color(0,0,0,0));
+			
 			c.anchor = GridBagConstraints.EAST;
 			JLabel studentNameLabel=new JLabel("Student Name: ");
+			studentNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			studentNameLabel.setForeground(new Color(145,0,0));
 			c.gridx=0;
 			c.gridy=0;
 			add(studentNameLabel, c);

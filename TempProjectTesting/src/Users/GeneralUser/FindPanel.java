@@ -1,5 +1,6 @@
 package Users.GeneralUser;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
@@ -22,6 +23,8 @@ public class FindPanel extends JPanel{
 	public FindPanel(UsersGUI userMainGUI, Users user) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
+		
+		//setBackground(new Color(0,0,0,0));
 		
 		MyTimer t=new MyTimer();
 		this.leapYear=leapYearCheck(t.getYear());

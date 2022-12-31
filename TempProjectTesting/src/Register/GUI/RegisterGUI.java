@@ -46,7 +46,7 @@ public class RegisterGUI extends JFrame {
 
 
 		PanelLogo panellogo=new PanelLogo();
-		panellogo.setBounds(0, 0, 120, 120);
+		panellogo.setBounds(0, 0, 200, 200);
 
 		MainPanel p=new MainPanel(this);
 		p.setBounds(10, 20, screenWidth, screenHeight);

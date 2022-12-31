@@ -26,7 +26,7 @@ public abstract class Users {
 	protected String ID;
 	protected String email;
 	protected String password;
-	List<JoinGroupNotification>  notifications;
+	protected List notifications;
 	
 	public Users(String name, String lastName, String ID, String email, String password) {
 		this.name=name;
@@ -34,7 +34,7 @@ public abstract class Users {
 		this.ID=ID;
 		this.email=email;
 		this.password=password;
-		this.notifications=new ArrayList<JoinGroupNotification>();
+		this.notifications=new ArrayList();
 	}
 	
 	public String getPassword() {
@@ -65,7 +65,7 @@ public abstract class Users {
 	
 	public abstract void loadNotifications(JoinGroupNotification notification);
 	
-	public List<JoinGroupNotification> getNotifications(){
+	public List getNotifications(){
 		return this.notifications;
 	}
 	

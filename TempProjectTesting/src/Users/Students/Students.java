@@ -30,12 +30,10 @@ import Groups.GroupsPanel;
 public class Students extends Users{
 	
 	private HashMap<String, Group> groups;
-	List<JoinGroupNotification>  notifications;
 
 	public Students(String name, String lastName, String ID, String email, String password) {
 		super(name, lastName, ID, email, password);
 		this.groups=new HashMap<String, Group>();
-		this.notifications=new ArrayList<JoinGroupNotification>();
 	}
 
 	@Override
@@ -191,5 +189,10 @@ public class Students extends Users{
 		bookPanel.add(soloButton, c);
 		return bookPanel;
 		
+	}
+	
+	@Override
+	public List<JoinGroupNotification> getNotifications(){
+		return this.notifications;
 	}
 }

@@ -71,7 +71,7 @@ public class FindPanel extends JPanel{
 
 		
 		JButton searchButton=new JButton("Search");
-		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI);
+		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI, user);
 		searchButton.addActionListener(sbl);
 		c.gridx=6;
 		c.gridy=0;

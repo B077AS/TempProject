@@ -8,6 +8,7 @@ import DataBase.DBConnection;
 import MyLoader.RoomLoader;
 import Rooms.Booking;
 import Rooms.Rooms;
+import Users.GeneralUser.DateHolder;
 
 public class FinderDB {
 	private HashMap<String, Integer> months;
@@ -21,6 +22,7 @@ public class FinderDB {
 		
 		setMonthsMap();
 		int monthNumber=months.get(month);
+		DateHolder.DateHolder(day, monthNumber, year);
 		LocalDate myDate = LocalDate.of(year, monthNumber, day);
 		DayOfWeek dayOfWeek=myDate.getDayOfWeek();
 

@@ -7,11 +7,13 @@ import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Notifications.JoinGroupNotification;
 import Users.Admin.ViewCoursesPanel;
+import Users.GeneralUser.Users;
+import Users.GeneralUser.UsersGUI;
 import Notifications.AcceptRejectFrame;
 
 public class NotificationListPanel extends JPanel{
 
-	public NotificationListPanel(Students user, StudentsGUI frame) {
+	public NotificationListPanel(Users user, UsersGUI frame) {
 
 		try {
 

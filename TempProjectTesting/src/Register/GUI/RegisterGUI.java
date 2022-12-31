@@ -345,6 +345,7 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 
 		try {
 			EmailTemplate eTemp=new EmailTemplate(this.emailString, "Verify your Account", "Verification Code: "+number);
+			eTemp.start();
 		} catch (Exception e) {
 			return;
 		}

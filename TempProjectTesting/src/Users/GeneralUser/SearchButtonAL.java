@@ -16,14 +16,16 @@ public class SearchButtonAL implements ActionListener{
 	private JComboBox<String> startTimeBox;
 	private JComboBox<String> endTimeBox;
 	private UsersGUI userMainGUI;
+	private Users user;
 
-	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, UsersGUI userMainGUI) {
+	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, UsersGUI userMainGUI, Users user) {
 		this.yearSelect=yearSelect;
 		this.monthSelect=monthSelect;
 		this.daySelect=daySelect;
 		this.startTimeBox=startTimeBox;
 		this.endTimeBox=endTimeBox;
 		this.userMainGUI=userMainGUI;
+		this.user=user;
 	}
 
 	@Override
@@ -38,11 +40,12 @@ public class SearchButtonAL implements ActionListener{
 		FinderDB f=new FinderDB(year, month, day, start, end);
 
 		this.userMainGUI.removePanel();
-		this.userMainGUI.addSecondPanel(new FinderMainPanel(f.getFreeRooms(), f.getFreeRooms()));
+		this.userMainGUI.addSecondPanel(new FinderMainPanel(f.getFreeRooms(), f.getFreeRooms(), this.userMainGUI, this.user));
 		this.userMainGUI.revalidate();
 		this.userMainGUI.repaint();
 		}
 		catch(Exception ex) {
+			ex.printStackTrace();
 			new ExceptionFrame("\u274C Not Valid Parameters!");
 			return;
 		}

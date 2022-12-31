@@ -6,12 +6,15 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
+
+import Users.GeneralUser.Users;
+import Users.GeneralUser.UsersGUI;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
 public class NewGroupNameFrame extends JFrame{
 
-	public NewGroupNameFrame(Students user, StudentsGUI studentsGUI) {
+	public NewGroupNameFrame(Users user, UsersGUI studentsGUI) {
 		setSize(400,200);
 		setTitle("Insert Group Name");
 
@@ -48,10 +51,10 @@ class ConfirmListener implements ActionListener{
 	private Students user;
 	private JTextField name;
 	private JFrame frame;
-	private StudentsGUI studentsGUI;
+	private UsersGUI studentsGUI;
 
-	public ConfirmListener(Students user, JTextField name, JFrame frame, StudentsGUI studentsGUI) {
-		this.user=user;
+	public ConfirmListener(Users user, JTextField name, JFrame frame, UsersGUI studentsGUI) {
+		this.user=(Students)user;
 		this.name=name;
 		this.frame=frame;
 		this.studentsGUI=studentsGUI;

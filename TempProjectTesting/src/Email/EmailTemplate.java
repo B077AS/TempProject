@@ -13,12 +13,29 @@ import javax.mail.internet.MimeMessage;
 
 import Exceptions.ExceptionFrame;
 
-public class EmailTemplate {
-	public EmailTemplate(String email, String subject, String messageBody) throws Exception {
-		sendMail(email, subject, messageBody);
+public class EmailTemplate extends Thread{
+	public String receiver;
+	public String subject;
+	public String messageBody;
+	
+	public EmailTemplate(String receiver, String subject, String messageBody) throws Exception {
+		this.receiver=receiver;
+		this.subject=subject;
+		this.messageBody=messageBody;
 	}
+	
+	@Override
+	public void run() {
+		try {
+			sendMail();
+		} catch (MessagingException e) {
+			System.out.println("errore email");
+			e.printStackTrace();
+		}		
+	}
+	
 
-	public void sendMail(String receiver, String subject, String messageBody) throws MessagingException {
+	public void sendMail() throws MessagingException {
 		
 		System.out.println("Sending");
 		Properties property =new Properties();// file di proprietà, ogni proprietà ha una key e una value
@@ -36,7 +53,7 @@ public class EmailTemplate {
 			Auth a=new Auth(accountEmail, accountPassword);
 			Session session =Session.getInstance(property, a);
 			
-			Message message =prepareMessage(session, accountEmail, receiver, subject, messageBody);
+			Message message =prepareMessage(session, accountEmail);
 
 			Transport.send(message);
 			System.out.println("Message sent");
@@ -44,15 +61,15 @@ public class EmailTemplate {
 
 	}
 
-	private Message prepareMessage(Session session, String accountEmail, String receiver, String subject, String messageBody){
+	private Message prepareMessage(Session session, String accountEmail){
 		
 		Message message=new MimeMessage(session);
 		
 		try {
 			message.setFrom(new InternetAddress(accountEmail));//mittente
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(receiver));//destinatario
-			message.setSubject(subject);//oggetto della mail
-			message.setText(messageBody);//messaggio
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(this.receiver));//destinatario
+			message.setSubject(this.subject);//oggetto della mail
+			message.setText(this.messageBody);//messaggio
 			return message;
 			
 		} catch (AddressException e) {

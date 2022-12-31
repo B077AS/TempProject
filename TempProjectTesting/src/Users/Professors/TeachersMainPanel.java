@@ -37,17 +37,6 @@ public class TeachersMainPanel extends JPanel{
 		c.gridx=1;
 		c.gridy=2;
 		add(studentLastName, c);
-		c.anchor = GridBagConstraints.EAST;
-		JLabel findRoomLabel=new JLabel("Find Free Room: ");
-		c.gridx=0;
-		c.gridy=3;
-		add(findRoomLabel, c);
-		c.anchor = GridBagConstraints.WEST;
-		JButton findRoomButton=new JButton("Find");
-		findRoomButton.addActionListener(new NewPanelListener(teachersGUI, new FindPanel(teachersGUI, user)));
-		c.gridx=1;
-		c.gridy=3;
-		add(findRoomButton, c);
 	}
 
 }

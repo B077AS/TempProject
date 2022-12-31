@@ -2,14 +2,17 @@ package Notifications;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import Users.GeneralUser.Users;
+import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UsersHeadPanel;
 import Users.Students.NotificationListPanel;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
-import Users.Students.StudentsHeadPanel;
 
 public class AcceptRejectFrame extends JFrame{
 	
-	public AcceptRejectFrame(String message, Students user, StudentsGUI frame) {
+	public AcceptRejectFrame(String message, Users user, UsersGUI frame) {
 
 		JFrame f=new JFrame();
 		JPanel p=new JPanel();
@@ -21,9 +24,10 @@ public class AcceptRejectFrame extends JFrame{
 				frame.removePanel();
 				user.getNotifications().clear();
 		    	frame.addSecondPanel(new NotificationListPanel(user, frame));
-		    	frame.removeHeadPanel(new StudentsHeadPanel(user.getName(), user.getLastName(), user.getEmail(), user, frame));
-				frame.revalidate();
-				frame.repaint();
+		    	StudentsGUI tempFrame=(StudentsGUI)frame;
+		    	tempFrame.removeHeadPanel(new UsersHeadPanel(user.getName(), user.getLastName(), user.getEmail(), user, frame));
+		    	tempFrame.revalidate();
+		    	tempFrame.repaint();
 				f.dispose();
 			}
 		});

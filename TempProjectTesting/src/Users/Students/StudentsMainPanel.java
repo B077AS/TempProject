@@ -9,7 +9,7 @@ import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 
 public class StudentsMainPanel extends JPanel{
-		public StudentsMainPanel(String name, String lastName, String email, StudentsGUI studentsGUI, Students user) {		
+		public StudentsMainPanel(String name, String lastName, String email, UsersGUI studentsGUI, Users user) {		
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
 

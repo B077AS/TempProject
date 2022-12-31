@@ -11,6 +11,10 @@ import Finder.Filter.FilterCheckBox;
 import Finder.Filter.FilterRoomType;
 import Finder.Filter.FilterSeatsNumber;
 import Rooms.Booking;
+import Rooms.ConfirmBookigPanel;
+import Users.GeneralUser.Users;
+import Users.GeneralUser.UsersGUI;
+import Users.Students.StudentsGUI;
 
 
 public class FinderMainPanel extends JPanel{
@@ -20,7 +24,7 @@ public class FinderMainPanel extends JPanel{
 	private List<Booking> freeRoomsBackUp;
 	private LinkedList<FilterCheckBox> allFilters;
 
-	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp) {
+	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp, UsersGUI frame, Users user) {
 		this.allFilters=new LinkedList<FilterCheckBox>();
 		this.freeRooms=freeRooms;
 		this.freeRoomsBackUp=freeRoomsBackUp;
@@ -65,7 +69,7 @@ public class FinderMainPanel extends JPanel{
 
 		c.anchor = GridBagConstraints.NORTH;
 		JButton filterButton=new JButton("Filter");
-		FilterListener filterL= new FilterListener(this, this.allFilters);
+		FilterListener filterL= new FilterListener(this, this.allFilters, frame, user);
 		filterButton.addActionListener(filterL);
 		c.gridx=4;
 		c.gridy=0;
@@ -73,7 +77,7 @@ public class FinderMainPanel extends JPanel{
 
 		c.anchor = GridBagConstraints.CENTER;
 		JButton bookButton=new JButton("Book");
-		BookListener bookListen=new BookListener(list);
+		BookListener bookListen=new BookListener(list, frame, user);
 		bookButton.addActionListener(bookListen);
 		c.gridx=0;
 		c.gridy=1;
@@ -92,14 +96,22 @@ public class FinderMainPanel extends JPanel{
 class BookListener implements ActionListener{
 
 	private JList<Booking> scroll;
+	private UsersGUI frame;
+	private Users user;
 
-	public BookListener(JList<Booking> list) {
+
+	public BookListener(JList<Booking> list, UsersGUI frame, Users user) {
 		this.scroll=list;
+		this.frame=frame;
+		this.user=user;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		this.frame.removePanel();
+		this.frame.addSecondPanel(new ConfirmBookigPanel(this.scroll, user, frame));
+		this.frame.revalidate();
+		this.frame.repaint();
 	}
 
 }
@@ -110,11 +122,15 @@ class FilterListener implements ActionListener{
 	private List<Booking> filteredRooms;
 	private HashMap<String, List<Booking>> allFiltered;
 	private LinkedList<FilterCheckBox> allFilters;
-	public FilterListener(FinderMainPanel panel, LinkedList<FilterCheckBox> allFilters) {
+	private UsersGUI frame;
+	private Users user;
+	public FilterListener(FinderMainPanel panel, LinkedList<FilterCheckBox> allFilters, UsersGUI frame, Users user) {
 		this.filteredRooms=new ArrayList<Booking>();
 		this.allFiltered=new HashMap<String, List<Booking>>();
 		this.panel=panel;
 		this.allFilters=allFilters;
+		this.frame=frame;
+		this.user=user;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -135,7 +151,7 @@ class FilterListener implements ActionListener{
 		this.panel.repaint();
 
 
-		this.panel.add(new FinderMainPanel(this.filteredRooms, this.panel.getFreeRooms()));
+		this.panel.add(new FinderMainPanel(this.filteredRooms, this.panel.getFreeRooms(), this.frame, this.user));
 
 		this.panel.revalidate();
 		this.panel.repaint();

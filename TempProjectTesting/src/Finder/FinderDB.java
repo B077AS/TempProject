@@ -35,7 +35,7 @@ public class FinderDB {
 		}
 
 
-		clearAvailability(this.allRooms);//resetto lo stato di occupato
+		clearAvailability(this.allRooms); //resetto lo stato di occupato
 		String[] startHour=start.split(":");
 		String[] endHour=end.split(":");
 		int startNumber=Integer.parseInt(startHour[0]);

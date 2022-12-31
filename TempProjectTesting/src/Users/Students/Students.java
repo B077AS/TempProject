@@ -49,7 +49,7 @@ public class Students extends Users{
 
 			Connection conn=DBConnection.connect();
 			
-			String query="insert into rooms_booking (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
+			String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 
 			preparedStmt.setString(1, groupName);

@@ -12,9 +12,9 @@ import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 import Notifications.AcceptRejectFrame;
 
-public class NotificationListPanel extends JPanel{
+public class StudentNotificationPanel extends JPanel{
 
-	public NotificationListPanel(Users user, UsersGUI frame) {
+	public StudentNotificationPanel(Users user, UsersGUI frame) {
 
 		try {
 

@@ -8,6 +8,7 @@ import java.sql.*;
 import javax.swing.*;
 
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.UsersGUI;
 
 public class AddCoursePanel extends JPanel{
@@ -115,8 +116,9 @@ class AddCourseLinstener implements ActionListener{
 			conn.close();
 			}
 			else {
-				//TODO eccezione, un corso con lo stesso codice esiste gia!
+				new ExceptionFrame("A Course with the same Code is already present!");
 				conn.close();
+				return;
 			}
 		} catch (SQLException e1) {
 			System.out.println("errore query");

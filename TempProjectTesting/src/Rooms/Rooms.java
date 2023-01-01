@@ -4,7 +4,7 @@ import java.util.*;
 
 import Exceptions.ExceptionFrame;
 
-public abstract class Rooms implements Bookable{
+public abstract class Rooms implements Bookable, Comparable<Rooms>{
 
 	protected int seats;
 	protected String code;
@@ -67,10 +67,15 @@ public abstract class Rooms implements Bookable{
 	public void setAvailability(String timeSpan, Booking availability) {
 		this.availability.put(timeSpan, availability);
 	}
-
+	
 	@Override
-	public void soloBook(String user, String date, String startTime, String endTime) throws Exception{
-			throw new Exception();
-
+	public int compareTo(Rooms o) {
+		return this.getCode().compareTo(o.getCode());
 	}
+	
+	@Override
+	public String toString() {
+		return this.code;
+	}
+	
 }

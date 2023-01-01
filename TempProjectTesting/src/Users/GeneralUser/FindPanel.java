@@ -36,15 +36,17 @@ public class FindPanel extends JPanel{
 		add(findRoomLabel, c);
 		c.anchor = GridBagConstraints.WEST;
 		JComboBox<String> yearsSelect=new JComboBox<String>(this.yearsArray);
-		
+		yearsSelect.setFocusable(false);
 		daysSelect=new JComboBox<String>();
 		daysSelect.addItem("Day");
+		daysSelect.setFocusable(false);
 		c.gridx=3;
 		c.gridy=0;
 		add(daysSelect, c);
 		
 		monthsSelect=new JComboBox<String>();
 		monthsSelect.addItem("Month");
+		monthsSelect.setFocusable(false);
 		c.gridx=2;
 		c.gridy=0;
 		MonthComboBoxAL ml=new MonthComboBoxAL(this.monthsSelect, this.leapYear, this.daysSelect, this.monthsSelect);
@@ -60,6 +62,7 @@ public class FindPanel extends JPanel{
 		
 		JComboBox<String> endTimeBox=new JComboBox<String>();
 		endTimeBox.addItem("To");
+		endTimeBox.setFocusable(false);
 		c.gridx=5;
 		c.gridy=0;
 		add(endTimeBox, c);
@@ -67,6 +70,7 @@ public class FindPanel extends JPanel{
 		JComboBox<String> startTimeBox=new JComboBox<String>(startHours);
 		TimeSpanAL sl=new TimeSpanAL(startTimeBox, endTimeBox);
 		startTimeBox.addActionListener(sl);
+		startTimeBox.setFocusable(false);
 		c.gridx=4;
 		c.gridy=0;
 		add(startTimeBox, c);
@@ -74,6 +78,7 @@ public class FindPanel extends JPanel{
 
 		
 		JButton searchButton=new JButton("Search");
+		searchButton.setFocusable(false);
 		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI, user);
 		searchButton.addActionListener(sbl);
 		c.gridx=6;

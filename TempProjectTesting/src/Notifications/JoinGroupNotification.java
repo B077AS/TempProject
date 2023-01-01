@@ -8,7 +8,7 @@ import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Groups.Group;
 
-public class JoinGroupNotification {
+public class JoinGroupNotification implements Notification{
 
 	private String sender;
 	private String receiver;

@@ -1,20 +1,21 @@
 package MyTimer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class MyTimer {
 	private int day;
 	private int month;
 	private int year;
+	private String date;
 	
 	public MyTimer() {
-		String temp=getTime();
+		this.date=getTime();
 		String[] splitted;
-		splitted=temp.split("-");
+		splitted=this.date.split("-");
 		this.day=Integer.parseInt(splitted[2]);
 		this.month=Integer.parseInt(splitted[1]);
 		this.year=Integer.parseInt(splitted[0]);
-		
 		
 	}
 
@@ -37,6 +38,10 @@ public class MyTimer {
 	
 	public int getYear() {
 		return this.year;
+	}
+	
+	public String getDate() {
+		return this.date;
 	}
 
 }

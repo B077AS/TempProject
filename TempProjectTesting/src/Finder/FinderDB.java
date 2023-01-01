@@ -6,9 +6,9 @@ import java.time.*;
 import java.util.*;
 import DataBase.DBConnection;
 import MyLoader.RoomLoader;
+import MyTimer.DateHolder;
 import Rooms.Booking;
 import Rooms.Rooms;
-import Users.GeneralUser.DateHolder;
 
 public class FinderDB {
 	private HashMap<String, Integer> months;
@@ -35,7 +35,7 @@ public class FinderDB {
 		}
 
 
-		clearAvailability(this.allRooms); //resetto lo stato di occupato
+		clearAvailability(this.allRooms);//resetto lo stato di occupato
 		String[] startHour=start.split(":");
 		String[] endHour=end.split(":");
 		int startNumber=Integer.parseInt(startHour[0]);

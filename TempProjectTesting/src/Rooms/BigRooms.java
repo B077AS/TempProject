@@ -3,8 +3,11 @@ package Rooms;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Groups.Group;
 
 public class BigRooms extends Rooms{
@@ -47,13 +50,27 @@ public class BigRooms extends Rooms{
 	}
 
 	@Override
-	public void soloBook(String user, String date, String startTime, String endTime) {
+	public void soloBook(String user, String date, String startTime, String endTime) throws IllegalArgumentException{
 		String bookingID=date+"-"+startTime.split(":")[0]+"-"+endTime.split(":")[0]+"-"+this.code+"-"+user;
 
 		try {
 			Connection conn=DBConnection.connect();
-			String query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time)"+"values (?, ?, ?, ?, ?, ?)";
+			 
+			
+			String query ="select Partecipant from allgroups where Group_ID in(select Group_ID from rooms_booking where Date=? and Room=? and Start_Time=? and End_Time=?) and Partecipant=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setDate(1, Date.valueOf(date));
+			preparedStmt.setString(2, this.code);
+			preparedStmt.setString(3, startTime);
+			preparedStmt.setString(4, endTime);
+			preparedStmt.setString(5, user);
+			ResultSet result=preparedStmt.executeQuery();
+			
+			if(result.next()==false) {
+			
+			
+			query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time)"+"values (?, ?, ?, ?, ?, ?)";
+			preparedStmt = conn.prepareStatement(query);
 
 			preparedStmt.setString(1, bookingID);
 			preparedStmt.setDate(2, Date.valueOf(date));
@@ -64,10 +81,13 @@ public class BigRooms extends Rooms{
 
 			preparedStmt.execute();
 			conn.close();
+			}
+			else {
+				throw new IllegalArgumentException();
+			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+		} catch (SQLException e ) {
+
 		}
 	}
 

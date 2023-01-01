@@ -9,7 +9,7 @@ import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 
 public class StudentsMainPanel extends JPanel{
-		public StudentsMainPanel(String name, String lastName, String email, UsersGUI studentsGUI, Users user) {		
+		public StudentsMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Users user) {		
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
 			
@@ -52,10 +52,10 @@ public class StudentsMainPanel extends JPanel{
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					studentsGUI.removePanel();
-					studentsGUI.addSecondPanel(new GroupsPanel(user, studentsGUI));
-					studentsGUI.revalidate();
-					studentsGUI.repaint();
+					mainGUI.removePanel();
+					mainGUI.addSecondPanel(new GroupsPanel(user, mainGUI));
+					mainGUI.revalidate();
+					mainGUI.repaint();
 				}
 			});
 			c.gridx=1;

@@ -6,7 +6,7 @@ import javax.swing.*;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 import Users.GeneralUser.UsersHeadPanel;
-import Users.Students.NotificationListPanel;
+import Users.Students.StudentNotificationPanel;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
@@ -23,7 +23,7 @@ public class AcceptRejectFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				frame.removePanel();
 				user.getNotifications().clear();
-		    	frame.addSecondPanel(new NotificationListPanel(user, frame));
+		    	frame.addSecondPanel(new StudentNotificationPanel(user, frame));
 		    	StudentsGUI tempFrame=(StudentsGUI)frame;
 		    	tempFrame.removeHeadPanel(new UsersHeadPanel(user.getName(), user.getLastName(), user.getEmail(), user, frame));
 		    	tempFrame.revalidate();

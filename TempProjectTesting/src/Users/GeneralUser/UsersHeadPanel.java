@@ -5,7 +5,6 @@ import java.awt.Color;
 
 import javax.swing.JPanel;
 
-import Users.Students.NotificationRightPanel;
 import Users.Students.StudentsMainPanel;
 
 public class UsersHeadPanel extends JPanel{

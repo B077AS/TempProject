@@ -2,9 +2,10 @@ package Users.Professors;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Users.GeneralUser.NotificationRightPanel;
 import Users.GeneralUser.UsersGUI;
 import Users.GeneralUser.UsersHeadPanel;
-import Users.Students.NotificationRightPanel;
 
 public class TeachersGUI extends UsersGUI{
 

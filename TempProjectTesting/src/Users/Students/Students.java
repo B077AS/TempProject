@@ -1,30 +1,21 @@
 package Users.Students;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
 import java.util.*;
-import javax.management.Notification;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.util.List;
+
+import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Login.*;
 import MyLoader.RoomLoader;
-import Notifications.JoinGroupNotification;
+import MyTimer.DateHolder;
+import Notifications.*;
 import Rooms.*;
 import Users.GeneralUser.*;
-import Groups.Group;
-import Groups.GroupsPanel;
+import Groups.*;
 
 
 public class Students extends Users{
@@ -62,11 +53,6 @@ public class Students extends Users{
 			new ExceptionFrame("\u274C Group Name not Valid!");
 			return;
 		}	
-	}
-	
-	
-	public void loadNotifications(JoinGroupNotification notification) {
-		this.notifications.add(notification);
 	}
 
 	public HashMap<String, Group> getGroups(){
@@ -171,8 +157,11 @@ public class Students extends Users{
 					rooms.getRooms().get(booking.getRoom().getCode());
 					try {
 					booking.getRoom().soloBook(ID, year+"-"+month+"-"+day, booking.getStartTime(), booking.getEndTime());
-					}catch(Exception ex) {
+					}catch(IllegalAccessError notAllowed) {
 						new ExceptionFrame("Not Allowed to Register as and Individual");
+						return;
+					}catch(IllegalArgumentException alreadyBooked) {
+						new ExceptionFrame("A group which you are part of already booked this room!");
 						return;
 					}
 					new BookingSuccessful();
@@ -192,7 +181,12 @@ public class Students extends Users{
 	}
 	
 	@Override
-	public List<JoinGroupNotification> getNotifications(){
+	public List<Notification> getNotifications(){
 		return this.notifications;
+	}
+
+	@Override
+	public JPanel notificationPanel(Users user, UsersGUI frame) {
+		return new StudentNotificationPanel(user, frame);
 	}
 }

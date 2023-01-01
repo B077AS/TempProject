@@ -5,14 +5,10 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import Login.*;
-import Notifications.JoinGroupNotification;
-import Rooms.Booking;
-import Rooms.Rooms;
+import Notifications.Notification;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
-import Users.Students.StudentsMainPanel;
 
 public class Teachers extends Users{
 
@@ -38,12 +34,6 @@ public class Teachers extends Users{
 	}
 
 	@Override
-	public void loadNotifications(JoinGroupNotification notification) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public JPanel getMainPanel(UsersGUI gui) {
 		// TODO Auto-generated method stub
 		return new TeachersMainPanel(name, lastName, email, gui, this);
@@ -53,5 +43,10 @@ public class Teachers extends Users{
 	public JPanel book(Object[] objects, UsersGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public JPanel notificationPanel(Users user, UsersGUI frame) {
+		return new TeachersNotificationPanel(user, frame);
 	}
 }

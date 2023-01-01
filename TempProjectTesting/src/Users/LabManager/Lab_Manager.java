@@ -2,11 +2,8 @@ package Users.LabManager;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import Login.*;
-import Notifications.JoinGroupNotification;
-import Rooms.Booking;
-import Rooms.Rooms;
+import Notifications.Notification;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
@@ -32,12 +29,6 @@ public class Lab_Manager extends Users{
 	}
 
 	@Override
-	public void loadNotifications(JoinGroupNotification notification) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public JPanel getMainPanel(UsersGUI gui) {
 		// TODO Auto-generated method stub
 		return null;
@@ -45,6 +36,12 @@ public class Lab_Manager extends Users{
 
 	@Override
 	public JPanel book(Object[] objects, UsersGUI frame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public JPanel notificationPanel(Users user, UsersGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
 	}

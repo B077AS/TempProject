@@ -2,18 +2,23 @@ package Users.Professors;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Groups.GroupsPanel;
 import Users.GeneralUser.FindPanel;
 import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UsersGUI;
 
 public class TeachersMainPanel extends JPanel{
 
-	public TeachersMainPanel(String name, String lastName, String email, UsersGUI teachersGUI, Teachers user) {
+	public TeachersMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Teachers user) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
@@ -37,6 +42,33 @@ public class TeachersMainPanel extends JPanel{
 		c.gridx=1;
 		c.gridy=2;
 		add(studentLastName, c);
+		c.anchor = GridBagConstraints.EAST;
+		JLabel swapLabel=new JLabel("Swap Schedule: ");
+		c.gridx=0;
+		c.gridy=3;
+		add(swapLabel, c);
+		c.anchor = GridBagConstraints.WEST;
+		ImageIcon swapIcon=new ImageIcon("Files/swap-icon.png");
+		Image image = swapIcon.getImage();
+		Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
+		swapIcon = new ImageIcon(newimg);
+		JButton swapButton=new JButton(swapIcon);
+		swapButton.setFocusPainted(false);
+		swapButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainGUI.removePanel();
+				mainGUI.addSecondPanel(new SwapPanel(user, mainGUI, null, null));
+				mainGUI.revalidate();
+				mainGUI.repaint();
+				
+			}
+			
+		});
+		c.gridx=1;
+		c.gridy=3;
+		add(swapButton, c);
 	}
 
 }

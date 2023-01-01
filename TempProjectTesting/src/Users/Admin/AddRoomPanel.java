@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.UsersGUI;
 
 import java.sql.*;
@@ -133,8 +134,9 @@ class AddRoomListner implements ActionListener{
 			conn.close();
 			}
 			else {
-				//eccezione gia presente!
+				new ExceptionFrame("A Room with the same Code is already present!");
 				conn.close();
+				return;
 			}
 		} catch (SQLException e1) {
 			System.out.println("errore query");

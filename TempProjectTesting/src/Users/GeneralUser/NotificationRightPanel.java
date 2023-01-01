@@ -1,4 +1,4 @@
-package Users.Students;
+package Users.GeneralUser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,9 +6,7 @@ import java.sql.*;
 import javax.swing.*;
 
 import DataBase.DBConnection;
-import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
-import Users.GeneralUser.UsersHeadPanel;
+import Users.Students.StudentNotificationPanel;
 
 public class NotificationRightPanel extends JPanel{
 	
@@ -26,7 +24,7 @@ public class NotificationRightPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				user.getNotifications().clear();
 				main.removePanel();
-				main.addSecondPanel(new NotificationListPanel(user, main));
+				main.addSecondPanel(user.notificationPanel(user, main));
 				main.revalidate();
 				main.repaint();
 				

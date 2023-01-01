@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="NewLibraries/activation.jar"/>
 	<classpathentry kind="lib" path="NewLibraries/javax.mail.jar"/>
 	<classpathentry kind="lib" path="NewLibraries/mysql-connector-j-8.0.31.jar"/>
+	<classpathentry kind="lib" path="NewLibraries/jdatepicker-1.3.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

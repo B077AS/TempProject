@@ -50,18 +50,10 @@ public class Login {
 			Users tempUser=selectType(name, lastName, Integer.toString(ID), email, passwordString, type, config);
 			tempUser.GUI(frame);
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("errore lettura properties");
 		}
 	}
-
-	public Login() {
-		loadUsers();
-	}
-
-	public void loadUsers() {
-
-	}
-
 
 	public Users selectType(String name, String lastName, String ID, String email, String password, String user, Properties property) throws Exception{
 		String userClassName=property.getProperty(user);

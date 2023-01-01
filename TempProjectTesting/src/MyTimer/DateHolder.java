@@ -1,4 +1,6 @@
-package Users.GeneralUser;
+package MyTimer;
+
+import java.sql.Date;
 
 public class DateHolder {
 	private static int day;
@@ -23,7 +25,6 @@ public class DateHolder {
 	public static int getYear() {
 		return year;
 	}
-	
 
 
 }

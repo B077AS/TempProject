@@ -9,6 +9,7 @@ public class UsersGUI extends JFrame{
 	protected JPanel secondPanel=new JPanel();
 	protected JPanel northPanel;
 	public UsersGUI(String name, String lastName, String email, Users user) {
+		this.user=user;
 		Toolkit kit = Toolkit.getDefaultToolkit();
 
 

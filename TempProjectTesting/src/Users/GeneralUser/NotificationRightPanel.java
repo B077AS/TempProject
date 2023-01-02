@@ -43,6 +43,7 @@ public class NotificationRightPanel extends JPanel{
 		
 		NotificationRightPanel temp=this;
 		JButton refreshButton=new JButton(refreshIcon);
+		refreshButton.setBackground(Color.WHITE);
 		refreshButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

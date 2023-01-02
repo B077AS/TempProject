@@ -30,24 +30,29 @@ public class FinderMainPanel extends JPanel{
 		this.freeRoomsBackUp=freeRoomsBackUp;
 		removeAll();
 
+		setBackground(new Color(0,0,0,0));
 		setLayout (new GridBagLayout());
 	
 		GridBagConstraints c=new GridBagConstraints();
 
 		JList<Booking> list=new JList(freeRooms.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
-		c.gridx=0;
+		c.insets = new Insets(0,0,20,0);
+		c.gridx=1;
 		c.gridy=0;
+		
 		this.scroll=listScroller;
 		add(listScroller, c);
 
-		c.anchor = GridBagConstraints.NORTH;
+		c.anchor = GridBagConstraints.CENTER;
 		FilterSeatsNumber filterSeats100=new FilterSeatsNumber();
 		filterSeats100.setLabel("100 seats");
 		filterSeats100.setSeats(100);
+		filterSeats100.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		filterSeats100.setForeground(new Color(145,0,0));
 		this.allFilters.add(filterSeats100);
-		c.gridx=1;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=1;
 		add(filterSeats100, c);
 
 
@@ -55,33 +60,45 @@ public class FinderMainPanel extends JPanel{
 		filterSeats50.setLabel("50 Seats");
 		filterSeats50.setSeats(50);
 		this.allFilters.add(filterSeats50);
-		c.gridx=2;
-		c.gridy=0;
+		filterSeats50.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		filterSeats50.setForeground(new Color(145,0,0));
+		c.gridx=1;
+		c.gridy=1;
 		add(filterSeats50, c);
 
 		FilterRoomType filterLab=new FilterRoomType();
 		filterLab.setLabel("Only Labs");
 		filterLab.setIdentifier("LAB");
 		this.allFilters.add(filterLab);
-		c.gridx=3;
-		c.gridy=0;
+		filterLab.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		filterLab.setForeground(new Color(145,0,0));
+		c.gridx=2;
+		c.gridy=1;
 		add(filterLab, c);
 
 
-		c.anchor = GridBagConstraints.NORTH;
+		c.anchor = GridBagConstraints.CENTER;
 		JButton filterButton=new JButton("Filter");
 		FilterListener filterL= new FilterListener(this, this.allFilters, frame, user);
 		filterButton.addActionListener(filterL);
-		c.gridx=4;
-		c.gridy=0;
+		filterButton.setFont(new Font("Comic Sans MS", Font.BOLD,10));
+		filterButton.setForeground(Color.white);
+		filterButton.setBackground(new Color(145,0,0));
+		c.gridx=3;
+		c.gridy=1;
+		c.insets = new Insets(0,20,15,0);
 		add(filterButton, c);
 
 		c.anchor = GridBagConstraints.CENTER;
 		JButton bookButton=new JButton("Book");
 		BookListener bookListen=new BookListener(list, frame, user);
 		bookButton.addActionListener(bookListen);
-		c.gridx=0;
-		c.gridy=1;
+		bookButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		bookButton.setForeground(Color.white);
+		bookButton.setBackground(new Color(145,0,0));
+		c.gridx=1;
+		c.gridy=2;
+		c.insets = new Insets(20,0,0,0);
 		add(bookButton, c);
 
 		revalidate();

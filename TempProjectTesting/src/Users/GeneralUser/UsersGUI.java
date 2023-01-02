@@ -28,10 +28,13 @@ public class UsersGUI extends JFrame{
 		
 		JLabel ll= new JLabel(Icon);
 		add(ll);
-*/
+
+		*/
+		
 
 		setSize(screenWidth,screenHeight);
 		setTitle("UserProfile");
+		setBackground(Color.white);
 
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +47,12 @@ public class UsersGUI extends JFrame{
 		repaint();
 	}
 	
+
+	
 	public void addSecondPanel(JPanel panel) {
+		
 		this.secondPanel=panel;
+		secondPanel.setBackground(new Color(0,0,0,0));
 		add(this.secondPanel, BorderLayout.CENTER);
 		revalidate();
 		repaint();

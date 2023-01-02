@@ -1,8 +1,11 @@
 package Users.GeneralUser;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -24,31 +27,46 @@ public class FindPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		//setBackground(new Color(0,0,0,0));
+		setBackground(new Color(0,0,0,0));
 		
 		MyTimer t=new MyTimer();
 		this.leapYear=leapYearCheck(t.getYear());
 		this.yearsArray=setYearsArray(t.getYear());
 		
 		JLabel findRoomLabel=new JLabel("Find Room: ");
+		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,20));
+		findRoomLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
 		add(findRoomLabel, c);
+		//
 		c.anchor = GridBagConstraints.WEST;
 		JComboBox<String> yearsSelect=new JComboBox<String>(this.yearsArray);
 		yearsSelect.setFocusable(false);
+		//
 		daysSelect=new JComboBox<String>();
 		daysSelect.addItem("Day");
+		daysSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		daysSelect.setForeground(new Color(145,0,0));
 		daysSelect.setFocusable(false);
+		daysSelect.setBackground(Color.WHITE);
+		c.insets= new Insets (0,20,0,0);
 		c.gridx=3;
+		//c.gridy=3;
 		c.gridy=0;
 		add(daysSelect, c);
-		
+		//
 		monthsSelect=new JComboBox<String>();
 		monthsSelect.addItem("Month");
 		monthsSelect.setFocusable(false);
+		monthsSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		monthsSelect.setForeground(new Color(145,0,0));
+		monthsSelect.setFocusable(false);
+		monthsSelect.setBackground(Color.WHITE);
 		c.gridx=2;
 		c.gridy=0;
+		//c.gridy=2;
+		//
 		MonthComboBoxAL ml=new MonthComboBoxAL(this.monthsSelect, this.leapYear, this.daysSelect, this.monthsSelect);
 		monthsSelect.addActionListener(ml);
 		add(monthsSelect, c);
@@ -57,12 +75,21 @@ public class FindPanel extends JPanel{
 		yearsSelect.addActionListener(yl);
 		c.gridx=1;
 		c.gridy=0;
+		//c.gridy=1;
+		yearsSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		yearsSelect.setForeground(new Color(145,0,0));
+		yearsSelect.setFocusable(false);
+		yearsSelect.setBackground(Color.WHITE);
 		add(yearsSelect, c);
 		
 		
 		JComboBox<String> endTimeBox=new JComboBox<String>();
 		endTimeBox.addItem("To");
 		endTimeBox.setFocusable(false);
+		endTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		endTimeBox.setForeground(new Color(145,0,0));
+		endTimeBox.setFocusable(false);
+		endTimeBox.setBackground(Color.WHITE);
 		c.gridx=5;
 		c.gridy=0;
 		add(endTimeBox, c);
@@ -71,6 +98,9 @@ public class FindPanel extends JPanel{
 		TimeSpanAL sl=new TimeSpanAL(startTimeBox, endTimeBox);
 		startTimeBox.addActionListener(sl);
 		startTimeBox.setFocusable(false);
+		startTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		startTimeBox.setForeground(new Color(145,0,0));
+		startTimeBox.setBackground(Color.WHITE);
 		c.gridx=4;
 		c.gridy=0;
 		add(startTimeBox, c);
@@ -79,6 +109,9 @@ public class FindPanel extends JPanel{
 		
 		JButton searchButton=new JButton("Search");
 		searchButton.setFocusable(false);
+		searchButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		searchButton.setForeground(Color.white);
+		searchButton.setBackground(new Color(145,0,0));
 		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI, user);
 		searchButton.addActionListener(sbl);
 		c.gridx=6;

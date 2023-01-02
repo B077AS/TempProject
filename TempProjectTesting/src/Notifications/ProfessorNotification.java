@@ -11,12 +11,18 @@ public class ProfessorNotification implements Notification{
 	private String scheduleID;
 	private String sender;
 	private String date;
+	private String newDate;
+	private String newFrom;
+	private String newTo;
 
-	public ProfessorNotification(String scheduleID, String date, String sender) {
+	public ProfessorNotification(String scheduleID, String date, String sender, String newDate, String newFrom, String newTo) {
 		super();
 		this.scheduleID = scheduleID;
 		this.sender = sender;
 		this.date=date;
+		this.newDate=newDate;
+		this.newFrom=newFrom;
+		this.newTo=newTo;
 	}
 
 	@Override
@@ -35,6 +41,20 @@ public class ProfessorNotification implements Notification{
 
 	public String getDate() {
 		return this.date;
+	}
+	
+	
+
+	public String getNewDate() {
+		return newDate;
+	}
+
+	public String getNewFrom() {
+		return newFrom;
+	}
+
+	public String getNewTo() {
+		return newTo;
 	}
 
 	@Override
@@ -62,8 +82,13 @@ public class ProfessorNotification implements Notification{
 			String room=result.getString(5);
 			
 			conn.close();
-			return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+startTime+" to: "+endTime+" in: "+room;
-
+			
+			if(this.newDate==null) {
+			return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+startTime+" to: "+endTime+" in: "+room+" with no preference";
+			}
+			else {
+				return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+startTime+" to: "+endTime+" in: "+room+" with preference";	
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	

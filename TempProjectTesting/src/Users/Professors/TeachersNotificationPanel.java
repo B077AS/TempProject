@@ -1,65 +1,449 @@
 package Users.Professors;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.*;
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import MyLoader.RoomLoader;
 import Notifications.AcceptRejectFrame;
+import Notifications.Notification;
 import Notifications.ProfessorNotification;
+import Notifications.ProfessorSwapDraft;
+import Rooms.Rooms;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
 public class TeachersNotificationPanel extends JPanel{
 
+	private JLabel notificationDetails;
+
 	public TeachersNotificationPanel(Users user, UsersGUI frame) {
+		user.getNotifications().clear();
+		setLayout (new GridBagLayout());
+		GridBagConstraints c=new GridBagConstraints();
+
+		JPanel swapRequestsContainer=new JPanel();
+		swapRequestsContainer.setLayout (new GridBagLayout());
+		GridBagConstraints c1=new GridBagConstraints();
+
+		JPanel draftRequestsContainer=new JPanel();
+		draftRequestsContainer.setLayout (new GridBagLayout());
+		GridBagConstraints c2=new GridBagConstraints();
+
+
+		JPanel reminderContainer=new JPanel();
+		reminderContainer.setLayout (new GridBagLayout());
+		GridBagConstraints c3=new GridBagConstraints();
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+
+
 		try {
 
 			Connection conn=DBConnection.connect();
-			String query="select * from prof_notifications";
-			Statement statement = conn.prepareStatement(query);
-			ResultSet result=statement.executeQuery(query);
+			String query="select * from prof_notifications where Sender!=?";
+			PreparedStatement statement = conn.prepareStatement(query);
+			statement.setString(1, user.getID());
+			ResultSet result=statement.executeQuery();
 
 			while(result.next()) {
-				user.loadNotifications(new ProfessorNotification(result.getString(1), result.getString(2), result.getString(3)));
+				user.loadNotifications(new ProfessorNotification(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+			}
+
+			query="select * from swap_notifications where Receiver=? or Sender=?";
+			statement = conn.prepareStatement(query);
+			statement.setString(1, user.getID());
+			statement.setString(2, user.getID());
+			result=statement.executeQuery();
+
+			while(result.next()) {
+				user.loadNotifications(new ProfessorSwapDraft(result.getString(1), result.getString(2), result.getDate(3), result.getDate(4), result.getString(5), result.getString(6), result.getString(7)));
 			}
 
 			conn.close();
 
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		JList<ProfessorNotification> list=new JList(user.getNotifications().toArray());
-		JScrollPane listScroller = new JScrollPane(list);
-		add(listScroller);
+		ArrayList profNotifications=new ArrayList();
+		ArrayList swapNotAcceptedNotifications=new ArrayList();
+		ArrayList swapAcceptedNotifications=new ArrayList();
 
-		JButton accept=new JButton("Accept");
-		accept.addActionListener(new ActionListener() {
+		int i=0;
+
+		for(i=0; i<user.getNotifications().size(); i++) {
+			try {
+				ProfessorNotification swap=(ProfessorNotification)user.getNotifications().get(i);
+				profNotifications.add(swap);
+			}
+			catch(Exception selectType) {
+				ProfessorSwapDraft draft=(ProfessorSwapDraft)user.getNotifications().get(i);
+				if(draft.isAccepted()==false && !draft.getSender().equals(user.getID())) {
+					swapNotAcceptedNotifications.add(draft);
+				}
+				else if(draft.isAccepted()==true){
+					swapAcceptedNotifications.add(draft);
+				}
+			}
+		}
+		JList<ProfessorNotification> list=new JList(profNotifications.toArray());
+		JScrollPane listScroller = new JScrollPane(list);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() ==1){
+					try {
+						Connection conn=DBConnection.connect();
+						if(list.getSelectedValue().getNewDate()==null) {
+							String query="select * from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
+							PreparedStatement preparedStmt = conn.prepareStatement(query);
+							preparedStmt.setString(1, list.getSelectedValue().getScheduleID());
+							preparedStmt.setDate(2, Date.valueOf(list.getSelectedValue().getDate()));
+							preparedStmt.setString(3, list.getSelectedValue().getSender());
+							ResultSet result=preparedStmt.executeQuery();
+							result.next();
+
+							notificationDetails.setText("Notification Deatils: Swap "+result.getDate(2));
+
+							conn.close();
+						}
+						else {
+							String query="select * from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
+							PreparedStatement preparedStmt = conn.prepareStatement(query);
+							preparedStmt.setString(1, list.getSelectedValue().getScheduleID());
+							preparedStmt.setDate(2, Date.valueOf(list.getSelectedValue().getDate()));
+							preparedStmt.setString(3, list.getSelectedValue().getSender());
+							preparedStmt.setDate(4, Date.valueOf(list.getSelectedValue().getNewDate()));
+							preparedStmt.setString(5, list.getSelectedValue().getNewFrom());
+							preparedStmt.setString(6, list.getSelectedValue().getNewTo());
+							ResultSet result=preparedStmt.executeQuery();
+							result.next();
+							notificationDetails.setText("Notification Deatils: Swap "+result.getDate(2)+" into "+result.getDate(4)+" between "+result.getString(5)+"-"+result.getString(6));
+							conn.close();
+						}
+
+					} catch (Exception ex) {
+					}
+				}
+			}
+		});
+		c1.gridx=0;
+		c1.gridy=0;
+		swapRequestsContainer.add(listScroller, c1);
+
+		c1.gridx=0;
+		c1.gridy=1;
+		notificationDetails=new JLabel("Notification Details");
+		swapRequestsContainer.add(this.notificationDetails, c1);
+
+
+
+		JButton acceptSwap=new JButton("Accept");
+		acceptSwap.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProfessorNotification notification=list.getSelectedValue();
+
+				RoomChooser choose=new RoomChooser(notification, user, frame);
+				frame.removePanel();
+				frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+				frame.revalidate();
+				frame.repaint();
+			}
+
+		});
+		c1.gridx=1;
+		c1.gridy=0;
+		swapRequestsContainer.add(acceptSwap, c1);
+
+		JButton draft=new JButton("Send Swap-Draft");
+		draft.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProfessorNotification notification=list.getSelectedValue();
+				SendDraftFrame draftFrame=new SendDraftFrame(notification, user, frame);
+				frame.removePanel();
+				frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+				frame.revalidate();
+				frame.repaint();
+			}
+
+		});
+		c1.gridx=2;
+		c1.gridy=0;
+		swapRequestsContainer.add(draft, c1);
+
+		c.gridx=0;
+		c.gridy=0;
+		tabbedPane.addTab("Swap Requests", swapRequestsContainer);
+		add(tabbedPane, c);
+
+		JList<ProfessorSwapDraft> listDraft=new JList(swapNotAcceptedNotifications.toArray());
+		JScrollPane listDraftScroller = new JScrollPane(listDraft);
+		listDraft.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		c2.gridx=0;
+		c2.gridy=0;
+		draftRequestsContainer.add(listDraftScroller);
+
+
+		JButton acceptDraft=new JButton("Accept Draft");
+		acceptDraft.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				ProfessorNotification notification=list.getSelectedValue();
 				try {
+					ProfessorSwapDraft swap=listDraft.getSelectedValue();
 					Connection conn=DBConnection.connect();
-					String query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
+					String query="UPDATE swap_notifications SET Accepted = 'true' WHERE Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=?";
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, notification.getScheduleID());
-					preparedStmt.setString(2, notification.getSender());
-					preparedStmt.setDate(3, Date.valueOf(notification.getDate()));
-					preparedStmt.execute();
+					preparedStmt.setString(1, swap.getSender());
+					preparedStmt.setString(2, user.getID());
+					preparedStmt.setDate(3, swap.getFirstDate());
+					preparedStmt.setDate(4, swap.getNewDate());
+					preparedStmt.setString(5, swap.getFirstSchedule());
+					preparedStmt.setString(6, swap.getNewScehudle());
+					preparedStmt.executeUpdate();
 
-					conn.close();
+					query="select Start_Time, End_Time from schedule where Schedule_ID=?";
+					preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, swap.getFirstSchedule());
+					ResultSet result=preparedStmt.executeQuery();
+
+					result.next();
+					String from=result.getString(1);
+					String to=result.getString(2);
+
+					query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
+					preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, swap.getFirstSchedule());
+					preparedStmt.setDate(2, swap.getFirstDate());
+					preparedStmt.setString(3, swap.getReceiver());
+					result=preparedStmt.executeQuery();
+
+					result.next();
+					String date=result.getString(1);
+
+					if(date==null) {
+						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setString(1, swap.getFirstSchedule());
+						preparedStmt.setDate(2, swap.getFirstDate());
+						preparedStmt.setString(3, swap.getReceiver());
+						preparedStmt.executeUpdate();
+						conn.close();
+					}
+					else {
+
+						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setString(1, swap.getFirstSchedule());
+						preparedStmt.setDate(2, swap.getFirstDate());
+						preparedStmt.setString(3, swap.getReceiver());
+						preparedStmt.setDate(4, swap.getNewDate());
+						preparedStmt.setString(5, from);
+						preparedStmt.setString(6, to);
+						preparedStmt.executeUpdate();
+						conn.close();
+					}
 
 				} catch (Exception ea) {
+					ea.printStackTrace();
 					new ExceptionFrame("\u274C No Notification Selected!");
 					return;
 				}
-				notification.accept();
 				new AcceptRejectFrame("Swap Request Accepted!", user, frame);
+				
+
 			}
 
 		});
-		add(accept);
+		c2.gridx=1;
+		c2.gridy=0;
+		draftRequestsContainer.add(acceptDraft, c2);
+
+
+		JButton reject=new JButton("Reject Draft");
+		reject.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+					ProfessorSwapDraft swap=listDraft.getSelectedValue();
+					Connection conn=DBConnection.connect();
+					String query="delete from swap_notifications where Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=? and Accepted='false'";
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, swap.getSender());
+					preparedStmt.setString(2, user.getID());
+					preparedStmt.setDate(3, swap.getFirstDate());
+					preparedStmt.setDate(4, swap.getNewDate());
+					preparedStmt.setString(5, swap.getFirstSchedule());
+					preparedStmt.setString(6, swap.getNewScehudle());
+					preparedStmt.executeUpdate();
+					
+					conn.close();
+					frame.removePanel();
+					frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+					frame.revalidate();
+					frame.repaint();
+				}
+
+				catch (Exception ea) {
+					ea.printStackTrace();
+					new ExceptionFrame("\u274C No Notification Selected!");
+					return;
+				}
+
+			}
+
+		});
+		c2.gridx=2;
+		c2.gridy=0;
+		draftRequestsContainer.add(reject, c2);
+
+
+		JList<ProfessorSwapDraft> listReminders=new JList(swapAcceptedNotifications.toArray());
+		JScrollPane listRemindersScroller = new JScrollPane(listReminders);
+		listReminders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		c3.gridx=0;
+		c3.gridy=0;
+		reminderContainer.add(listRemindersScroller);
+
+
+		tabbedPane.addTab("Draft Requests", draftRequestsContainer);
+		tabbedPane.addTab("Reminders", reminderContainer);
 	}
 }
 
+class SendDraftListener implements ActionListener{
+	private JList<ProfessorNotification> list;
+
+	public SendDraftListener(JList<ProfessorNotification> list) {
+		this.list=list;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.list.getSelectedValue();
+
+	}
+
+}
+
+class RoomChooser extends JFrame{
+
+	private String selectedRoom;
+
+	public RoomChooser(ProfessorNotification notification, Users user, UsersGUI frame) {
+		JPanel p=new JPanel();
+		try {
+
+			p.setLayout (new GridBagLayout());
+			GridBagConstraints c=new GridBagConstraints();
+			RoomLoader loadRooms=new RoomLoader();
+
+			HashMap<String, Rooms> allRooms=loadRooms.getRooms();
+			ArrayList<Rooms> roomsList=new ArrayList<Rooms>();
+			for(HashMap.Entry<String, Rooms> entry : allRooms.entrySet()) {
+				roomsList.add(entry.getValue());
+			}
+			Collections.sort(roomsList);
+			JComboBox<String> roomsBox=new JComboBox(roomsList.toArray());
+
+			JLabel label = new JLabel("Which Room will the other professor have to use?");
+			c.gridx=0;
+			c.gridy=0;
+			p.add(label, c);
+			c.gridx=1;
+			c.gridy=0;
+			p.add(roomsBox, c);
+			JButton ok=new JButton("OK");
+			ok.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					selectedRoom=(String)roomsBox.getSelectedItem().toString();
+					if(notification.getNewDate()!=null) {
+						try {
+							Connection conn=DBConnection.connect();
+
+
+							LocalDate myDate =(Date.valueOf(notification.getDate())).toLocalDate();
+							DayOfWeek dayOfWeek=myDate.getDayOfWeek();
+							String query="select Schedule_ID from schedule where Start_Time=? and End_Time=? and Room=? and Day_Of_Week=?";
+							PreparedStatement preparedStmt = conn.prepareStatement(query);
+							preparedStmt.setString(1, notification.getNewTo());
+							preparedStmt.setString(2, notification.getNewFrom());
+							preparedStmt.setString(3, selectedRoom);
+							preparedStmt.setString(4, dayOfWeek.toString());
+							ResultSet result=preparedStmt.executeQuery();
+							result.next();
+							String newSchedule=result.getString(1);
+
+							query="insert into swap_notifications (Sender, Receiver, First_Date, New_Date, First_Schedule, New_Schedule, Accepted)"+"values(?, ?, ?, ?, ?, ?, ?)";
+							preparedStmt = conn.prepareStatement(query);
+							preparedStmt.setString(1, user.getID());
+							preparedStmt.setString(2, notification.getSender());
+							preparedStmt.setDate(3, Date.valueOf(notification.getDate()));
+							preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+							preparedStmt.setString(5, notification.getScheduleID());
+							preparedStmt.setString(6, newSchedule);
+							preparedStmt.setString(7, "true");
+							preparedStmt.execute();
+
+							query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
+							preparedStmt = conn.prepareStatement(query);
+							preparedStmt.setString(1, notification.getScheduleID());
+							preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+							preparedStmt.setString(3, notification.getSender());
+							preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+							preparedStmt.setString(5, notification.getNewFrom());
+							preparedStmt.setString(6, notification.getNewTo());
+							preparedStmt.executeUpdate();
+
+							conn.close();
+
+						} catch (Exception ea) {
+							new ExceptionFrame("\u274C Error!");
+							return;
+						}
+						notification.accept();
+						new AcceptRejectFrame("Swap Request Accepted!", user, frame);
+					}
+					else {
+						new ExceptionFrame("You need to send Swap-Draft before you can accept this request");
+
+					}
+					dispose();
+				}
+			});
+			c.gridx=2;
+			c.gridy=0;
+			p.add(ok, c);
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		add(p);
+		setSize(500,200);
+		setTitle("Choose Room");
+
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setVisible(true);
+	}
+
+	public String getRoom() {
+		return this.selectedRoom;
+	}
+}

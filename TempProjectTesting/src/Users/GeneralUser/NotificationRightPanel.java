@@ -2,10 +2,7 @@ package Users.GeneralUser;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.*;
 import javax.swing.*;
-
-import DataBase.DBConnection;
 import Users.Students.StudentNotificationPanel;
 
 public class NotificationRightPanel extends JPanel{
@@ -14,9 +11,7 @@ public class NotificationRightPanel extends JPanel{
 	public NotificationRightPanel(Users user, UsersGUI main) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
-		
-		//setBackground(new Color(0,0,0,0));
-		
+
 		JButton notificationsButton=user.checkNotifications();
 		notificationsButton.addActionListener(new ActionListener() {
 
@@ -46,6 +41,7 @@ public class NotificationRightPanel extends JPanel{
 		refreshButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				user.getNotifications().clear();
 				main.removeHeadPanel(new UsersHeadPanel(user.getName(), user.getLastName(), user.getEmail(), user, main));
 			}
 

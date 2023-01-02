@@ -20,9 +20,9 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 		this.seats=Integer.parseInt(seats);
 		this.code=code;
 		this.type=type;
-		this.LIM=Boolean.getBoolean(LIM);
-		this.outlets=Boolean.getBoolean(outlets);
-		this.disabledAccess=Boolean.getBoolean(disabledAccess);
+		this.LIM=Boolean.parseBoolean(LIM);
+		this.outlets=Boolean.parseBoolean(outlets);
+		this.disabledAccess=Boolean.parseBoolean(disabledAccess);
 		this.schedules=new LinkedList<Booking>();
 		this.availability=new HashMap<String, Booking>();
 	}

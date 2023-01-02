@@ -8,6 +8,8 @@ import Users.GeneralUser.UsersGUI;
 import Users.GeneralUser.UsersHeadPanel;
 
 public class TeachersGUI extends UsersGUI{
+	
+	private boolean skip;
 
 	public TeachersGUI(String name, String lastName, String email, Teachers user) {
 		super(name, lastName, email, user);
@@ -16,5 +18,15 @@ public class TeachersGUI extends UsersGUI{
 		this.add(northPanel, BorderLayout.NORTH);
 
 	}
+
+	public boolean isSkip() {
+		return skip;
+	}
+
+	public void setSkip(boolean skip) {
+		this.skip = skip;
+	}
+	
+	
 
 }

@@ -23,8 +23,8 @@ public class AcceptRejectFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				frame.removePanel();
 				user.getNotifications().clear();
-		    	frame.addSecondPanel(new StudentNotificationPanel(user, frame));
-		    	StudentsGUI tempFrame=(StudentsGUI)frame;
+		    	frame.addSecondPanel(user.notificationPanel(user, frame));
+		    	UsersGUI tempFrame=frame;
 		    	tempFrame.removeHeadPanel(new UsersHeadPanel(user.getName(), user.getLastName(), user.getEmail(), user, frame));
 		    	tempFrame.revalidate();
 		    	tempFrame.repaint();

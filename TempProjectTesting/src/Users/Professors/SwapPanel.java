@@ -8,11 +8,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,6 +36,7 @@ public class SwapPanel extends JPanel{
 	private Date firstDate;
 	private Date secondDate;
 	private JLabel calendarLabel;
+	private boolean skip;
 
 
 	public SwapPanel(Users user, UsersGUI mainGUI, Date firstDate, Date secondDate) {
@@ -48,7 +46,7 @@ public class SwapPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
-		this.calendarLabel=new JLabel("Please Select a day to Swap");
+		this.calendarLabel=new JLabel("(Requiered) Select a day to Swap");
 		c.gridx=0;
 		c.gridy=0;
 		add(calendarLabel, c);
@@ -73,7 +71,7 @@ public class SwapPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if(firstDate!=null) {
 					mainGUI.removePanel();
-					mainGUI.addSecondPanel(new ConfirmSwapPanel(firstDate, null, user, mainGUI));
+					mainGUI.addSecondPanel(new ConfirmSwapPanel(firstDate, null, user, mainGUI, true));
 					mainGUI.revalidate();
 					mainGUI.repaint();
 				}
@@ -128,7 +126,7 @@ class SaveDatesListener implements ActionListener{
 		if(this.panel.getFirstDate()==null) {
 			this.mainGUI.removePanel();
 			SwapPanel swap=new SwapPanel(this.user, this.mainGUI, (Date)this.datePanel.getModel().getValue(), null);
-			swap.setLabelText("Select a preference");
+			swap.setLabelText("(Optional) Select a preference");
 			this.mainGUI.addSecondPanel(swap);
 			this.mainGUI.revalidate();
 			this.mainGUI.repaint();
@@ -136,7 +134,7 @@ class SaveDatesListener implements ActionListener{
 		else {
 			if(this.panel.getFirstDate().compareTo((Date)this.datePanel.getModel().getValue())<0) {
 				this.mainGUI.removePanel();
-				this.mainGUI.addSecondPanel(new ConfirmSwapPanel(this.panel.getFirstDate(), (Date)this.datePanel.getModel().getValue(), this.user, this.mainGUI));
+				this.mainGUI.addSecondPanel(new ConfirmSwapPanel(this.panel.getFirstDate(), (Date)this.datePanel.getModel().getValue(), this.user, this.mainGUI, false));
 				this.mainGUI.revalidate();
 				this.mainGUI.repaint();
 			}
@@ -156,22 +154,22 @@ class ConfirmSwapPanel extends JPanel{
 
 	private String[] startHours= {"From","9:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"};
 
-	public ConfirmSwapPanel(Date firstDate, Date secondDate, Users User, UsersGUI mainGUI) {
+	public ConfirmSwapPanel(Date firstDate, Date secondDate, Users User, UsersGUI mainGUI, boolean skip) {
 
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
-		JLabel firstDateLabel=new JLabel(firstDate.toString()+" ");
+		JLabel firstDateLabel=new JLabel("Swappable date: "+firstDate.toString()+" ");
 		c.gridx=0;
 		c.gridy=0;
 		add(firstDateLabel, c);
 		JLabel secondDateLabel;
 		if(secondDate==null) {
-			secondDateLabel=new JLabel("No proposal Date");
+			secondDateLabel=new JLabel("No preference specified");
 		}
 		else {
-			secondDateLabel=new JLabel(secondDate.toString()+" ");
+			secondDateLabel=new JLabel("Substitute date: "+secondDate.toString()+" ");
 		}
 		c.gridx=0;
 		c.gridy=1;
@@ -186,7 +184,7 @@ class ConfirmSwapPanel extends JPanel{
 		add(endTimeBox, c);
 
 		JComboBox<String> startTimeBox=new JComboBox<String>(startHours);
-		TimeSpanAL sl=new TimeSpanAL(startTimeBox, endTimeBox);
+		ToActionListener sl=new ToActionListener(startTimeBox, endTimeBox);
 		startTimeBox.addActionListener(sl);
 		startTimeBox.setFocusable(false);
 		c.gridx=1;
@@ -205,7 +203,7 @@ class ConfirmSwapPanel extends JPanel{
 			add(secondEndTimeBox, c);
 
 			secondStartTimeBox=new JComboBox<String>(startHours);
-			sl=new TimeSpanAL(secondStartTimeBox, secondEndTimeBox);
+			sl=new ToActionListener(secondStartTimeBox, secondEndTimeBox);
 			secondStartTimeBox.addActionListener(sl);
 			secondStartTimeBox.setFocusable(false);
 			c.gridx=1;
@@ -236,9 +234,9 @@ class ConfirmSwapPanel extends JPanel{
 		}
 		
 		JButton swapButton=new JButton("Send Swap Request");
-		swapButton.addActionListener(new SwapListener(firstDate, secondDate, User, mainGUI, possibleRooms, startTimeBox, endTimeBox, secondStartTimeBox, secondEndTimeBox));
+		swapButton.addActionListener(new SwapListener(firstDate, secondDate, User, mainGUI, possibleRooms, startTimeBox, endTimeBox, secondStartTimeBox, secondEndTimeBox, skip));
 		c.gridx=4;
-		c.gridy=1;
+		c.gridy=0;
 		add(swapButton, c);
 
 
@@ -257,9 +255,10 @@ class SwapListener implements ActionListener{
 	private Date secondDate;
 	private Users user;
 	private UsersGUI mainGUI;
+	private boolean skip;
 	
 	
-	public SwapListener(Date firstDate, Date secondDate, Users user, UsersGUI mainGUI, JComboBox<Rooms> possibleRooms, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, JComboBox<String> secondEndTimeBox, JComboBox<String> secondStartTimeBox) {
+	public SwapListener(Date firstDate, Date secondDate, Users user, UsersGUI mainGUI, JComboBox<Rooms> possibleRooms, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, JComboBox<String> secondEndTimeBox, JComboBox<String> secondStartTimeBox, boolean skip) {
 		this.possibleRooms=possibleRooms;
 		this.startTimeBox=startTimeBox;
 		this.endTimeBox=endTimeBox;
@@ -269,6 +268,7 @@ class SwapListener implements ActionListener{
 		this.secondDate=secondDate;
 		this.user=user;
 		this.mainGUI=mainGUI;
+		this.skip=skip;
 	}
 
 	@Override
@@ -299,27 +299,59 @@ class SwapListener implements ActionListener{
 			}catch(Exception ex) {
 				DoW=null;
 			}
-			String from=(String)this.secondEndTimeBox.getSelectedItem();
-			if(from.equals("From")){
+
+			String from=(String)this.secondStartTimeBox.getSelectedItem();
+			String to=(String)this.secondEndTimeBox.getSelectedItem();
+			
+			if(this.skip==true) {
 				from=null;
+				to=null;
 			}
+			
+			if(from!=null && from.equals("To")) {
+				new ExceptionFrame("Fill all the fiels before continuing!");
+				return;
+			}
+			
 			preparedStmt.setString(1, scheduleID);
 			preparedStmt.setDate(2, Date.valueOf(myDate));
 			preparedStmt.setString(3, user.getID());
 			preparedStmt.setDate(4, DoW);
 			preparedStmt.setString(5, from);
-			preparedStmt.setString(6, (String)this.secondStartTimeBox.getSelectedItem());
-			
+			preparedStmt.setString(6, to);
 			
 			preparedStmt.execute();
 			conn.close();
 
-
 		} catch (Exception e1) {
+			e1.printStackTrace();
 			new ExceptionFrame("Not a valid Schedule");
 			return;
 		}
 
 	}
 
+}
+
+class ToActionListener implements ActionListener{
+
+	private JComboBox<String> startTimeBox;
+	private JComboBox<String> endTimeBox;
+	public ToActionListener(JComboBox<String> startTimeBox, JComboBox<String> endTimeBox) {
+		this.startTimeBox=startTimeBox;
+		this.endTimeBox=endTimeBox;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.startTimeBox.removeItem("From");
+		String timeString=(String)this.startTimeBox.getSelectedItem();
+		String[] temp=timeString.split(":");
+		int timeFrom=Integer.parseInt(temp[0]);
+		int timeEnd=timeFrom+1;
+		String[] timeEndArray=new String[1];
+		timeEndArray[0]=Integer.toString(timeEnd)+":00";
+		DefaultComboBoxModel<String> df=new DefaultComboBoxModel<String>(timeEndArray);
+		endTimeBox.setModel(df);
+	}
+	
 }

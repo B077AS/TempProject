@@ -18,7 +18,7 @@ public class Lab extends Rooms{
 
 	@Override
 	public void book(Group group, String date, String startTime, String endTime) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

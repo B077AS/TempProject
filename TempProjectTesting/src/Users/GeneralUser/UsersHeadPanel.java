@@ -13,7 +13,6 @@ public class UsersHeadPanel extends JPanel{
 		setLayout(new BorderLayout());
 		setBackground(new Color(0,0,0,0));
 		add(user.getMainPanel(gui), BorderLayout.NORTH);
-		add(new FindPanel(gui, user), BorderLayout.CENTER);
 		add(new NotificationRightPanel(user, gui), BorderLayout.EAST);
 	}	
 }

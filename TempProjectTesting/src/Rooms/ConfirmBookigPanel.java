@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import MyTimer.DateHolder;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
@@ -19,6 +20,7 @@ public class ConfirmBookigPanel extends JPanel{
 	private JList<Booking> roomsList; 
 	private List<Booking> possibleBookings;
 	private JLabel countSeats;
+	private boolean maxed;
 
 	public ConfirmBookigPanel(JList<Booking> roomsList, Users user, UsersGUI frame) {
 		this.possibleBookings=new ArrayList<Booking>();
@@ -87,7 +89,13 @@ public class ConfirmBookigPanel extends JPanel{
 						preparedStmt.setString(8, list.getSelectedValue().getEndTime());
 						ResultSet result=preparedStmt.executeQuery();
 						result.next();
-						countSeats.setText("Available Seats: "+(list.getSelectedValue().getRoom().getSeats()-Integer.parseInt(result.getString(1))));
+						countSeats.setText("Available Seats: "+(list.getSelectedValue().getRoom().getOccupiedSeats()-Integer.parseInt(result.getString(1))));
+						if(list.getSelectedValue().getRoom().getOccupiedSeats()-Integer.parseInt(result.getString(1))==0){
+							maxed=true;
+						}
+						else {
+							maxed=false;
+						}
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
@@ -103,10 +111,15 @@ public class ConfirmBookigPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(maxed==false) {
 				frame.removePanel();
 				frame.addSecondPanel(user.book(list.getSelectedValues(), frame));
 				frame.revalidate();
 				frame.repaint();
+				}
+				else {
+					new ExceptionFrame("Room is FULL!");
+				}
 			}
 
 		});

@@ -41,7 +41,7 @@ public class SmallRooms extends Rooms{
 
 			preparedStmt.execute();
 			conn.close();
-
+			new BookingSuccessful();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

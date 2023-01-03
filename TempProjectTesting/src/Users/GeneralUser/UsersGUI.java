@@ -12,29 +12,14 @@ public class UsersGUI extends JFrame{
 		this.user=user;
 		Toolkit kit = Toolkit.getDefaultToolkit();
 
-
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 		
 		setLayout(new BorderLayout());
-		
-/*
-		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
-		Image image = Icon.getImage();
-		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
-	
-		Icon = new ImageIcon(newimg);
-		
-		JLabel ll= new JLabel(Icon);
-		add(ll);
-
-		*/
-		
 
 		setSize(screenWidth,screenHeight);
 		setTitle("UserProfile");
-		setBackground(Color.white);
 
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,12 +32,8 @@ public class UsersGUI extends JFrame{
 		repaint();
 	}
 	
-
-	
 	public void addSecondPanel(JPanel panel) {
-		
 		this.secondPanel=panel;
-		secondPanel.setBackground(new Color(0,0,0,0));
 		add(this.secondPanel, BorderLayout.CENTER);
 		revalidate();
 		repaint();
@@ -65,9 +46,14 @@ public class UsersGUI extends JFrame{
 		revalidate();
 		repaint();
 		this.northPanel=panel;
+		addFindPanel(this, user);
 		add(this.northPanel, BorderLayout.NORTH);
 		revalidate();
 		repaint();
+	}
+	
+	public void addFindPanel(UsersGUI gui, Users user) {
+		this.northPanel.add(new FindPanel(gui, user), BorderLayout.CENTER);
 	}
 	
 }

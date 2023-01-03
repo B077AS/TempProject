@@ -75,9 +75,7 @@ public class Students extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				JButton notButton= new JButton (notificationIcon);
-				notButton.setBackground(Color.WHITE);
-				return notButton;
+				return new JButton(notificationIcon);
 			}
 			else {
 				conn.close();
@@ -85,9 +83,7 @@ public class Students extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				JButton notButton= new JButton (notificationIcon);
-				notButton.setBackground(Color.WHITE);
-				return notButton;
+				return new JButton(notificationIcon);
 			}
 
 
@@ -138,10 +134,9 @@ public class Students extends Users{
 					rooms.getRooms().get(booking.getRoom().getCode());
 					Group myGroup=(Group)goupsBox.getSelectedItem();
 					booking.getRoom().book(myGroup, year+"-"+month+"-"+day, booking.getStartTime(), booking.getEndTime());
-					new BookingSuccessful();
 					frame.removePanel();
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					new ExceptionFrame("No Group Selected!");
 				}
 		
 			}
@@ -168,7 +163,6 @@ public class Students extends Users{
 						new ExceptionFrame("A group which you are part of already booked this room!");
 						return;
 					}
-					new BookingSuccessful();
 					frame.removePanel();
 				} catch (Exception e1) {
 					e1.printStackTrace();

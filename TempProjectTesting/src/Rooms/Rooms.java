@@ -15,6 +15,7 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 	protected boolean soloBookable;
 	protected LinkedList<Booking> schedules;
 	protected HashMap<String, Booking> availability;
+	protected int maxOccupiedSeats;
 
 	public Rooms(String code, String type, String seats, String LIM, String outlets, String disabledAccess) {
 		this.seats=Integer.parseInt(seats);
@@ -25,6 +26,7 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 		this.disabledAccess=Boolean.parseBoolean(disabledAccess);
 		this.schedules=new LinkedList<Booking>();
 		this.availability=new HashMap<String, Booking>();
+		this.maxOccupiedSeats=this.seats/2;
 	}
 
 	public int getSeats() {
@@ -58,6 +60,10 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 
 	public boolean isSoloBookable() {
 		return soloBookable;
+	}
+	
+	public int getOccupiedSeats() {
+		return this.maxOccupiedSeats;
 	}
 
 	public HashMap<String, Booking> getAvailability(){

@@ -1,6 +1,10 @@
 package Users.Professors;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,8 +12,12 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Login.*;
+import MyTimer.DateHolder;
 import MyTimer.MyTimer;
+import Rooms.Booking;
+import Rooms.BookingSuccessful;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
@@ -101,8 +109,123 @@ public class Teachers extends Users{
 
 	@Override
 	public JPanel book(Object[] objects, UsersGUI frame) {
-		// TODO Auto-generated method stub
-		return null;
+		int year=DateHolder.getYear();
+		int month=DateHolder.getMonth();
+		int day=DateHolder.getDay();
+
+		JPanel bookPanel=new JPanel();
+
+		bookPanel.setLayout (new GridBagLayout());
+		GridBagConstraints c=new GridBagConstraints();
+
+		Booking booking=(Booking)objects[0];
+
+
+		JLabel bookingSummary=new JLabel("Booking Summary: "+booking.getRoom()+" from: "+booking.getStartTime()+" to "+booking.getEndTime());
+		c.gridx=0;
+		c.gridy=0;
+		bookPanel.add(bookingSummary, c);
+
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate now=LocalDate.now();
+		dtf.format(now);
+
+		Date date=Date.valueOf(year+"-"+month+"-"+day);
+		LocalDate bookingDate=date.toLocalDate();
+
+		JButton claimButton=new JButton("Calim Room");
+		claimButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					boolean firstCheck=false;
+					boolean secondCheck=false;
+					
+					Connection conn=DBConnection.connect();
+					String query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
+					PreparedStatement preparedStmt=conn.prepareStatement(query);;
+					preparedStmt.setDate(1, date);
+					preparedStmt.setString(2, booking.getRoom().getCode());
+					preparedStmt.setString(3, booking.getStartTime());
+					preparedStmt.setString(4, booking.getEndTime());
+					ResultSet result=preparedStmt.executeQuery();
+					
+					firstCheck=result.next();
+					
+					
+					query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
+					preparedStmt=conn.prepareStatement(query);;
+					preparedStmt.setDate(1, date);
+					preparedStmt.setString(2, booking.getRoom().getCode());
+					preparedStmt.setString(3, booking.getStartTime());
+					preparedStmt.setString(4, booking.getEndTime());
+					result=preparedStmt.executeQuery();
+					secondCheck=result.next();
+					
+					String bookingID=ID+"-"+booking.getRoom().getCode()+"-"+booking.getStartTime().split(":")[0]+"-"+booking.getEndTime().split(":")[0]+"-"+date;
+					
+					if(firstCheck==true && bookingDate.compareTo(now.plusDays(3))>0 || secondCheck==true && bookingDate.compareTo(now.plusDays(3))>0) {
+
+						query="delete solo_booking, rooms_booking \r\n"
+								+ "from solo_booking inner join rooms_booking where solo_booking.Date=rooms_booking.Date and\r\n"
+								+ "solo_booking.Room=rooms_booking.Room and solo_booking.Start_Time=rooms_booking.Start_Time and\r\n"
+								+ "solo_booking.End_Time=rooms_booking.End_Time and solo_booking.Date=? and solo_booking.Room=? and solo_booking.Start_Time=? and solo_booking.End_Time=? ";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setDate(1, date);
+						preparedStmt.setString(2, booking.getRoom().getCode());
+						preparedStmt.setString(3, booking.getStartTime());
+						preparedStmt.setString(4, booking.getEndTime());
+						preparedStmt.execute();
+						
+						
+						query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setString(1, bookingID);
+						preparedStmt.setDate(2, date);
+						preparedStmt.setString(3, booking.getRoom().getCode());
+						preparedStmt.setString(4, ID);
+						preparedStmt.setString(5, booking.getStartTime());
+						preparedStmt.setString(6, booking.getEndTime());
+						preparedStmt.setString(7, "true");
+						preparedStmt.execute();
+						
+						conn.close();
+						
+						new BookingSuccessful();
+
+					}
+					else if(firstCheck==false && secondCheck==false) {
+						query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setString(1, bookingID);
+						preparedStmt.setDate(2, date);
+						preparedStmt.setString(3, booking.getRoom().getCode());
+						preparedStmt.setString(4, ID);
+						preparedStmt.setString(5, booking.getStartTime());
+						preparedStmt.setString(6, booking.getEndTime());
+						preparedStmt.setString(7, "true");
+						preparedStmt.execute();
+						conn.close();
+						new BookingSuccessful();
+					}
+					else {
+						throw new Exception();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					new ExceptionFrame("Not Allowed to Overbook!");
+					return;
+				}
+
+			}
+
+		});
+		c.gridx=1;
+		c.gridy=0;
+		bookPanel.add(claimButton, c);
+
+		return bookPanel;
 	}
 
 	@Override
@@ -111,18 +234,18 @@ public class Teachers extends Users{
 	}
 
 	public void deleteOldNotifications() {
-		
+
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate now=LocalDate.now();
 		dtf.format(now);
-		
+
 		try {
 
 			Connection conn=DBConnection.connect();
 			String query="select * from prof_notifications";
 			Statement statement = conn.createStatement();
 			ResultSet result=statement.executeQuery(query);
-			
+
 			while(result.next()) {
 				if(result.getDate(4)!=null && now.compareTo((result.getDate(4)).toLocalDate())>0) {
 					query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
@@ -135,22 +258,22 @@ public class Teachers extends Users{
 					preparedStmt.setString(6, result.getString(6));
 					preparedStmt.executeUpdate();
 
-					}
-					else if (result.getDate(4)==null && now.compareTo((result.getDate(2)).toLocalDate())>0){
-						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
-						PreparedStatement preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setString(1, result.getString(1));
-						preparedStmt.setDate(2, result.getDate(2));
-						preparedStmt.setString(3, result.getString(3));
-						preparedStmt.executeUpdate();
-						conn.close();
-					}
 				}
-			
+				else if (result.getDate(4)==null && now.compareTo((result.getDate(2)).toLocalDate())>0){
+					query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, result.getString(1));
+					preparedStmt.setDate(2, result.getDate(2));
+					preparedStmt.setString(3, result.getString(3));
+					preparedStmt.executeUpdate();
+					conn.close();
+				}
+			}
+
 			query="select * from swap_notifications";
 			statement = conn.createStatement();
 			result=statement.executeQuery(query);
-			
+
 
 			while(result.next()) {
 				if(now.compareTo((result.getDate(4)).toLocalDate())>0) {
@@ -164,13 +287,18 @@ public class Teachers extends Users{
 					preparedStmt.setString(6, result.getString(6));
 					preparedStmt.setString(7, result.getString(7));
 					preparedStmt.executeUpdate();
-					}
 				}
-			
+			}
+
 			conn.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	public void claimRoom() {
+
 	}
 }

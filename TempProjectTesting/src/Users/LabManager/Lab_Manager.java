@@ -6,6 +6,8 @@ import Login.*;
 import Notifications.Notification;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
+import Users.Professors.TeachersGUI;
+import Users.Professors.TeachersMainPanel;
 
 public class Lab_Manager extends Users{
 
@@ -18,20 +20,20 @@ public class Lab_Manager extends Users{
 
 	@Override
 	public void GUI(LoginGUI frame) {
-		// TODO Auto-generated method stub
+		LabManagerGUI gui=new LabManagerGUI(this.name, this.lastName, this.email, this);
 		frame.dispose();
 	}
 
 	@Override
 	public JButton checkNotifications() {
 		// TODO Auto-generated method stub
-		return null;
+		return new JButton("notifiche");
 	}
 
 	@Override
 	public JPanel getMainPanel(UsersGUI gui) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new LabManagerMainPanel(name, lastName, email, gui, this);
 	}
 
 	@Override

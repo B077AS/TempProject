@@ -296,9 +296,4 @@ public class Teachers extends Users{
 			e.printStackTrace();
 		}
 	}
-
-
-	public void claimRoom() {
-
-	}
 }

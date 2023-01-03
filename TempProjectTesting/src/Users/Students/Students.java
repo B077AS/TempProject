@@ -41,7 +41,7 @@ public class Students extends Users{
 			String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 
-			preparedStmt.setString(1, groupName);
+			preparedStmt.setString(1, groupName+"-"+this.ID);
 			preparedStmt.setString(2, this.ID);
 			preparedStmt.setString(3, this.ID);
 			

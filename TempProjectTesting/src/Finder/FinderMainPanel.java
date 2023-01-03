@@ -25,6 +25,7 @@ public class FinderMainPanel extends JPanel{
 	private LinkedList<FilterCheckBox> allFilters;
 
 	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp, UsersGUI frame, Users user) {
+		SwingUtilities.updateComponentTreeUI(frame);
 		this.allFilters=new LinkedList<FilterCheckBox>();
 		this.freeRooms=freeRooms;
 		this.freeRoomsBackUp=freeRoomsBackUp;

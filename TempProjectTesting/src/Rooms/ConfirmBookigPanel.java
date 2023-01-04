@@ -60,7 +60,7 @@ public class ConfirmBookigPanel extends JPanel{
 		fullTable.setBorder(BorderFactory.createEmptyBorder());
 		add(fullTable, BorderLayout.NORTH);
 
-		this.countSeats=new JLabel("Select to see Available Seats");
+		this.countSeats=new JLabel("Select to see Bookable Seats");
 		c.gridx=1;
 		c.gridy=2;
 		lowerPanel.add(this.countSeats, c);
@@ -89,7 +89,7 @@ public class ConfirmBookigPanel extends JPanel{
 						preparedStmt.setString(8, list.getSelectedValue().getEndTime());
 						ResultSet result=preparedStmt.executeQuery();
 						result.next();
-						countSeats.setText("Available Seats: "+(list.getSelectedValue().getRoom().getOccupiedSeats()-Integer.parseInt(result.getString(1))));
+						countSeats.setText("Bookable Seats: "+(list.getSelectedValue().getRoom().getOccupiedSeats()-Integer.parseInt(result.getString(1))));
 						if(list.getSelectedValue().getRoom().getOccupiedSeats()-Integer.parseInt(result.getString(1))==0){
 							maxed=true;
 						}

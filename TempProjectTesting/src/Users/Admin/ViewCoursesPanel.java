@@ -13,12 +13,15 @@ import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UsersGUI;
 
 public class ViewCoursesPanel extends JPanel{
+	
+	private ButtonsPanel buttons;
+	private JTable table;
 
 	public ViewCoursesPanel(UsersGUI frame) {
 		setLayout (new BorderLayout());
 
 
-		JTable table=loadCourses();
+		table=loadCourses();
 		table=resizeColumnWidth(table);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		TableRowSorter<TableModel> rowSorter= new TableRowSorter<>(table.getModel());
@@ -66,8 +69,19 @@ public class ViewCoursesPanel extends JPanel{
 
 		});
 		
-		add(new ButtonsPanel(frame, table), BorderLayout.CENTER);
+		buttons=new ButtonsPanel(frame, table);
+		add(buttons, BorderLayout.CENTER);
+		
 
+
+	}
+	
+	public ButtonsPanel getButtonsPanel() {
+		return this.buttons;
+	}
+	
+	public JTable getTable() {
+		return this.table;
 	}
 
 	public JTable loadCourses(){

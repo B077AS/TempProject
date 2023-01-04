@@ -179,6 +179,45 @@ public class Lab_Manager extends Users{
 		requestsPanel.add(acceptButton, c);
 		
 		JButton rejectButton=new JButton("Reject");
+		rejectButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+
+					Connection conn=DBConnection.connect();
+					String query="select Booking_ID from lab_booking where Group_ID=? and Date=? and Start_Time=? and End_Time=? and Room=? and Reason=? and Locked='false'";
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, notificationsList.getSelectedValue().getGroupID());
+					preparedStmt.setDate(2, notificationsList.getSelectedValue().getDate());
+					preparedStmt.setString(3, notificationsList.getSelectedValue().getStartTime());
+					preparedStmt.setString(4, notificationsList.getSelectedValue().getEndTime());
+					preparedStmt.setString(5, notificationsList.getSelectedValue().getRoom());
+					preparedStmt.setString(6, notificationsList.getSelectedValue().getReason());
+					ResultSet result=preparedStmt.executeQuery();							
+					result.next();
+					String bookingID=result.getString(1);
+					
+					query="delete from lab_booking where Booking_ID=?";
+					preparedStmt = conn.prepareStatement(query);
+					preparedStmt.setString(1, bookingID);
+					preparedStmt.executeUpdate();
+					conn.close();
+					new ExceptionFrame("Booking Request REJECTED!");
+					frame.removePanel();
+					user.getNotifications().clear();
+			    	frame.addSecondPanel(user.notificationPanel(user, frame));
+			    	frame.revalidate();
+			    	frame.repaint();
+					
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+				
+			}
+			
+		});
 		c.gridx=3;
 		c.gridy=0;
 		requestsPanel.add(rejectButton, c);

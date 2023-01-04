@@ -53,16 +53,26 @@ public class FinderDB {
 					end=Integer.toString(startNumber+i+1)+":00";
 					Connection conn=DBConnection.connect();
 
-					String query="select * from schedule where Start_Time=? and End_Time=? and Day_Of_Week=?";
+					String query="(select Room, Start_Time, End_Time from schedule where Start_Time=? and End_Time=? and Day_Of_Week=?)\r\n"
+							+ "union\r\n"
+							+ "(select Room, Start_Time, End_Time from rooms_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(rooms_booking.Date))=?)\r\n"
+							+ "union\r\n"
+							+ "(select Room, Start_Time, End_Time from lab_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(lab_booking.Date))=?)";
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 
 					preparedStmt.setString(1, start);
 					preparedStmt.setString(2, end);
 					preparedStmt.setString(3, dayOfWeek.toString());
+					preparedStmt.setString(4, start);
+					preparedStmt.setString(5, end);
+					preparedStmt.setString(6, dayOfWeek.toString());
+					preparedStmt.setString(7, start);
+					preparedStmt.setString(8, end);
+					preparedStmt.setString(9, dayOfWeek.toString());
 					ResultSet result=preparedStmt.executeQuery();
 					while(result.next()) {
-						if(this.allRooms.containsKey(result.getString(5))==true) {
-							setAvailability(this.allRooms.get(result.getString(5)), result.getString(2), result.getString(3));
+						if(this.allRooms.containsKey(result.getString(1))==true) {
+							setAvailability(this.allRooms.get(result.getString(1)), result.getString(2), result.getString(3));
 							//break;
 						}
 

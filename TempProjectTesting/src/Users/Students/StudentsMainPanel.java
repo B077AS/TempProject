@@ -21,32 +21,42 @@ public class StudentsMainPanel extends JPanel{
 			
 			setBackground(new Color(0,0,0,0));
 			
-			c.anchor = GridBagConstraints.EAST;
-			JLabel studentNameLabel=new JLabel("Student Name: ");
-			studentNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-			studentNameLabel.setForeground(new Color(145,0,0));
-			c.insets= new Insets(10,0,0,0);
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			JLabel Label=new JLabel("PROFILO");
+			Label.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
+			Label.setForeground(new Color(145,0,0));
+			c.insets= new Insets(0,10,0,0);
 			c.gridx=0;
 			c.gridy=0;
+			add(Label, c);
+			
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			JLabel studentNameLabel=new JLabel("Name: ");
+			studentNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			studentNameLabel.setForeground(new Color(145,0,0));
+			c.insets= new Insets(10,10,0,0);
+			c.gridx=0;
+			c.gridy=1;
 			add(studentNameLabel, c);
 			//
-			c.anchor = GridBagConstraints.WEST;
+			c.anchor = GridBagConstraints.FIRST_LINE_END;
 			JLabel studentName=new JLabel(name);
 			studentName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 			studentName.setForeground(Color.black);
 			c.gridx=1;
-			c.gridy=0;
+			c.gridy=1;
 			add(studentName, c);
 			//
-			c.anchor = GridBagConstraints.EAST;
-			JLabel studentLastNameLabel=new JLabel("Student Last Name: ");
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			JLabel studentLastNameLabel=new JLabel("Last Name: ");
 			studentLastNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 			studentLastNameLabel.setForeground(new Color(145,0,0));
+			c.insets= new Insets(10,10,0,0);
 			c.gridx=0;
 			c.gridy=2;
 			add(studentLastNameLabel, c);
 			//
-			c.anchor = GridBagConstraints.WEST;
+			c.anchor = GridBagConstraints.FIRST_LINE_END;
 			JLabel studentLastName=new JLabel(lastName);
 			studentLastName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 			studentLastName.setForeground(Color.black);
@@ -54,18 +64,18 @@ public class StudentsMainPanel extends JPanel{
 			c.gridy=2;
 			add(studentLastName, c);
 			//
-			c.anchor = GridBagConstraints.EAST;
+		/*	c.anchor = GridBagConstraints.EAST;
 			JLabel friendsLabel=new JLabel("Study Friends: ");
 			friendsLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 			friendsLabel.setForeground(new Color(145,0,0));
 			c.gridx=0;
 			c.gridy=3;
-			add(friendsLabel, c);
+			add(friendsLabel, c);*/
 			//
-			c.anchor = GridBagConstraints.WEST;
+			c.anchor = GridBagConstraints.PAGE_START;
 			ImageIcon friendsIcon=new ImageIcon("Files/users-icon.png");
 			Image image = friendsIcon.getImage();
-			Image newimg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);  
+			Image newimg = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
 			friendsIcon = new ImageIcon(newimg);
 			JButton groupsButton=new JButton(friendsIcon);
 			groupsButton.setBackground(Color.WHITE);
@@ -80,13 +90,15 @@ public class StudentsMainPanel extends JPanel{
 					mainGUI.repaint();
 				}
 			});
-			c.gridx=1;
-			c.gridy=3;
+			c.insets= new Insets(30,0,0,10);
+			c.gridx=0;
+			c.gridy=4;
 			add(groupsButton, c);
+			//
 			c.anchor = GridBagConstraints.EAST;
 			ImageIcon calendarIcon=new ImageIcon("Files/calendar-icon.png");
 			Image calendar = calendarIcon.getImage();
-			Image temp = calendar.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
+			Image temp = calendar.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
 			calendarIcon = new ImageIcon(temp);
 			JButton scheduleButton=new JButton(calendarIcon);
 			scheduleButton.setBackground(Color.WHITE);
@@ -109,10 +121,10 @@ public class StudentsMainPanel extends JPanel{
 			c.gridx=1;
 			c.gridy=4;
 			add(scheduleButton, c);
-			JLabel scheduleLabel=new JLabel("Find Schedule: ");
+			/*JLabel scheduleLabel=new JLabel("Find Schedule: ");
 			c.gridx=0;
 			c.gridy=4;
-			add(scheduleLabel, c);
+			add(scheduleLabel, c);*/
 		}
 }
 

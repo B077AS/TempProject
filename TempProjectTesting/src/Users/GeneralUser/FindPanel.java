@@ -24,6 +24,9 @@ public class FindPanel extends JPanel{
 	private JComboBox<String> daysSelect;
 	
 	public FindPanel(UsersGUI userMainGUI, Users user) {
+		
+	
+		
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
@@ -33,19 +36,22 @@ public class FindPanel extends JPanel{
 		this.leapYear=leapYearCheck(t.getYear());
 		this.yearsArray=setYearsArray(t.getYear());
 		
-		JLabel findRoomLabel=new JLabel("Find Room: ");
-		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,20));
+		c.anchor = GridBagConstraints.PAGE_START;
+		
+		JLabel findRoomLabel=new JLabel("CERCA UN'AULA LIBERA : ");
+		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		findRoomLabel.setForeground(new Color(145,0,0));
+		c.insets= new Insets (5,0,0,0);
 		c.gridx=0;
 		c.gridy=0;
 		add(findRoomLabel, c);
 		//
-		c.anchor = GridBagConstraints.WEST;
+		c.anchor = GridBagConstraints.CENTER;
 		JComboBox<String> yearsSelect=new JComboBox<String>(this.yearsArray);
 		yearsSelect.setFocusable(false);
 		//
 		daysSelect=new JComboBox<String>();
-		daysSelect.addItem("Day");
+		daysSelect.addItem("Giorno");
 		daysSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		daysSelect.setForeground(new Color(145,0,0));
 		daysSelect.setFocusable(false);
@@ -57,12 +63,13 @@ public class FindPanel extends JPanel{
 		add(daysSelect, c);
 		//
 		monthsSelect=new JComboBox<String>();
-		monthsSelect.addItem("Month");
+		monthsSelect.addItem("Mese");
 		monthsSelect.setFocusable(false);
 		monthsSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		monthsSelect.setForeground(new Color(145,0,0));
 		monthsSelect.setFocusable(false);
 		monthsSelect.setBackground(Color.WHITE);
+		
 		c.gridx=2;
 		c.gridy=0;
 		//c.gridy=2;
@@ -107,7 +114,7 @@ public class FindPanel extends JPanel{
 
 
 		
-		JButton searchButton=new JButton("Search");
+		JButton searchButton=new JButton("Cerca");
 		searchButton.setFocusable(false);
 		searchButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		searchButton.setForeground(Color.white);
@@ -134,7 +141,7 @@ public class FindPanel extends JPanel{
 	public String[] setYearsArray(int y) {
 		int nextYear=y+1;
 		int currentYear=y;
-		String[] years= {"Year", Integer.toString(y), Integer.toString(nextYear)};
+		String[] years= {"Anno", Integer.toString(y), Integer.toString(nextYear)};
 		return years;
 	}
 

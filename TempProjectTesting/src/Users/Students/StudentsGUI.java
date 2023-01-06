@@ -14,6 +14,7 @@ public class StudentsGUI extends UsersGUI{
 		northPanel=head;
 		addFindPanel(this, user);
 		this.add(northPanel, BorderLayout.NORTH);
+		setBackground(Color.WHITE);
 	}
 	
 }

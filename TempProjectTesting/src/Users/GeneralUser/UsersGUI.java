@@ -20,6 +20,7 @@ public class UsersGUI extends JFrame{
 
 		setSize(screenWidth,screenHeight);
 		setTitle("UserProfile");
+		setBackground(Color.WHITE);
 
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

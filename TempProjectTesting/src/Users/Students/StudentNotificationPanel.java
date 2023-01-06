@@ -15,7 +15,8 @@ import Notifications.AcceptRejectFrame;
 public class StudentNotificationPanel extends JPanel{
 
 	public StudentNotificationPanel(Users user, UsersGUI frame) {
-
+		
+		setBackground(new Color(0,0,0,0));
 		try {
 
 			Connection conn=DBConnection.connect();

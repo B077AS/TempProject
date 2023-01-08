@@ -165,22 +165,13 @@ class FindSchedulePanel extends JPanel{
 
 					preparedStmt.setString(1, code);
 					ResultSet result=preparedStmt.executeQuery();
+					FindSchedule f= new FindSchedule();
 
 					while(result.next()) {
 						String subject;
-						if(result.getString(4)==null) {
-							subject=" ";
-						}
-						else {
-							subject=result.getString(4);
-						}
+						subject= f.checkString(result, 4);
 						String room;
-						if(result.getString(5)==null) {
-							room=" ";
-						}
-						else {
-							room=result.getString(5);
-						}
+						room= f.checkString(result, 5);
 						switch(result.getString(6)) {
 
 						case "MONDAY":
@@ -212,6 +203,8 @@ class FindSchedulePanel extends JPanel{
 								schedule[8][0]=result.getString(2)+" - "+result.getString(3);
 								schedule[8][1]=subject+" - "+room;
 							}
+							
+							//f.table(result, subject, room, 1);
 							break;
 
 						case "TUESDAY":

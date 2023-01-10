@@ -19,7 +19,7 @@ public class StudentsMainPanel extends JPanel{
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
 			
-			setBackground(new Color(0,0,0,0));
+			setBackground(Color.white);
 			
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			JLabel Label=new JLabel("PROFILE");

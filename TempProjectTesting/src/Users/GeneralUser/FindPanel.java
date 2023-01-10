@@ -30,7 +30,7 @@ public class FindPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		setBackground(new Color(0,0,0,0));
+		setBackground(Color.white);
 		
 		MyTimer t=new MyTimer();
 		this.leapYear=leapYearCheck(t.getYear());

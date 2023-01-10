@@ -18,6 +18,9 @@ public class AcceptRejectFrame extends JFrame{
 		JPanel p=new JPanel();
 		JLabel l=new JLabel(message);
 		JButton b=new JButton("OK");
+		b.setOpaque(true);
+		b.setBorderPainted(false);
+	
 		b.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

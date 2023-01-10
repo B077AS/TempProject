@@ -95,6 +95,9 @@ public class FinderMainPanel extends JPanel{
 		filterButton.setFont(new Font("Comic Sans MS", Font.BOLD,10));
 		filterButton.setForeground(Color.white);
 		filterButton.setBackground(new Color(145,0,0));
+		filterButton.setOpaque(true);
+		filterButton.setBorderPainted(false);
+	
 		c.gridx=3;
 		c.gridy=1;
 		c.insets = new Insets(0,20,15,0);
@@ -107,6 +110,9 @@ public class FinderMainPanel extends JPanel{
 		bookButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		bookButton.setForeground(Color.white);
 		bookButton.setBackground(new Color(145,0,0));
+		bookButton.setOpaque(true);
+		bookButton.setBorderPainted(false);
+	
 		c.gridx=1;
 		c.gridy=2;
 		c.insets = new Insets(20,0,0,0);

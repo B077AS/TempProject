@@ -214,6 +214,9 @@ class MainPanel extends JPanel{
 		registerButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		registerButton.setForeground(Color.white);
 		registerButton.setBackground(new Color(145,0,0));
+		registerButton.setOpaque(true);
+		registerButton.setBorderPainted(false);
+	
 		c.gridx=1;
 		c.gridy=8;
 		RegisterButtonListener rbl=new RegisterButtonListener(nameField, lastNameField, idNumberField,emailField, emailSelect, passwordField, confirmPasswordField, userTypeSelect, frame);
@@ -226,7 +229,9 @@ class MainPanel extends JPanel{
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		backButton.setForeground(Color.white);
 		backButton.setBackground(new Color(145,0,0));
-		backButton.addActionListener(new ActionListener() {
+		backButton.addActionListener(new ActionListener()
+		backButton.setOpaque(true);
+		backButton.setBorderPainted(false);{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginGUI l=new LoginGUI();

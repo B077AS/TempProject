@@ -181,6 +181,11 @@ class MainPanel extends JPanel{
 		loginButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setBackground(new Color(145,0,0));
+		
+		loginButton.setOpaque(true);
+		loginButton.setBorderPainted(false);
+		//servono per il mac
+		
 		c.weightx= 0.5;
 		c.weighty=0;
 		c.insets= new Insets (0,0,50,0);
@@ -207,6 +212,10 @@ class MainPanel extends JPanel{
 		registerButton.setFont(new Font("Comic Sans MS", Font.PLAIN,10));
 		registerButton.setForeground(Color.WHITE);
 		registerButton.setBackground(new Color(145,0,0));
+		registerButton.setOpaque(true);
+		registerButton.setBorderPainted(false);
+		//servono per il mac
+		
 		//c.weightx= 0.5;
 	//	c.weighty=0;
 		c.insets= new Insets (200,200,0,0);

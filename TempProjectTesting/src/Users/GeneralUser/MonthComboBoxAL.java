@@ -21,11 +21,11 @@ public class MonthComboBoxAL implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.monthsSelect.removeItem("Mese");
+		this.monthsSelect.removeItem("Month");
 		String tempMonth=(String)this.monthsBox.getSelectedItem();
 		checkMonth(this.type, tempMonth);
 		String[] days=CreateDaysList(this.type);
-		this.daysSelect.removeItem("Giorno");
+		this.daysSelect.removeItem("Day");
 		DefaultComboBoxModel<String> m=new DefaultComboBoxModel<String>(days);
 		this.daysSelect.setModel(m);
 	}

@@ -22,7 +22,7 @@ public class StudentsMainPanel extends JPanel{
 			setBackground(new Color(0,0,0,0));
 			
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
-			JLabel Label=new JLabel("PROFILO");
+			JLabel Label=new JLabel("PROFILE");
 			Label.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
 			Label.setForeground(new Color(145,0,0));
 			c.insets= new Insets(0,10,0,0);

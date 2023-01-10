@@ -115,7 +115,7 @@ class MainPanel extends JPanel{
 		
 
 		c.anchor = GridBagConstraints.PAGE_START;
-		JLabel intro= new JLabel("BENVENUTI SU FindMe");
+		JLabel intro= new JLabel("WELCOME IN FindMe");
 		intro.setFont(new Font("Comic Sans MS", Font.BOLD,30));
 		intro.setForeground(new Color(145,0,0));
 		c.weightx= 0.5;
@@ -126,7 +126,7 @@ class MainPanel extends JPanel{
 		add(intro,c);
 		
 		c.anchor = GridBagConstraints.PAGE_START;
-		JLabel intro_acc= new JLabel("Accedi al tuo account");
+		JLabel intro_acc= new JLabel("Log in your account");
 		intro_acc.setFont(new Font("Comic Sans MS", Font.BOLD,25));
 		intro_acc.setForeground(new Color(145,0,0));
 	//	c.weightx= 0.5;
@@ -177,7 +177,7 @@ class MainPanel extends JPanel{
 		add(passwordField,c);
 		
 		c.anchor = GridBagConstraints.CENTER;
-		JButton loginButton= new JButton("Accedi");
+		JButton loginButton= new JButton("Login");
 		loginButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		loginButton.setForeground(Color.WHITE);
 		loginButton.setBackground(new Color(145,0,0));
@@ -190,7 +190,7 @@ class MainPanel extends JPanel{
 		add(loginButton,c);
 		
 		c.anchor = GridBagConstraints.CENTER;
-		JLabel intro_no= new JLabel("Non hai ancora un account: ");
+		JLabel intro_no= new JLabel("I don't have an account: ");
 		intro_no.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		intro_no.setForeground(new Color(145,0,0));
 	//	c.weightx= 0.1;
@@ -203,7 +203,7 @@ class MainPanel extends JPanel{
 		
 		
 		c.anchor = GridBagConstraints.CENTER;
-		JButton registerButton= new JButton("Registarti");
+		JButton registerButton= new JButton("Register");
 		registerButton.setFont(new Font("Comic Sans MS", Font.PLAIN,10));
 		registerButton.setForeground(Color.WHITE);
 		registerButton.setBackground(new Color(145,0,0));

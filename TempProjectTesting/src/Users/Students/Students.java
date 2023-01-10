@@ -75,7 +75,9 @@ public class Students extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton b= new JButton(notificationIcon);
+				b.setBackground(Color.white);
+				return b;
 			}
 			else {
 				conn.close();
@@ -83,7 +85,9 @@ public class Students extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton b= new JButton(notificationIcon);
+				b.setBackground(Color.white);
+				return b;
 			}
 
 

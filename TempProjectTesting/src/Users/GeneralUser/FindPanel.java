@@ -38,8 +38,8 @@ public class FindPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.PAGE_START;
 		
-		JLabel findRoomLabel=new JLabel("CERCA UN'AULA LIBERA : ");
-		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		JLabel findRoomLabel=new JLabel("Find a free room: ");
+		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,17));
 		findRoomLabel.setForeground(new Color(145,0,0));
 		c.insets= new Insets (5,0,0,0);
 		c.gridx=0;
@@ -51,7 +51,7 @@ public class FindPanel extends JPanel{
 		yearsSelect.setFocusable(false);
 		//
 		daysSelect=new JComboBox<String>();
-		daysSelect.addItem("Giorno");
+		daysSelect.addItem("Day");
 		daysSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		daysSelect.setForeground(new Color(145,0,0));
 		daysSelect.setFocusable(false);
@@ -63,7 +63,7 @@ public class FindPanel extends JPanel{
 		add(daysSelect, c);
 		//
 		monthsSelect=new JComboBox<String>();
-		monthsSelect.addItem("Mese");
+		monthsSelect.addItem("Month");
 		monthsSelect.setFocusable(false);
 		monthsSelect.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		monthsSelect.setForeground(new Color(145,0,0));
@@ -114,7 +114,7 @@ public class FindPanel extends JPanel{
 
 
 		
-		JButton searchButton=new JButton("Cerca");
+		JButton searchButton=new JButton("Search");
 		searchButton.setFocusable(false);
 		searchButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		searchButton.setForeground(Color.white);
@@ -141,7 +141,7 @@ public class FindPanel extends JPanel{
 	public String[] setYearsArray(int y) {
 		int nextYear=y+1;
 		int currentYear=y;
-		String[] years= {"Anno", Integer.toString(y), Integer.toString(nextYear)};
+		String[] years= {"Year", Integer.toString(y), Integer.toString(nextYear)};
 		return years;
 	}
 

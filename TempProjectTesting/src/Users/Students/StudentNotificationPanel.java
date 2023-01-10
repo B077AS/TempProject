@@ -1,6 +1,11 @@
 package Users.Students;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
@@ -15,6 +20,9 @@ import Notifications.AcceptRejectFrame;
 public class StudentNotificationPanel extends JPanel{
 
 	public StudentNotificationPanel(Users user, UsersGUI frame) {
+		
+		setLayout (new GridBagLayout());
+		GridBagConstraints c=new GridBagConstraints();
 		
 		setBackground(new Color(0,0,0,0));
 		try {
@@ -33,11 +41,33 @@ public class StudentNotificationPanel extends JPanel{
 
 		} catch (Exception e) {
 		}
+		
+		c.anchor = GridBagConstraints.CENTER;
+		JLabel notLabel= new JLabel("Check your notifications:");
+		notLabel.setFont(new Font("Comic Sans MS", Font.BOLD,25));
+		notLabel.setForeground(new Color(145,0,0));
+		c.gridx=0;
+		c.gridy=0;
+		c.insets= new Insets (0,0,100,0);
+		add(notLabel,c);
+		//
+		c.anchor = GridBagConstraints.CENTER;
 		JList<JoinGroupNotification> list=new JList(user.getNotifications().toArray());
 		JScrollPane listScroller = new JScrollPane(list);
-		add(listScroller);
-		
+		listScroller.setPreferredSize(new Dimension(250, 200));
+		c.gridx=0;
+		c.gridy=1;
+		c.insets= new Insets (0,0,100,0);
+		add(listScroller,c);
+		//
+		c.anchor = GridBagConstraints.FIRST_LINE_END;
 		JButton accept=new JButton("Accept");
+		accept.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		accept.setForeground(Color.WHITE);
+		accept.setBackground(new Color(145,0,0));
+		c.gridx=1;
+		c.gridy=1;
+		c.insets= new Insets (0,20,0,0);
 		accept.addActionListener(new ActionListener() {
 
 			@Override
@@ -64,7 +94,17 @@ public class StudentNotificationPanel extends JPanel{
 			}
 			
 		});
+		add(accept,c);
+		
+		c.anchor = GridBagConstraints.FIRST_LINE_END;
 		JButton reject=new JButton("Reject");
+		reject.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		reject.setForeground(Color.WHITE);
+		reject.setBackground(new Color(145,0,0));
+		c.gridx=1;
+		c.gridy=1;
+		c.insets= new Insets (50,20,0,0);
+		
 		reject.addActionListener(new ActionListener() {
 
 			@Override
@@ -94,8 +134,8 @@ public class StudentNotificationPanel extends JPanel{
 		
 		//setBackground(new Color(0,0,0,0));
 		
-		add(accept);
-		add(reject);
+		
+		add(reject,c);
 	}
 
 }

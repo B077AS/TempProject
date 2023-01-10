@@ -229,9 +229,10 @@ class MainPanel extends JPanel{
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		backButton.setForeground(Color.white);
 		backButton.setBackground(new Color(145,0,0));
-		backButton.addActionListener(new ActionListener()
 		backButton.setOpaque(true);
-		backButton.setBorderPainted(false);{
+		backButton.setBorderPainted(false);
+		backButton.addActionListener(new ActionListener()
+		{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				LoginGUI l=new LoginGUI();

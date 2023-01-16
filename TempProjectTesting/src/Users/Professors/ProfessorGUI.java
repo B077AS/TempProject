@@ -7,11 +7,11 @@ import Users.GeneralUser.NotificationRightPanel;
 import Users.GeneralUser.UsersGUI;
 import Users.GeneralUser.UsersHeadPanel;
 
-public class TeachersGUI extends UsersGUI{
+public class ProfessorGUI extends UsersGUI{
 	
 	private boolean skip;
 
-	public TeachersGUI(String name, String lastName, String email, Teachers user) {
+	public ProfessorGUI(String name, String lastName, String email, Professor user) {
 		super(name, lastName, email, user);
 		
 		UsersHeadPanel head=new UsersHeadPanel(name, lastName, email, user, this);

@@ -22,11 +22,11 @@ import Rooms.Rooms;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
-public class TeachersNotificationPanel extends JPanel{
+public class ProfessorNotificationPanel extends JPanel{
 
 	private JLabel notificationDetails;
 
-	public TeachersNotificationPanel(Users user, UsersGUI frame) {
+	public ProfessorNotificationPanel(Users user, UsersGUI frame) {
 		user.getNotifications().clear();
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
@@ -156,7 +156,7 @@ public class TeachersNotificationPanel extends JPanel{
 
 				RoomChooser choose=new RoomChooser(notification, user, frame);
 				frame.removePanel();
-				frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+				frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));
 				frame.revalidate();
 				frame.repaint();
 			}
@@ -174,7 +174,7 @@ public class TeachersNotificationPanel extends JPanel{
 				ProfessorNotification notification=list.getSelectedValue();
 				SendDraftFrame draftFrame=new SendDraftFrame(notification, user, frame);
 				frame.removePanel();
-				frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+				frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));
 				frame.revalidate();
 				frame.repaint();
 			}
@@ -295,7 +295,7 @@ public class TeachersNotificationPanel extends JPanel{
 					
 					conn.close();
 					frame.removePanel();
-					frame.addSecondPanel(new TeachersNotificationPanel(user, frame));
+					frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));
 					frame.revalidate();
 					frame.repaint();
 				}

@@ -27,8 +27,8 @@ import Notifications.LabNotification;
 import Notifications.Notification;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
-import Users.Professors.TeachersGUI;
-import Users.Professors.TeachersMainPanel;
+import Users.Professors.ProfessorGUI;
+import Users.Professors.ProfessorMainPanel;
 import Users.Students.Students;
 
 public class Lab_Manager extends Users{

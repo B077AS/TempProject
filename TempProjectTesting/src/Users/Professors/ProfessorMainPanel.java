@@ -16,9 +16,9 @@ import Users.GeneralUser.FindPanel;
 import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UsersGUI;
 
-public class TeachersMainPanel extends JPanel{
+public class ProfessorMainPanel extends JPanel{
 
-	public TeachersMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Teachers user) {
+	public ProfessorMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Professor user) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 

@@ -7,10 +7,10 @@ import Notifications.Notification;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
-public class Administrator extends Users {
+public class Admin extends Users {
 
 
-	public Administrator(String name, String lastName, String ID, String email, String password) {
+	public Admin(String name, String lastName, String ID, String email, String password) {
 		super(name, lastName, ID, email, password);
 		// TODO Auto-generated constructor stub
 	}

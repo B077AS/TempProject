@@ -21,16 +21,16 @@ import Rooms.BookingSuccessful;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
-public class Teachers extends Users{
+public class Professor extends Users{
 
-	public Teachers(String name, String lastName, String ID, String email, String password) {
+	public Professor(String name, String lastName, String ID, String email, String password) {
 		super(name, lastName, ID, email, password);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void GUI(LoginGUI frame) {
-		TeachersGUI gui=new TeachersGUI(this.name, this.lastName, this.email, this);
+		ProfessorGUI gui=new ProfessorGUI(this.name, this.lastName, this.email, this);
 		frame.dispose();
 
 	}
@@ -104,7 +104,7 @@ public class Teachers extends Users{
 	@Override
 	public JPanel getMainPanel(UsersGUI gui) {
 		// TODO Auto-generated method stub
-		return new TeachersMainPanel(name, lastName, email, gui, this);
+		return new ProfessorMainPanel(name, lastName, email, gui, this);
 	}
 
 	@Override
@@ -230,7 +230,7 @@ public class Teachers extends Users{
 
 	@Override
 	public JPanel notificationPanel(Users user, UsersGUI frame) {
-		return new TeachersNotificationPanel(user, frame);
+		return new ProfessorNotificationPanel(user, frame);
 	}
 
 	public void deleteOldNotifications() {

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import Users.GeneralUser.UsersGUI;
 import Users.Professors.SwapPanel;
-import Users.Professors.Teachers;
+import Users.Professors.Professor;
 
 public class LabManagerMainPanel extends JPanel{
 

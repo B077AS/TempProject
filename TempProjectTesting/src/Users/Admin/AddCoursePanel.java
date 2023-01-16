@@ -51,8 +51,20 @@ public class AddCoursePanel extends JPanel{
 		add(courseCodeFiled, c);
 		c.anchor = GridBagConstraints.CENTER;
 		JButton addButton=new JButton("Add");
-		AddCourseLinstener addListener=new AddCourseLinstener(courseFullNameField, yearsSelect, courseCodeFiled);
-		addButton.addActionListener(addListener);
+		addButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String courseFullName=courseFullNameField.getText();
+				String years=(String)yearsSelect.getSelectedItem();
+				String courseCode=courseCodeFiled.getText();
+				
+				Admin user=(Admin)frame.getUser();
+				user.addCourse(courseCode, courseFullName, years);
+				
+			}
+			
+		});
 		c.gridx=1;
 		c.gridy=3;
 		add(addButton, c);
@@ -74,57 +86,4 @@ public class AddCoursePanel extends JPanel{
 		
 	}
 
-}
-
-class AddCourseLinstener implements ActionListener{
-	
-	private JTextField courseFullNameField;
-	private JComboBox<String> yearsSelect;
-	private JTextField courseCodeFiled;
-	
-	
-	public AddCourseLinstener(JTextField courseFullNameField, JComboBox<String> yearsSelect, JTextField courseCodeFiled) {
-		
-		this.courseFullNameField=courseFullNameField;
-		this.yearsSelect=yearsSelect;
-		this.courseCodeFiled=courseCodeFiled;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		Connection conn=DBConnection.connect();
-		
-		try {
-			String query="SELECT * FROM courses WHERE Course_ID=?";
-			PreparedStatement check=conn.prepareStatement(query);
-			check.setString(1, this.courseCodeFiled.getText());
-			
-			ResultSet checkResult=check.executeQuery();
-			
-			if(checkResult.next()==false) {
-			
-			query="insert into courses (Course_ID, Name, Year)"+" values (?, ?, ?)";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			
-			preparedStmt.setString(1, this.courseCodeFiled.getText());
-			preparedStmt.setString(2, this.courseFullNameField.getText());
-			preparedStmt.setInt(3, Integer.parseInt((String)this.yearsSelect.getSelectedItem()));
-			
-			
-			preparedStmt.execute();
-			conn.close();
-			}
-			else {
-				new ExceptionFrame("A Course with the same Code is already present!");
-				conn.close();
-				return;
-			}
-		} catch (SQLException e1) {
-			System.out.println("errore query");
-			e1.printStackTrace();
-		}
-		
-	}
-	
 }

@@ -56,5 +56,11 @@ public class UsersGUI extends JFrame{
 	public void addFindPanel(UsersGUI gui, Users user) {
 		this.northPanel.add(new FindPanel(gui, user), BorderLayout.CENTER);
 	}
+
+	public Users getUser() {
+		return user;
+	}
+	
+	
 	
 }

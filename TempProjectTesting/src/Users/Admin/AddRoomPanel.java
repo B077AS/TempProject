@@ -68,8 +68,23 @@ public class AddRoomPanel extends JPanel{
 		c.gridy=0;
 		add(typeBox, c);
 		JButton confirm=new JButton("Add");
-		AddRoomListner addListener=new AddRoomListner(roomCodeField, roomSeatsField, yesNoLIM, yesNoOutlets, yesNoDisabledAccess, typeBox);
-		confirm.addActionListener(addListener);
+		confirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String code=roomCodeField.getText();
+				String type=(String)typeBox.getSelectedItem();
+				String seatsNumber=roomSeatsField.getText();
+				String limString=(String)yesNoLIM.getSelectedItem();
+				String outlets=(String)yesNoOutlets.getSelectedItem();
+				String disabled=(String)yesNoDisabledAccess.getSelectedItem();
+				
+				Admin user=(Admin)frame.getUser();
+				user.addRoom(code, type, seatsNumber, limString, outlets, disabled);
+				
+			}
+			
+		});
 		c.gridx=12;
 		c.gridy=0;
 		add(confirm, c);
@@ -85,65 +100,4 @@ public class AddRoomPanel extends JPanel{
 		c.gridy=0;
 		add(back, c);
 	}
-}
-
-class AddRoomListner implements ActionListener{
-	
-	private JTextField roomCode;
-	private JTextField roomSeats;
-	private JComboBox<String> limBox;
-	private JComboBox<String> outletsBox;
-	private JComboBox<String> disabledAccessBox;
-	private JComboBox<String> typeBox;
-	
-	public AddRoomListner(JTextField roomCode, JTextField roomSeats, JComboBox<String> lim, JComboBox<String> outlets, JComboBox<String> disabledAccess, JComboBox<String> typeBox) {
-		this.roomCode=roomCode;
-		this.roomSeats=roomSeats;
-		this.limBox=lim;
-		this.outletsBox=outlets;
-		this.disabledAccessBox=disabledAccess;
-		this.typeBox=typeBox;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Connection conn=DBConnection.connect();
-		
-		try {
-			String query="SELECT * FROM rooms WHERE Room_Code=?";
-			PreparedStatement check=conn.prepareStatement(query);
-			check.setString(1, this.roomCode.getText());
-			
-			ResultSet checkResult=check.executeQuery();
-			
-			if(checkResult.next()==false) {
-			
-			
-			query="insert into rooms (Room_Code, Room_Type, Seats, LIM, Outlets, DisabledAccess)"+" values (?, ?, ?, ?, ?, ?)";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			
-			preparedStmt.setString(1, this.roomCode.getText());
-			preparedStmt.setString(2, (String)this.typeBox.getSelectedItem());
-			preparedStmt.setInt(3, Integer.parseInt(this.roomSeats.getText()));
-			preparedStmt.setString(4, (String)this.limBox.getSelectedItem());
-			preparedStmt.setString(5, (String)this.outletsBox.getSelectedItem());
-			preparedStmt.setString(6, (String) this.disabledAccessBox.getSelectedItem());
-			
-			
-			preparedStmt.execute();
-			conn.close();
-			}
-			else {
-				new ExceptionFrame("A Room with the same Code is already present!");
-				conn.close();
-				return;
-			}
-		} catch (SQLException e1) {
-			System.out.println("errore query");
-			e1.printStackTrace();
-		}
-		
-		
-	}
-	
 }

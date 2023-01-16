@@ -1,9 +1,13 @@
 package Users.Admin;
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import Courses.Course;
+import Courses.CourseDAO;
 import Login.*;
-import Notifications.Notification;
+import Rooms.*;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UsersGUI;
 
@@ -44,5 +48,28 @@ public class Admin extends Users {
 	public JPanel notificationPanel(Users user, UsersGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	public void addCourse(String courseCode, String courseFullName, String yearsSelect) {
+		CourseDAO dao=new CourseDAO();
+		dao.insertCourse(new Course(courseCode, courseFullName, Integer.parseInt(yearsSelect)));
+	}
+
+
+	public void addRoom(String code, String type, String seatsNumber, String limString, String outlets, String disabled) {
+		RoomDAO dao=new RoomDAO();
+		Properties config= new Properties();
+		try {
+			FileInputStream fis;
+			fis = new FileInputStream("Property/config.properties");
+			config.load(fis);
+
+		String roomClassName=config.getProperty(type);
+		Rooms r=(Rooms)Class.forName(roomClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(code, type, seatsNumber, limString, outlets, disabled);
+		dao.insertRoom(r);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

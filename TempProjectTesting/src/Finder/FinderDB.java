@@ -7,21 +7,19 @@ import java.util.*;
 import DataBase.DBConnection;
 import MyLoader.RoomLoader;
 import MyTimer.DateHolder;
+import MyTimer.Months;
 import Rooms.Booking;
 import Rooms.Rooms;
 
 public class FinderDB {
-	private HashMap<String, Integer> months;
 	private HashMap<String, Rooms> allRooms;
 	private List<Booking> free;
 
 
 	public FinderDB(int year, String month, int day, String start, String end) {
-		this.allRooms=new HashMap<String, Rooms>();
 		this.free= new ArrayList<Booking>();
 		
-		setMonthsMap();
-		int monthNumber=months.get(month);
+		int monthNumber=Months.getMonths().get(month);
 		DateHolder.DateHolder(day, monthNumber, year);
 		LocalDate myDate = LocalDate.of(year, monthNumber, day);
 		DayOfWeek dayOfWeek=myDate.getDayOfWeek();
@@ -84,23 +82,6 @@ public class FinderDB {
 			return;
 		}
 
-	}
-
-	public void setMonthsMap() {
-		HashMap<String, Integer> months=new HashMap<String, Integer>();
-		months.put("January", 1);
-		months.put("February", 2);
-		months.put("March", 3);
-		months.put("April", 4);
-		months.put("May", 5);
-		months.put("June", 6);
-		months.put("July", 7);
-		months.put("August", 8);
-		months.put("September", 9);
-		months.put("October", 10);
-		months.put("November", 11);
-		months.put("December", 12);
-		this.months=months;
 	}
 
 	public void setAvailability(Rooms r, String start, String end) {

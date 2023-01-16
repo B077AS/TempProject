@@ -5,12 +5,19 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import MyTimer.MyTimer;
 import Users.Students.StudentsGUI;
 
@@ -24,9 +31,6 @@ public class FindPanel extends JPanel{
 	private JComboBox<String> daysSelect;
 	
 	public FindPanel(UsersGUI userMainGUI, Users user) {
-		
-	
-		
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		

@@ -1,8 +1,15 @@
 package Rooms;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.*;
 
+import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import MyTimer.Months;
 
 public abstract class Rooms implements Bookable, Comparable<Rooms>{
 
@@ -85,3 +92,45 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 	}
 	
 }
+
+
+/*	
+	public void checkDate(String month, int day, int year) throws IllegalArgumentException{
+		
+		Date startDate;
+		Date endDate;
+		int monthNumber=Months.getMonths().get(month);
+		
+		Connection conn=DBConnection.connect();
+		try {
+			
+			String query="select * from semester";
+			Statement statement=conn.prepareStatement(query);
+			ResultSet result=statement.executeQuery(query);
+			result.next();
+			startDate=result.getDate(1);
+			endDate=result.getDate(2);
+
+			conn.close();
+
+		} catch (Exception e1) {
+			e1.printStackTrace();;
+			return;
+		}
+		
+		int startDateString=Integer.parseInt(startDate.toString().split("-")[1]);
+		int endDateString=Integer.parseInt(endDate.toString().split("-")[1]);
+		
+		LocalDateTime now=LocalDateTime.now();
+		System.out.println(now.getYear());
+		
+		if(monthNumber>=startDateString && monthNumber<=12 && year==now.getYear()-1 || monthNumber>=1 && monthNumber<=endDateString && year==now.getYear()) {
+			
+		}else {
+			throw new IllegalArgumentException();
+		}
+		
+		
+		
+				
+	}*/

@@ -51,10 +51,21 @@ public class AdminMainPanel extends JPanel{
 		add(addRoom, c);
 		c.anchor = GridBagConstraints.WEST;
 		JButton addRoomButton=new JButton("Edit Rooms");
-		addRoomButton.addActionListener(new NewPanelListener(frame,new AddRoomPanel(frame)));
+		addRoomButton.addActionListener(new NewPanelListener(frame, new AddRoomPanel(frame)));
 		c.gridx=1;
 		c.gridy=3;
 		add(addRoomButton, c);
+		c.anchor = GridBagConstraints.EAST;
+		JLabel editSemesterLabel=new JLabel("Edit Semester: ");
+		c.gridx=0;
+		c.gridy=4;
+		add(editSemesterLabel, c);
+		c.anchor = GridBagConstraints.WEST;
+		JButton editSemesterButton=new JButton("Edit Semester");
+		editSemesterButton.addActionListener(new NewPanelListener(frame, new EditSemesterPanel(frame)));
+		c.gridx=1;
+		c.gridy=4;
+		add(editSemesterButton, c);
 		
 	}
 

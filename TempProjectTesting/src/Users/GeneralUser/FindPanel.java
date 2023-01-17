@@ -121,9 +121,9 @@ public class FindPanel extends JPanel{
 		
 		JButton searchButton=new JButton("Search");
 		searchButton.setFocusable(false);
-		searchButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		searchButton.setForeground(Color.white);
-		searchButton.setBackground(new Color(145,0,0));
+		searchButton.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		searchButton.setForeground(new Color(145,0,0));
+		searchButton.setBackground(Color.white);
 		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI, user);
 		searchButton.addActionListener(sbl);
 		searchButton.setOpaque(true);

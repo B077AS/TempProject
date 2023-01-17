@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import Finder.Filter.FilterCheckBox;
 import Finder.Filter.FilterRoomType;
 import Finder.Filter.FilterSeatsNumber;
@@ -46,8 +48,12 @@ public class FinderMainPanel extends JPanel{
 		add(notLabel,c);*/
 
 		JList<Booking> list=new JList(freeRooms.toArray());
+		list.setForeground(Color.black);
 		JScrollPane listScroller = new JScrollPane(list);
+		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
 		listScroller.setPreferredSize(new Dimension(250, 200));
+		listScroller.setForeground(new Color(145,0,0));
+		listScroller.setBackground(new Color(145,0,0));
 		c.insets = new Insets(0,0,20,0);
 		c.gridx=1;
 		c.gridy=0;

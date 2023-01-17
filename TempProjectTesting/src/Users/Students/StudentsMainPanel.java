@@ -19,12 +19,12 @@ public class StudentsMainPanel extends JPanel{
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
 			
-			setBackground(Color.white);
+			setBackground(new Color(145,0,0));
 			
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			JLabel Label=new JLabel("PROFILE");
 			Label.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
-			Label.setForeground(new Color(145,0,0));
+			Label.setForeground(Color.white);
 			c.insets= new Insets(0,10,0,0);
 			c.gridx=0;
 			c.gridy=0;
@@ -33,7 +33,7 @@ public class StudentsMainPanel extends JPanel{
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			JLabel studentNameLabel=new JLabel("Name: ");
 			studentNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-			studentNameLabel.setForeground(new Color(145,0,0));
+			studentNameLabel.setForeground(Color.white);
 			c.insets= new Insets(10,10,0,0);
 			c.gridx=0;
 			c.gridy=1;
@@ -50,7 +50,7 @@ public class StudentsMainPanel extends JPanel{
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			JLabel studentLastNameLabel=new JLabel("Last Name: ");
 			studentLastNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-			studentLastNameLabel.setForeground(new Color(145,0,0));
+			studentLastNameLabel.setForeground(Color.white);
 			c.insets= new Insets(10,10,0,0);
 			c.gridx=0;
 			c.gridy=2;
@@ -90,7 +90,7 @@ public class StudentsMainPanel extends JPanel{
 					mainGUI.repaint();
 				}
 			});
-			c.insets= new Insets(30,0,0,10);
+			c.insets= new Insets(30,0,35,10);
 			c.gridx=0;
 			c.gridy=4;
 			add(groupsButton, c);
@@ -120,6 +120,7 @@ public class StudentsMainPanel extends JPanel{
 			});
 			c.gridx=1;
 			c.gridy=4;
+			c.insets= new Insets(0,0,5,0);
 			add(scheduleButton, c);
 			/*JLabel scheduleLabel=new JLabel("Find Schedule: ");
 			c.gridx=0;

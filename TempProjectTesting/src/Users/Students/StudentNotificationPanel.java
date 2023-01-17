@@ -24,7 +24,7 @@ public class StudentNotificationPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		setBackground(Color.white);
+		setBackground(new Color(145,0,0));
 		try {
 
 			Connection conn=DBConnection.connect();

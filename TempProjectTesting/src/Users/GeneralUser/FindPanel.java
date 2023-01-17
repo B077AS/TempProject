@@ -31,10 +31,16 @@ public class FindPanel extends JPanel{
 	private JComboBox<String> daysSelect;
 	
 	public FindPanel(UsersGUI userMainGUI, Users user) {
+<<<<<<< Updated upstream
+=======
+		
+		
+		
+>>>>>>> Stashed changes
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		setBackground(Color.white);
+		setBackground(new Color(145,0,0));
 		
 		MyTimer t=new MyTimer();
 		this.leapYear=leapYearCheck(t.getYear());
@@ -44,7 +50,7 @@ public class FindPanel extends JPanel{
 		
 		JLabel findRoomLabel=new JLabel("Find a free room: ");
 		findRoomLabel.setFont(new Font("Comic Sans MS", Font.BOLD,17));
-		findRoomLabel.setForeground(new Color(145,0,0));
+		findRoomLabel.setForeground(Color.white);
 		c.insets= new Insets (5,0,0,0);
 		c.gridx=0;
 		c.gridy=0;

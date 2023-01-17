@@ -52,7 +52,7 @@ public class Group {
 				preparedStmt.setString(3, group.getID());
 				preparedStmt.execute();
 				EmailTemplate eTemp=new EmailTemplate(result.getString(2), "Notification", "You have been invited by "+group.getAdmin()+" to join the Group: "+group.getID());
-				eTemp.start();
+				eTemp.start(); // da aggiungere parte mancante
 			}
 			
 			conn.close();

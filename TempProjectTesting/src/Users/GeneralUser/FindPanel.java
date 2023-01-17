@@ -126,6 +126,8 @@ public class FindPanel extends JPanel{
 		searchButton.setBackground(new Color(145,0,0));
 		SearchButtonAL sbl=new SearchButtonAL(yearsSelect, monthsSelect, daysSelect, startTimeBox, endTimeBox, userMainGUI, user);
 		searchButton.addActionListener(sbl);
+		searchButton.setOpaque(true);
+		searchButton.setBorderPainted(false);
 		c.gridx=6;
 		c.gridy=0;
 		add(searchButton, c);		

@@ -16,6 +16,10 @@ import Exceptions.ExceptionFrame;
 import Login.*;
 import MyTimer.DateHolder;
 import MyTimer.MyTimer;
+import Notifications.ProfNotificationDAO;
+import Notifications.ProfSwapNotificationDAO;
+import Notifications.ProfessorNotification;
+import Notifications.ProfessorSwapDraft;
 import Rooms.Booking;
 import Rooms.BookingSuccessful;
 import Users.GeneralUser.Users;
@@ -37,38 +41,14 @@ public class Professor extends Users{
 
 	@Override
 	public JButton checkNotifications() {
-		boolean profRequests=false;
-		boolean swapRequests=false;
-		boolean reminders=false;;
+		ProfNotificationDAO daoProfNotification=new ProfNotificationDAO();
+		ProfSwapNotificationDAO daoProfSwap=new ProfSwapNotificationDAO();
+		boolean profRequests=daoProfNotification.checkNotification(new ProfessorNotification(null, this.ID, null, null, null, null));;
+		boolean swapRequests=daoProfSwap.checkNotification(new ProfessorSwapDraft(null, this.ID, null, null, null, null, "false"));
+		boolean reminders=daoProfSwap.checkNotification(new ProfessorSwapDraft(null, this.ID, null, null, null, null, "true"));;
 		deleteOldNotifications();
-		try {
-
-			Connection conn=DBConnection.connect();
-			String query="select * from prof_notifications where Sender!=?";
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, this.ID);
-			ResultSet result=statement.executeQuery();
-
-			profRequests=result.next();
-
-			query="select * from swap_notifications where Receiver=? and Accepted='false'";
-			statement = conn.prepareStatement(query);
-			statement.setString(1, this.ID);
-			result=statement.executeQuery();
-
-			swapRequests=result.next();
-
-			query="select * from swap_notifications where Receiver=? or Sender=? and Accepted='true'";
-			statement = conn.prepareStatement(query);
-			statement.setString(1, this.ID);
-			statement.setString(2, this.ID);
-			result=statement.executeQuery();
-
-			reminders=result.next();
-
-
+		
 			if (profRequests==true || swapRequests==true) {
-				conn.close();
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-active.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
@@ -76,7 +56,6 @@ public class Professor extends Users{
 				return new JButton(notificationIcon);
 			}
 			else if(profRequests==false && swapRequests==false && reminders==false){
-				conn.close();
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
@@ -84,7 +63,6 @@ public class Professor extends Users{
 				return new JButton(notificationIcon);
 			}
 			else {
-				conn.close();
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-reminder.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
@@ -92,12 +70,6 @@ public class Professor extends Users{
 				return new JButton(notificationIcon);
 
 			}
-
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;	
 
 	}
 

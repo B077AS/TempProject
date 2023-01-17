@@ -14,15 +14,17 @@ public abstract class Users {
 	protected String ID;
 	protected String email;
 	protected String password;
+	protected String type;
 	protected List<Notification> notifications;
 	
-	public Users(String name, String lastName, String ID, String email, String password) {
+	public Users(String name, String lastName, String ID, String email, String password, String type) {
 		this.name=name;
 		this.lastName=lastName;
 		this.ID=ID;
 		this.email=email;
 		this.password=password;
 		this.notifications=new ArrayList();
+		this.type= type;
 	}
 	
 	public String getPassword() {
@@ -43,6 +45,10 @@ public abstract class Users {
 	
 	public String getID() {
 		return this.ID;
+	}
+	
+	public String getType() {
+		return this.type;
 	}
 	
 	

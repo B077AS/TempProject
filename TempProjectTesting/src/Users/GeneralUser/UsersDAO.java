@@ -15,6 +15,27 @@ public class UsersDAO {
 	
 	public void insertUser(Users user) {
 		
+		
+		Connection conn=DBConnection.connect();
+		try {
+			String query="insert into users (User_Code, User_Type, Name, Last_Name, Email, Password)"+"values (?, ?, ?, ?, ?, ?)";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			preparedStmt.setString(1, user.ID);
+			preparedStmt.setString(2, user.type.toString());
+			preparedStmt.setString(3, user.name);
+			preparedStmt.setString(4, user.lastName);
+			preparedStmt.setString(5, user.email);
+			preparedStmt.setString(6, user.password);
+			
+			preparedStmt.execute();
+			conn.close();
+
+
+		} catch (Exception e1) {
+			System.out.println("errore query");
+			e1.printStackTrace();
+		}
 	}
 	
 	public void selectUser(Users user) {
@@ -54,7 +75,7 @@ public class UsersDAO {
 			FileInputStream fis=new FileInputStream("Property/config.properties");
 			config.load(fis);
 			String userClassName=config.getProperty(type);
-			Users u=(Users)Class.forName(userClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class).newInstance(name, lastName, Integer.toString(ID), email, user.getPassword());
+			Users u=(Users)Class.forName(userClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(name, lastName, Integer.toString(ID), email, user.getPassword(), type);
 			this.user=u;
 		} catch (Exception e) {
 			e.printStackTrace();

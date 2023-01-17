@@ -14,8 +14,8 @@ import Users.GeneralUser.UsersGUI;
 public class Admin extends Users {
 
 
-	public Admin(String name, String lastName, String ID, String email, String password) {
-		super(name, lastName, ID, email, password);
+	public Admin(String name, String lastName, String ID, String email, String password, String type) {
+		super(name, lastName, ID, email, password, type);
 		// TODO Auto-generated constructor stub
 	}
 

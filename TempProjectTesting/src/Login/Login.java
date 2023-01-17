@@ -15,7 +15,7 @@ public class Login {
 		String passwordString=new String(password);
 
 			UsersDAO dao=new UsersDAO();
-			dao.selectUser(new Students(null, null, null, emailOrID, passwordString));
+			dao.selectUser(new Students(null, null, null, emailOrID, passwordString, null));
 			dao.getUser().GUI(frame);
 	}
 }

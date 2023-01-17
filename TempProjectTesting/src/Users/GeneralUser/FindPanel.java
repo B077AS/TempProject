@@ -31,12 +31,7 @@ public class FindPanel extends JPanel{
 	private JComboBox<String> daysSelect;
 	
 	public FindPanel(UsersGUI userMainGUI, Users user) {
-<<<<<<< Updated upstream
-=======
-		
-		
-		
->>>>>>> Stashed changes
+
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		

@@ -31,7 +31,7 @@ public class GroupsPanel extends JPanel{
 					this.userSpecificGroups.put(result.getString(1), new Group(result.getString(1), result.getString(2)));
 				}
 				else {
-					this.userSpecificGroups.get(result.getString(1)).addStudent(result.getString(1), new Students(result.getString(6), result.getString(7), result.getString(4), result.getString(8), result.getString(9)));
+					this.userSpecificGroups.get(result.getString(1)).addStudent(result.getString(1), new Students(result.getString(6), result.getString(7), result.getString(4), result.getString(8), result.getString(9),result.getString(2)));
 				}			
 			}
 

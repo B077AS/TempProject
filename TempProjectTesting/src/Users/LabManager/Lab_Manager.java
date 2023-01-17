@@ -35,8 +35,8 @@ public class Lab_Manager extends Users{
 
 
 
-	public Lab_Manager(String name, String lastName, String ID, String email, String password) {
-		super(name, lastName, ID, email, password);
+	public Lab_Manager(String name, String lastName, String ID, String email, String password,String type) {
+		super(name, lastName, ID, email, password, type);
 		// TODO Auto-generated constructor stub
 	}
 

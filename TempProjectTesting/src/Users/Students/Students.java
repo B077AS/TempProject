@@ -22,8 +22,8 @@ public class Students extends Users{
 	
 	private HashMap<String, Group> groups;
 
-	public Students(String name, String lastName, String ID, String email, String password) {
-		super(name, lastName, ID, email, password);
+	public Students(String name, String lastName, String ID, String email, String password, String type) {
+		super(name, lastName, ID, email, password,type);
 		this.groups=new HashMap<String, Group>();
 	}
 

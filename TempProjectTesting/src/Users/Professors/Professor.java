@@ -7,15 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Login.*;
 import MyTimer.DateHolder;
-import MyTimer.MyTimer;
 import Notifications.ProfNotificationDAO;
 import Notifications.ProfSwapNotificationDAO;
 import Notifications.ProfessorNotification;

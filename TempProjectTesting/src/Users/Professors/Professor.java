@@ -122,7 +122,7 @@ public class Professor extends Users{
 					
 					firstCheck=result.next();
 					
-					
+					//rooms_booking
 					query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
 					preparedStmt=conn.prepareStatement(query);;
 					preparedStmt.setDate(1, date);

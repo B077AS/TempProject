@@ -115,7 +115,7 @@ class MainPanel extends JPanel{
 		
 
 		c.anchor = GridBagConstraints.PAGE_START;
-		JLabel intro= new JLabel("WELCOME IN FindMe");
+		JLabel intro= new JLabel("WELCOME TO FindMe");
 		intro.setFont(new Font("Comic Sans MS", Font.BOLD,30));
 		intro.setForeground(new Color(145,0,0));
 		c.weightx= 0.5;
@@ -137,12 +137,12 @@ class MainPanel extends JPanel{
 		add(intro_acc,c);
 		
 		c.anchor = GridBagConstraints.CENTER;
-		JLabel emailLabel= new JLabel("E-mail");
+		JLabel emailLabel= new JLabel("E-mail/ID number");
 		emailLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		emailLabel.setForeground(new Color(145,0,0));
 		c.weightx= 0.1;
 		c.weighty=0.1;
-		c.insets= new Insets (0,100,300,500);
+		c.insets= new Insets (0,50,300,500);
 		c.gridx=0;
 		c.gridy=1;
 		add(emailLabel,c);

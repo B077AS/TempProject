@@ -74,7 +74,7 @@ class MainPanel extends JPanel{
 		
 		
 		c.anchor = GridBagConstraints.CENTER;
-		JLabel introLabel=new JLabel("Compila qui sotto...");
+		JLabel introLabel=new JLabel("Fill in below");
 		introLabel.setFont(new Font("Comic Sans MS", Font.BOLD,20));
 		introLabel.setForeground(new Color(145,0,0));
 		c.insets= new Insets (0,0,50,0);

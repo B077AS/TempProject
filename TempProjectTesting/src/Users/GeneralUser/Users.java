@@ -14,8 +14,12 @@ public abstract class Users {
 	protected String ID;
 	protected String email;
 	protected String password;
+<<<<<<< Updated upstream
 	protected String type;
 	protected List<Notification> notifications;
+=======
+	protected List<Notification> notifications; //questo non c'è
+>>>>>>> Stashed changes
 	
 	public Users(String name, String lastName, String ID, String email, String password, String type) {
 		this.name=name;
@@ -23,8 +27,12 @@ public abstract class Users {
 		this.ID=ID;
 		this.email=email;
 		this.password=password;
+<<<<<<< Updated upstream
 		this.notifications=new ArrayList();
 		this.type= type;
+=======
+		this.notifications=new ArrayList(); //non c'è
+>>>>>>> Stashed changes
 	}
 	
 	public String getPassword() {
@@ -47,11 +55,15 @@ public abstract class Users {
 		return this.ID;
 	}
 	
+<<<<<<< Updated upstream
 	public String getType() {
 		return this.type;
 	}
 	
 	
+=======
+	//da qua in poi non c'è
+>>>>>>> Stashed changes
 	public abstract void GUI(LoginGUI frame);
 	
 	public abstract JButton checkNotifications();

@@ -23,7 +23,7 @@ public class StudentsMainPanel extends JPanel{
 			
 			c.anchor = GridBagConstraints.FIRST_LINE_START;
 			JLabel Label=new JLabel("PROFILE");
-			Label.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
+			Label.setFont(new Font("Comic Sans MS", Font.BOLD,25));
 			Label.setForeground(Color.white);
 			c.insets= new Insets(0,10,0,0);
 			c.gridx=0;
@@ -42,7 +42,7 @@ public class StudentsMainPanel extends JPanel{
 			c.anchor = GridBagConstraints.FIRST_LINE_END;
 			JLabel studentName=new JLabel(name);
 			studentName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-			studentName.setForeground(Color.black);
+			studentName.setForeground(new Color(217, 217, 217));
 			c.gridx=1;
 			c.gridy=1;
 			add(studentName, c);
@@ -59,7 +59,7 @@ public class StudentsMainPanel extends JPanel{
 			c.anchor = GridBagConstraints.FIRST_LINE_END;
 			JLabel studentLastName=new JLabel(lastName);
 			studentLastName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-			studentLastName.setForeground(Color.black);
+			studentLastName.setForeground(new Color(217, 217, 217));
 			c.gridx=1;
 			c.gridy=2;
 			add(studentLastName, c);

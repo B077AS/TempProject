@@ -24,7 +24,7 @@ public class StudentNotificationPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
-		setBackground(new Color(145,0,0));
+		setBackground(Color.white);
 		try {
 
 			Connection conn=DBConnection.connect();
@@ -54,7 +54,7 @@ public class StudentNotificationPanel extends JPanel{
 		c.anchor = GridBagConstraints.CENTER;
 		JList<JoinGroupNotification> list=new JList(user.getNotifications().toArray());
 		JScrollPane listScroller = new JScrollPane(list);
-		listScroller.setPreferredSize(new Dimension(250, 200));
+		listScroller.setPreferredSize(new Dimension(320, 200));
 		c.gridx=0;
 		c.gridy=1;
 		c.insets= new Insets (0,0,100,0);

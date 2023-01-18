@@ -33,7 +33,7 @@ public class FinderMainPanel extends JPanel{
 		this.freeRoomsBackUp=freeRoomsBackUp;
 		removeAll();
 
-		setBackground(new Color(0,0,0,0));
+		setBackground(Color.white);
 		setLayout (new GridBagLayout());
 	
 		GridBagConstraints c=new GridBagConstraints();

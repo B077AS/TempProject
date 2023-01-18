@@ -98,12 +98,12 @@ public class Students extends Users{
 	}
 
 	@Override
-	public JPanel getMainPanel(UsersGUI gui) {
+	public JPanel getMainPanel(UserGUI gui) {
 		return new StudentsMainPanel(name, lastName, email, gui, this);
 	}
 	
 	
-	public JPanel book(Object[] objects, UsersGUI frame) {
+	public JPanel book(Object[] objects, UserGUI frame) {
 		int year=DateHolder.getYear();
 		int month=DateHolder.getMonth();
 		int day=DateHolder.getDay();
@@ -188,7 +188,7 @@ public class Students extends Users{
 	}
 
 	@Override
-	public JPanel notificationPanel(Users user, UsersGUI frame) {
+	public JPanel notificationPanel(Users user, UserGUI frame) {
 		return new StudentNotificationPanel(user, frame);
 	}
 }

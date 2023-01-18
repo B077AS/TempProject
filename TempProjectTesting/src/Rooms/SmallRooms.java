@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Groups.Group;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class SmallRooms extends Rooms{
 

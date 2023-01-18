@@ -8,10 +8,10 @@ import Users.Admin.AddRoomPanel;
 
 public class NewPanelListener implements ActionListener{
 	
-	private UsersGUI frame;
+	private UserGUI frame;
 	private JPanel panel;
 	
-	public NewPanelListener(UsersGUI frame, JPanel panel) {
+	public NewPanelListener(UserGUI frame, JPanel panel) {
 		this.frame=frame;
 		this.panel=panel;
 	}

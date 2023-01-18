@@ -5,11 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import Users.GeneralUser.NewPanelListener;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class AdminMainPanel extends JPanel{
 	
-	public AdminMainPanel(String name, String lastName, String email, UsersGUI frame) {
+	public AdminMainPanel(String name, String lastName, String email, UserGUI frame) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		

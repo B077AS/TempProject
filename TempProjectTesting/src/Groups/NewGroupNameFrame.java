@@ -8,13 +8,13 @@ import java.util.HashMap;
 import javax.swing.*;
 
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
 public class NewGroupNameFrame extends JFrame{
 
-	public NewGroupNameFrame(Users user, UsersGUI studentsGUI) {
+	public NewGroupNameFrame(Users user, UserGUI studentsGUI) {
 		setSize(400,200);
 		setTitle("Insert Group Name");
 
@@ -51,9 +51,9 @@ class ConfirmListener implements ActionListener{
 	private Students user;
 	private JTextField name;
 	private JFrame frame;
-	private UsersGUI studentsGUI;
+	private UserGUI studentsGUI;
 
-	public ConfirmListener(Users user, JTextField name, JFrame frame, UsersGUI studentsGUI) {
+	public ConfirmListener(Users user, JTextField name, JFrame frame, UserGUI studentsGUI) {
 		this.user=(Students)user;
 		this.name=name;
 		this.frame=frame;

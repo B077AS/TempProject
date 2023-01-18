@@ -14,12 +14,12 @@ import Exceptions.ExceptionFrame;
 import Notifications.JoinGroupNotification;
 import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Notifications.AcceptRejectFrame;
 
 public class StudentNotificationPanel extends JPanel{
 
-	public StudentNotificationPanel(Users user, UsersGUI frame) {
+	public StudentNotificationPanel(Users user, UserGUI frame) {
 		
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();

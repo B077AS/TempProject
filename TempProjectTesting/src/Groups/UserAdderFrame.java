@@ -20,13 +20,13 @@ import javax.swing.JTextField;
 import Exceptions.ExceptionFrame;
 import Login.Login;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
 public class UserAdderFrame extends JFrame{
 	
-	public UserAdderFrame(JList<Group> list, UsersGUI studentsGUI, Users user) {
+	public UserAdderFrame(JList<Group> list, UserGUI studentsGUI, Users user) {
 		setSize(400,200);
 		setTitle("Add User");
 
@@ -62,10 +62,10 @@ class OkListener implements ActionListener{
 	private JList<Group> list;
 	private JTextField emailOrID;
 	private JFrame frame;
-	private UsersGUI studentsGUI;
+	private UserGUI studentsGUI;
 	private Students user;
 	
-	public OkListener(JList<Group> list, JTextField emailOrID, JFrame frame, UsersGUI studentsGUI, Users user) {
+	public OkListener(JList<Group> list, JTextField emailOrID, JFrame frame, UserGUI studentsGUI, Users user) {
 		this.list=list;
 		this.emailOrID=emailOrID;
 		this.frame=frame;

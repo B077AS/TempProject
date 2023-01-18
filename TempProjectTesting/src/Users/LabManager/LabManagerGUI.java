@@ -3,10 +3,10 @@ package Users.LabManager;
 import java.awt.BorderLayout;
 
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.GeneralUser.UsersHeadPanel;
 
-public class LabManagerGUI extends UsersGUI{
+public class LabManagerGUI extends UserGUI{
 
 	public LabManagerGUI(String name, String lastName, String email, Users user) {
 		super(name, lastName, email, user);
@@ -16,7 +16,7 @@ public class LabManagerGUI extends UsersGUI{
 	}
 	
 	@Override
-	public void addFindPanel(UsersGUI gui, Users user) {
+	public void addFindPanel(UserGUI gui, Users user) {
 		
 	}
 }

@@ -5,13 +5,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 import java.sql.*;
 
 public class AddRoomPanel extends JPanel{
 
-	public AddRoomPanel(UsersGUI frame) {
+	public AddRoomPanel(UserGUI frame) {
 
 		String[] yesNoArray=new String[]{"yes", "no"};
 		String[] roomTypeArray=new String[]{"SMALL", "BIG", "LAB"};

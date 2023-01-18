@@ -9,11 +9,11 @@ import javax.swing.*;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class AddCoursePanel extends JPanel{
 	
-	public AddCoursePanel(UsersGUI frame) {
+	public AddCoursePanel(UserGUI frame) {
 		String[] years=new String[]{"1", "2", "3", "4", "5"};
 		
 		setLayout (new GridBagLayout());

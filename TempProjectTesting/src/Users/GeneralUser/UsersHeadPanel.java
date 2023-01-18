@@ -9,7 +9,7 @@ import Users.Students.StudentsMainPanel;
 
 public class UsersHeadPanel extends JPanel{
 	
-	public UsersHeadPanel(String name, String lastName, String email, Users user, UsersGUI gui) {
+	public UsersHeadPanel(String name, String lastName, String email, Users user, UserGUI gui) {
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
 		add(user.getMainPanel(gui), BorderLayout.WEST);

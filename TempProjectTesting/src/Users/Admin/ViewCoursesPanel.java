@@ -10,14 +10,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.*;
 import DataBase.DBConnection;
 import Users.GeneralUser.NewPanelListener;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class ViewCoursesPanel extends JPanel{
 	
 	private ButtonsPanel buttons;
 	private JTable table;
 
-	public ViewCoursesPanel(UsersGUI frame) {
+	public ViewCoursesPanel(UserGUI frame) {
 		setLayout (new BorderLayout());
 
 
@@ -157,7 +157,7 @@ public class ViewCoursesPanel extends JPanel{
 
 class ButtonsPanel extends JPanel{
 
-	public ButtonsPanel(UsersGUI frame, JTable table) {
+	public ButtonsPanel(UserGUI frame, JTable table) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
@@ -217,10 +217,10 @@ class ButtonsPanel extends JPanel{
 
 class RemoveListener implements ActionListener{
 	
-	private UsersGUI frame;
+	private UserGUI frame;
 	private JTable table;
 	
-	public RemoveListener(UsersGUI frame, JTable table) {
+	public RemoveListener(UserGUI frame, JTable table) {
 		this.frame=frame;
 		this.table=table;
 	}

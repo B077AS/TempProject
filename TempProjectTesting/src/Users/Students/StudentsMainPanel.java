@@ -15,7 +15,7 @@ import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 
 public class StudentsMainPanel extends JPanel{
-		public StudentsMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Users user) {		
+		public StudentsMainPanel(String name, String lastName, String email, UserGUI mainGUI, Users user) {		
 			setLayout (new GridBagLayout());
 			GridBagConstraints c=new GridBagConstraints();
 			
@@ -132,7 +132,7 @@ public class StudentsMainPanel extends JPanel{
 class FindSchedulePanel extends JPanel{
 
 
-	public FindSchedulePanel(ViewCoursesPanel tablePanel, UsersGUI mainGUI) {
+	public FindSchedulePanel(ViewCoursesPanel tablePanel, UserGUI mainGUI) {
 		setLayout(new BorderLayout());
 		add(tablePanel, BorderLayout.NORTH);
 

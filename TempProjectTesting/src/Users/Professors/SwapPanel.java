@@ -27,7 +27,7 @@ import Rooms.Rooms;
 import Rooms.Rooms.*;
 import Users.GeneralUser.TimeSpanAL;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import org.jdatepicker.*;
 import java.time.*;
 
@@ -39,7 +39,7 @@ public class SwapPanel extends JPanel{
 	private boolean skip;
 
 
-	public SwapPanel(Users user, UsersGUI mainGUI, Date firstDate, Date secondDate) {
+	public SwapPanel(Users user, UserGUI mainGUI, Date firstDate, Date secondDate) {
 		this.firstDate=firstDate;
 		this.secondDate=secondDate;
 
@@ -111,10 +111,10 @@ class SaveDatesListener implements ActionListener{
 
 	private SwapPanel panel;
 	private JDatePanelImpl datePanel;
-	private UsersGUI mainGUI;
+	private UserGUI mainGUI;
 	private Users user;
 
-	public SaveDatesListener(SwapPanel panel, JDatePanelImpl datePanel, UsersGUI mainGUI, Users user) {
+	public SaveDatesListener(SwapPanel panel, JDatePanelImpl datePanel, UserGUI mainGUI, Users user) {
 		this.panel=panel;
 		this.datePanel=datePanel;
 		this.mainGUI=mainGUI;
@@ -154,7 +154,7 @@ class ConfirmSwapPanel extends JPanel{
 
 	private String[] startHours= {"From","9:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"};
 
-	public ConfirmSwapPanel(Date firstDate, Date secondDate, Users User, UsersGUI mainGUI, boolean skip) {
+	public ConfirmSwapPanel(Date firstDate, Date secondDate, Users User, UserGUI mainGUI, boolean skip) {
 
 
 		setLayout (new GridBagLayout());
@@ -254,11 +254,11 @@ class SwapListener implements ActionListener{
 	private Date firstDate;
 	private Date secondDate;
 	private Users user;
-	private UsersGUI mainGUI;
+	private UserGUI mainGUI;
 	private boolean skip;
 	
 	
-	public SwapListener(Date firstDate, Date secondDate, Users user, UsersGUI mainGUI, JComboBox<Rooms> possibleRooms, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, JComboBox<String> secondEndTimeBox, JComboBox<String> secondStartTimeBox, boolean skip) {
+	public SwapListener(Date firstDate, Date secondDate, Users user, UserGUI mainGUI, JComboBox<Rooms> possibleRooms, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, JComboBox<String> secondEndTimeBox, JComboBox<String> secondStartTimeBox, boolean skip) {
 		this.possibleRooms=possibleRooms;
 		this.startTimeBox=startTimeBox;
 		this.endTimeBox=endTimeBox;

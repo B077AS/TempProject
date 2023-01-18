@@ -11,11 +11,11 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.SqlDateModel;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class EditSemesterPanel extends JPanel{
 
-	public EditSemesterPanel(UsersGUI frame) {
+	public EditSemesterPanel(UserGUI frame) {
 
 
 		setLayout (new GridBagLayout());

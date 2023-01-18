@@ -20,7 +20,7 @@ import Notifications.ProfessorSwapDraft;
 import Rooms.Booking;
 import Rooms.BookingSuccessful;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class Professor extends Users{
 
@@ -71,13 +71,13 @@ public class Professor extends Users{
 	}
 
 	@Override
-	public JPanel getMainPanel(UsersGUI gui) {
+	public JPanel getMainPanel(UserGUI gui) {
 		// TODO Auto-generated method stub
 		return new ProfessorMainPanel(name, lastName, email, gui, this);
 	}
 
 	@Override
-	public JPanel book(Object[] objects, UsersGUI frame) {
+	public JPanel book(Object[] objects, UserGUI frame) {
 		int year=DateHolder.getYear();
 		int month=DateHolder.getMonth();
 		int day=DateHolder.getDay();
@@ -198,7 +198,7 @@ public class Professor extends Users{
 	}
 
 	@Override
-	public JPanel notificationPanel(Users user, UsersGUI frame) {
+	public JPanel notificationPanel(Users user, UserGUI frame) {
 		return new ProfessorNotificationPanel(user, frame);
 	}
 

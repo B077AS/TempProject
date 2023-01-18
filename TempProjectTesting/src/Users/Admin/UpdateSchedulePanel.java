@@ -7,11 +7,11 @@ import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class UpdateSchedulePanel extends JPanel{
 
-	public UpdateSchedulePanel(UsersGUI frame, JTable table) {
+	public UpdateSchedulePanel(UserGUI frame, JTable table) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
@@ -36,7 +36,7 @@ public class UpdateSchedulePanel extends JPanel{
 
 class BrowseFrame extends JFrame{
 
-	public BrowseFrame(UsersGUI frame, JTable table) {
+	public BrowseFrame(UserGUI frame, JTable table) {
 		JFileChooser choose=new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
 		choose.setFileFilter(filter);
@@ -59,10 +59,10 @@ class FileChooseListner implements ActionListener{
 
 	private JFileChooser choose;
 	private JFrame thisFrame;
-	private UsersGUI frame;
+	private UserGUI frame;
 	private JTable table;
 
-	public FileChooseListner(JFileChooser choose, JFrame thisFrame, UsersGUI frame, JTable table) {
+	public FileChooseListner(JFileChooser choose, JFrame thisFrame, UserGUI frame, JTable table) {
 		this.choose=choose;
 		this.thisFrame=thisFrame;
 		this.frame=frame;

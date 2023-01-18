@@ -16,11 +16,11 @@ import javax.swing.*;
 import CSVConverter.CSVtoDB;
 import DataBase.DBConnection;
 import Users.GeneralUser.NewPanelListener;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class ConfirmFilePanel extends JPanel{
 	
-	public ConfirmFilePanel(String path, UsersGUI frame, JTable table) {
+	public ConfirmFilePanel(String path, UserGUI frame, JTable table) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		

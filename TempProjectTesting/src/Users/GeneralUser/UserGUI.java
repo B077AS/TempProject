@@ -3,12 +3,12 @@ package Users.GeneralUser;
 import java.awt.*;
 import javax.swing.*;
 
-public class UsersGUI extends JFrame{
+public class UserGUI extends JFrame{
 	
 	protected Users user;
 	protected JPanel secondPanel=new JPanel();
 	protected JPanel northPanel;
-	public UsersGUI(String name, String lastName, String email, Users user) {
+	public UserGUI(String name, String lastName, String email, Users user) {
 		this.user=user;
 		Toolkit kit = Toolkit.getDefaultToolkit();
 
@@ -53,7 +53,7 @@ public class UsersGUI extends JFrame{
 		repaint();
 	}
 	
-	public void addFindPanel(UsersGUI gui, Users user) {
+	public void addFindPanel(UserGUI gui, Users user) {
 		this.northPanel.add(new FindPanel(gui, user), BorderLayout.CENTER);
 	}
 

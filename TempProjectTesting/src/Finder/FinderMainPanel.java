@@ -15,7 +15,7 @@ import Finder.Filter.FilterSeatsNumber;
 import Rooms.Booking;
 import Rooms.ConfirmBookigPanel;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Students.StudentsGUI;
 
 
@@ -26,7 +26,7 @@ public class FinderMainPanel extends JPanel{
 	private List<Booking> freeRoomsBackUp;
 	private LinkedList<FilterCheckBox> allFilters;
 
-	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp, UsersGUI frame, Users user) {
+	public FinderMainPanel(List<Booking> freeRooms, List<Booking> freeRoomsBackUp, UserGUI frame, Users user) {
 		SwingUtilities.updateComponentTreeUI(frame);
 		this.allFilters=new LinkedList<FilterCheckBox>();
 		this.freeRooms=freeRooms;
@@ -137,11 +137,11 @@ public class FinderMainPanel extends JPanel{
 class BookListener implements ActionListener{
 
 	private JList<Booking> scroll;
-	private UsersGUI frame;
+	private UserGUI frame;
 	private Users user;
 
 
-	public BookListener(JList<Booking> list, UsersGUI frame, Users user) {
+	public BookListener(JList<Booking> list, UserGUI frame, Users user) {
 		this.scroll=list;
 		this.frame=frame;
 		this.user=user;
@@ -163,9 +163,9 @@ class FilterListener implements ActionListener{
 	private List<Booking> filteredRooms;
 	private HashMap<String, List<Booking>> allFiltered;
 	private LinkedList<FilterCheckBox> allFilters;
-	private UsersGUI frame;
+	private UserGUI frame;
 	private Users user;
-	public FilterListener(FinderMainPanel panel, LinkedList<FilterCheckBox> allFilters, UsersGUI frame, Users user) {
+	public FilterListener(FinderMainPanel panel, LinkedList<FilterCheckBox> allFilters, UserGUI frame, Users user) {
 		this.filteredRooms=new ArrayList<Booking>();
 		this.allFiltered=new HashMap<String, List<Booking>>();
 		this.panel=panel;

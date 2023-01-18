@@ -26,10 +26,10 @@ public class SearchButtonAL implements ActionListener{
 	private JComboBox<String> daySelect;
 	private JComboBox<String> startTimeBox;
 	private JComboBox<String> endTimeBox;
-	private UsersGUI userMainGUI;
+	private UserGUI userMainGUI;
 	private Users user;
 
-	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, UsersGUI userMainGUI, Users user) {
+	public SearchButtonAL(JComboBox<String> yearSelect, JComboBox<String> monthSelect, JComboBox<String> daySelect, JComboBox<String> startTimeBox, JComboBox<String> endTimeBox, UserGUI userMainGUI, Users user) {
 		this.yearSelect=yearSelect;
 		this.monthSelect=monthSelect;
 		this.daySelect=daySelect;

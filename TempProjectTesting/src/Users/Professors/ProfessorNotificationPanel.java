@@ -20,13 +20,13 @@ import Notifications.ProfessorNotification;
 import Notifications.ProfessorSwapDraft;
 import Rooms.Rooms;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class ProfessorNotificationPanel extends JPanel{
 
 	private JLabel notificationDetails;
 
-	public ProfessorNotificationPanel(Users user, UsersGUI frame) {
+	public ProfessorNotificationPanel(Users user, UserGUI frame) {
 		user.getNotifications().clear();
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
@@ -345,7 +345,7 @@ class RoomChooser extends JFrame{
 
 	private String selectedRoom;
 
-	public RoomChooser(ProfessorNotification notification, Users user, UsersGUI frame) {
+	public RoomChooser(ProfessorNotification notification, Users user, UserGUI frame) {
 		JPanel p=new JPanel();
 		try {
 

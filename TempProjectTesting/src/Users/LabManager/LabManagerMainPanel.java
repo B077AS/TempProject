@@ -11,13 +11,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Professors.SwapPanel;
 import Users.Professors.Professor;
 
 public class LabManagerMainPanel extends JPanel{
 
-	public LabManagerMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Lab_Manager user) {
+	public LabManagerMainPanel(String name, String lastName, String email, UserGUI mainGUI, Lab_Manager user) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 

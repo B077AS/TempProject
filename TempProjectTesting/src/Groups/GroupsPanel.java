@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.sql.*;
 import DataBase.DBConnection;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Students.Students;
 import Users.Students.StudentsGUI;
 
@@ -16,7 +16,7 @@ import Users.Students.StudentsGUI;
 public class GroupsPanel extends JPanel{
 	private HashMap<String, Group> userSpecificGroups;
 
-	public GroupsPanel(Users user, UsersGUI studentsGUI) {
+	public GroupsPanel(Users user, UserGUI studentsGUI) {
 		this.userSpecificGroups=new HashMap<String, Group>();
 		try {
 

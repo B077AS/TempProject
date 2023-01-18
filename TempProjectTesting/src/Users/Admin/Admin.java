@@ -9,7 +9,7 @@ import Courses.CourseDAO;
 import Login.*;
 import Rooms.*;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class Admin extends Users {
 
@@ -33,19 +33,19 @@ public class Admin extends Users {
 	}
 
 	@Override
-	public JPanel getMainPanel(UsersGUI gui) {
+	public JPanel getMainPanel(UserGUI gui) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public JPanel book(Object[] objects, UsersGUI frame) {
+	public JPanel book(Object[] objects, UserGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public JPanel notificationPanel(Users user, UsersGUI frame) {
+	public JPanel notificationPanel(Users user, UserGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
 	}

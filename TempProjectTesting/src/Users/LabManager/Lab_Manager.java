@@ -26,7 +26,7 @@ import Login.*;
 import Notifications.LabNotification;
 import Notifications.Notification;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.Professors.ProfessorGUI;
 import Users.Professors.ProfessorMainPanel;
 import Users.Students.Students;
@@ -80,19 +80,19 @@ public class Lab_Manager extends Users{
 	}
 
 	@Override
-	public JPanel getMainPanel(UsersGUI gui) {
+	public JPanel getMainPanel(UserGUI gui) {
 		
 		return new LabManagerMainPanel(name, lastName, email, gui, this);
 	}
 
 	@Override
-	public JPanel book(Object[] objects, UsersGUI frame) {
+	public JPanel book(Object[] objects, UserGUI frame) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public JPanel notificationPanel(Users user, UsersGUI frame) {
+	public JPanel notificationPanel(Users user, UserGUI frame) {
 		JPanel requestsPanel=new JPanel();
 		requestsPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();

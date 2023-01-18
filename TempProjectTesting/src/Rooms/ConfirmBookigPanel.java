@@ -13,7 +13,7 @@ import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyTimer.DateHolder;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class ConfirmBookigPanel extends JPanel{
 
@@ -22,7 +22,7 @@ public class ConfirmBookigPanel extends JPanel{
 	private JLabel countSeats;
 	private boolean maxed;
 
-	public ConfirmBookigPanel(JList<Booking> roomsList, Users user, UsersGUI frame) {
+	public ConfirmBookigPanel(JList<Booking> roomsList, Users user, UserGUI frame) {
 		this.possibleBookings=new ArrayList<Booking>();
 		this.roomsList=roomsList;
 

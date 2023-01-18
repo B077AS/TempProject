@@ -8,7 +8,7 @@ import Users.Students.StudentNotificationPanel;
 public class NotificationRightPanel extends JPanel{
 	
 	
-	public NotificationRightPanel(Users user, UsersGUI main) {
+	public NotificationRightPanel(Users user, UserGUI main) {
 		setLayout (new GridBagLayout());
 		setBackground(new Color(145,0,0));
 		GridBagConstraints c=new GridBagConstraints();

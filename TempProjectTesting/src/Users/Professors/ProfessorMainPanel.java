@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 import Groups.GroupsPanel;
 import Users.GeneralUser.FindPanel;
 import Users.GeneralUser.NewPanelListener;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class ProfessorMainPanel extends JPanel{
 
-	public ProfessorMainPanel(String name, String lastName, String email, UsersGUI mainGUI, Professor user) {
+	public ProfessorMainPanel(String name, String lastName, String email, UserGUI mainGUI, Professor user) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 

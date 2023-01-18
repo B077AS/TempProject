@@ -4,10 +4,10 @@ import java.awt.*;
 import javax.swing.*;
 
 import Users.GeneralUser.NotificationRightPanel;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 import Users.GeneralUser.UsersHeadPanel;
 
-public class ProfessorGUI extends UsersGUI{
+public class ProfessorGUI extends UserGUI{
 	
 	private boolean skip;
 

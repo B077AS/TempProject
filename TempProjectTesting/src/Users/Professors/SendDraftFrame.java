@@ -30,13 +30,13 @@ import Notifications.ProfessorNotification;
 import Notifications.ProfessorSwapDraft;
 import Rooms.Rooms;
 import Users.GeneralUser.Users;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class SendDraftFrame extends JFrame{
 	private String[] startHours= {"From","9:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"};
 	private String selectedRoom;
 
-	public SendDraftFrame(ProfessorNotification notification, Users user, UsersGUI frame) {
+	public SendDraftFrame(ProfessorNotification notification, Users user, UserGUI frame) {
 		JPanel secondPanel=new JPanel();
 		JPanel mainPanel=new JPanel();
 		mainPanel.setLayout(new BorderLayout());

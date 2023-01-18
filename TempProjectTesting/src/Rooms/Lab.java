@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import Exceptions.ExceptionFrame;
 import Groups.Group;
 import Notifications.LabNotification;
-import Users.GeneralUser.UsersGUI;
+import Users.GeneralUser.UserGUI;
 
 public class Lab extends Rooms{
 

@@ -58,11 +58,11 @@ public abstract class Users {
 	
 	public abstract JButton checkNotifications();
 	
-	public abstract JPanel getMainPanel(UsersGUI gui);
+	public abstract JPanel getMainPanel(UserGUI gui);
 	
-	public abstract JPanel book(Object[] objects, UsersGUI frame);
+	public abstract JPanel book(Object[] objects, UserGUI frame);
 	
-	public abstract JPanel notificationPanel(Users user, UsersGUI frame);
+	public abstract JPanel notificationPanel(Users user, UserGUI frame);
 	
 	public void loadNotifications(Notification notification) {
 		this.notifications.add(notification);

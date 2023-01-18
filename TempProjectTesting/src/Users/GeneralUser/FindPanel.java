@@ -30,7 +30,7 @@ public class FindPanel extends JPanel{
 	private JComboBox<String> monthsSelect;
 	private JComboBox<String> daysSelect;
 	
-	public FindPanel(UsersGUI userMainGUI, Users user) {
+	public FindPanel(UserGUI userMainGUI, Users user) {
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();

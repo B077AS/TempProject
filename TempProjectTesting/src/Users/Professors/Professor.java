@@ -19,6 +19,8 @@ import Notifications.ProfessorNotification;
 import Notifications.ProfessorSwapDraft;
 import Rooms.Booking;
 import Rooms.BookingSuccessful;
+import Rooms.RoomsBookingDAO;
+import Rooms.SoloBookingDAO;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 
@@ -102,45 +104,28 @@ public class Professor extends Users{
 		Date date=Date.valueOf(year+"-"+month+"-"+day);
 		LocalDate bookingDate=date.toLocalDate();
 
-		JButton claimButton=new JButton("Calim Room");
+		JButton claimButton=new JButton("Claim Room");
 		claimButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean firstCheck=false;
-					boolean secondCheck=false;
+					SoloBookingDAO soloDAO=new SoloBookingDAO();
+					RoomsBookingDAO roomsDAO=new RoomsBookingDAO();
+					boolean firstCheck=soloDAO.checkFromDateAndTime(booking);
+					boolean secondCheck=roomsDAO.checkFromDateAndTime(booking);
 					
 					Connection conn=DBConnection.connect();
-					String query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
-					PreparedStatement preparedStmt=conn.prepareStatement(query);;
-					preparedStmt.setDate(1, date);
-					preparedStmt.setString(2, booking.getRoom().getCode());
-					preparedStmt.setString(3, booking.getStartTime());
-					preparedStmt.setString(4, booking.getEndTime());
-					ResultSet result=preparedStmt.executeQuery();
-					
-					firstCheck=result.next();
-					
-					//rooms_booking
-					query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
-					preparedStmt=conn.prepareStatement(query);;
-					preparedStmt.setDate(1, date);
-					preparedStmt.setString(2, booking.getRoom().getCode());
-					preparedStmt.setString(3, booking.getStartTime());
-					preparedStmt.setString(4, booking.getEndTime());
-					result=preparedStmt.executeQuery();
-					secondCheck=result.next();
 					
 					String bookingID=ID+"-"+booking.getRoom().getCode()+"-"+booking.getStartTime().split(":")[0]+"-"+booking.getEndTime().split(":")[0]+"-"+date;
 					
 					if(firstCheck==true && bookingDate.compareTo(now.plusDays(3))>0 || secondCheck==true && bookingDate.compareTo(now.plusDays(3))>0) {
 
-						query="delete solo_booking, rooms_booking \r\n"
+						String query="delete solo_booking, rooms_booking \r\n"
 								+ "from solo_booking inner join rooms_booking where solo_booking.Date=rooms_booking.Date and\r\n"
 								+ "solo_booking.Room=rooms_booking.Room and solo_booking.Start_Time=rooms_booking.Start_Time and\r\n"
 								+ "solo_booking.End_Time=rooms_booking.End_Time and solo_booking.Date=? and solo_booking.Room=? and solo_booking.Start_Time=? and solo_booking.End_Time=? ";
-						preparedStmt = conn.prepareStatement(query);
+						PreparedStatement preparedStmt = conn.prepareStatement(query);
 						preparedStmt.setDate(1, date);
 						preparedStmt.setString(2, booking.getRoom().getCode());
 						preparedStmt.setString(3, booking.getStartTime());
@@ -165,8 +150,8 @@ public class Professor extends Users{
 
 					}
 					else if(firstCheck==false && secondCheck==false) {
-						query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
-						preparedStmt = conn.prepareStatement(query);
+						String query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
+						PreparedStatement preparedStmt = conn.prepareStatement(query);
 						preparedStmt.setString(1, bookingID);
 						preparedStmt.setDate(2, date);
 						preparedStmt.setString(3, booking.getRoom().getCode());

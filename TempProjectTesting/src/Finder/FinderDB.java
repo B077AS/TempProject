@@ -85,7 +85,7 @@ public class FinderDB {
 	}
 
 	public void setAvailability(Rooms r, String start, String end) {
-		r.setAvailability(start+"-"+end, new Booking(start, end, r));
+		r.setAvailability(start+"-"+end, new Booking(start, end, null, r, null, null, null));
 
 	}
 
@@ -108,7 +108,7 @@ public class FinderDB {
 					}
 					else {
 						//this.freeRooms.add(new FreeForBooking(room.getValue().getCode(), start, end, room.getValue().getSeats()));
-						this.free.add(new Booking(start, end, room.getValue()));
+						this.free.add(new Booking(start, end, null, room.getValue(), null, null, null));
 						//System.out.println(room.getValue().getCode()+" LIBERO from: "+start+" to "+end+" posti: "+room.getValue().getSeats());
 					}
 				}

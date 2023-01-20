@@ -1,8 +1,11 @@
 package Users.Professors;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,37 +25,68 @@ public class ProfessorMainPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
-		c.anchor = GridBagConstraints.EAST;
-		JLabel studentNameLabel=new JLabel("Professor Name: ");
+		
+		setBackground(new Color(145,0,0));
+		
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		JLabel Label=new JLabel("PROFILE");
+		Label.setFont(new Font("Comic Sans MS", Font.BOLD,25));
+		Label.setForeground(Color.white);
+		c.insets= new Insets(0,10,0,0);
 		c.gridx=0;
 		c.gridy=0;
-		add(studentNameLabel, c);
-		c.anchor = GridBagConstraints.WEST;
-		JLabel studentName=new JLabel(name);
+		add(Label, c);
+		
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		JLabel PNameLabel=new JLabel("Name: ");
+		PNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		PNameLabel.setForeground(Color.white);
+		c.insets= new Insets(10,10,0,0);
+		c.gridx=0;
+		c.gridy=1;
+		add(PNameLabel, c);
+		//
+		c.anchor = GridBagConstraints.FIRST_LINE_END;
+		JLabel PName=new JLabel(name);
+		PName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		PName.setForeground(new Color(217, 217, 217));
 		c.gridx=1;
-		c.gridy=0;
-		add(studentName, c);
-		c.anchor = GridBagConstraints.EAST;
-		JLabel studentLastNameLabel=new JLabel("Professor Last Name: ");
+		c.gridy=1;
+		add(PName, c);
+		//
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		JLabel PLastNameLabel=new JLabel("Last Name: ");
+		PLastNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		PLastNameLabel.setForeground(Color.white);
+		c.insets= new Insets(10,10,0,0);
 		c.gridx=0;
 		c.gridy=2;
-		add(studentLastNameLabel, c);
-		c.anchor = GridBagConstraints.WEST;
-		JLabel studentLastName=new JLabel(lastName);
+		add(PLastNameLabel, c);
+		//
+		c.anchor = GridBagConstraints.FIRST_LINE_END;
+		JLabel PLastName=new JLabel(lastName);
+		PLastName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		PLastName.setForeground(new Color(217, 217, 217));
 		c.gridx=1;
 		c.gridy=2;
-		add(studentLastName, c);
-		c.anchor = GridBagConstraints.EAST;
+		add(PLastName, c);
+		
+		//
+		/*c.anchor = GridBagConstraints.EAST;
 		JLabel swapLabel=new JLabel("Swap Schedule: ");
+		swapLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		swapLabel.setForeground(Color.white);
 		c.gridx=0;
 		c.gridy=3;
-		add(swapLabel, c);
-		c.anchor = GridBagConstraints.WEST;
+		add(swapLabel, c);*/
+		//
+		c.anchor = GridBagConstraints.CENTER;
 		ImageIcon swapIcon=new ImageIcon("Files/swap-icon.png");
 		Image image = swapIcon.getImage();
-		Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
+		Image newimg = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
 		swapIcon = new ImageIcon(newimg);
 		JButton swapButton=new JButton(swapIcon);
+		swapButton.setBackground(Color.WHITE);
 		swapButton.setFocusPainted(false);
 		swapButton.addActionListener(new ActionListener() {
 
@@ -66,8 +100,9 @@ public class ProfessorMainPanel extends JPanel{
 			}
 			
 		});
-		c.gridx=1;
-		c.gridy=3;
+		c.gridx=0;
+		c.gridy=4;
+		c.insets= new Insets(35,70,30,0);
 		add(swapButton, c);
 	}
 

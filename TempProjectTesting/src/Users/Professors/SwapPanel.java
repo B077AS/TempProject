@@ -1,7 +1,10 @@
 package Users.Professors;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -45,23 +48,28 @@ public class SwapPanel extends JPanel{
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
-
+		
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		this.calendarLabel=new JLabel("(Requiered) Select a day to Swap");
+		calendarLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
+		calendarLabel.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
+		c.insets= new Insets (0,0,100,100);
 		add(calendarLabel, c);
+		//
 		SqlDateModel model= new SqlDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
 		p.put("text.year", "Year");
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-		c.gridx=0;
+		c.gridx=1;
 		c.gridy=1;
 		add(datePanel, c);
 		JButton firstDateButton=new JButton("Next");
 		firstDateButton.addActionListener(new SaveDatesListener(this, datePanel, mainGUI, user));
-		c.gridx=1;
+		c.gridx=2;
 		c.gridy=1;
 		add(firstDateButton, c);
 		JButton skipSecondDate=new JButton("Skip");
@@ -83,7 +91,7 @@ public class SwapPanel extends JPanel{
 			}
 
 		});
-		c.gridx=2;
+		c.gridx=3;
 		c.gridy=1;
 		add(skipSecondDate, c);
 

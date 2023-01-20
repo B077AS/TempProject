@@ -9,7 +9,6 @@ public class StudentsGUI extends UserGUI{
 
 	public StudentsGUI(String name, String lastName, String email, Students user) {
 		super(name, lastName, email, user);
-
 		UsersHeadPanel head=new UsersHeadPanel(name, lastName, email, user, this);
 		northPanel=head;
 		addFindPanel(this, user);

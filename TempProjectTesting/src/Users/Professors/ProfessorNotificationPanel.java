@@ -1,7 +1,11 @@
 package Users.Professors;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.*;
 import java.sql.*;
 import java.time.DayOfWeek;
@@ -11,6 +15,8 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
@@ -45,6 +51,7 @@ public class ProfessorNotificationPanel extends JPanel{
 		GridBagConstraints c3=new GridBagConstraints();
 
 		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setPreferredSize(new Dimension(500, 300));
 
 
 		try {
@@ -97,6 +104,10 @@ public class ProfessorNotificationPanel extends JPanel{
 		}
 		JList<ProfessorNotification> list=new JList(profNotifications.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
+		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+		//listScroller.setPreferredSize(new Dimension(250, 200));
+		listScroller.setForeground(new Color(145,0,0));
+		listScroller.setBackground(new Color(145,0,0));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -143,11 +154,16 @@ public class ProfessorNotificationPanel extends JPanel{
 		c1.gridx=0;
 		c1.gridy=1;
 		notificationDetails=new JLabel("Notification Details");
+		notificationDetails.setFont(new Font("Comic Sans MS", Font.BOLD,10));
+		notificationDetails.setForeground(new Color(145,0,0));
 		swapRequestsContainer.add(this.notificationDetails, c1);
 
 
 
 		JButton acceptSwap=new JButton("Accept");
+		acceptSwap.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
+		acceptSwap.setForeground(Color.WHITE);
+		acceptSwap.setBackground(new Color(145,0,0));
 		acceptSwap.addActionListener(new ActionListener() {
 
 			@Override
@@ -164,9 +180,13 @@ public class ProfessorNotificationPanel extends JPanel{
 		});
 		c1.gridx=1;
 		c1.gridy=0;
+		c1.insets = new Insets(0,10,40,0);
 		swapRequestsContainer.add(acceptSwap, c1);
 
 		JButton draft=new JButton("Send Swap-Draft");
+		draft.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
+		draft.setForeground(Color.WHITE);
+		draft.setBackground(new Color(145,0,0));
 		draft.addActionListener(new ActionListener() {
 
 			@Override
@@ -180,24 +200,34 @@ public class ProfessorNotificationPanel extends JPanel{
 			}
 
 		});
-		c1.gridx=2;
+		c1.gridx=1;
 		c1.gridy=0;
+		c1.insets = new Insets(30,15,0,0);
 		swapRequestsContainer.add(draft, c1);
 
 		c.gridx=0;
 		c.gridy=0;
 		tabbedPane.addTab("Swap Requests", swapRequestsContainer);
+		tabbedPane.setForeground((new Color(145,0,0)));
+		tabbedPane.setBackground(Color.WHITE);
 		add(tabbedPane, c);
 
 		JList<ProfessorSwapDraft> listDraft=new JList(swapNotAcceptedNotifications.toArray());
 		JScrollPane listDraftScroller = new JScrollPane(listDraft);
 		listDraft.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listDraftScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+		//listScroller.setPreferredSize(new Dimension(250, 200));
+		listDraftScroller.setForeground(new Color(145,0,0));
+		listDraftScroller.setBackground(new Color(145,0,0));
 		c2.gridx=0;
 		c2.gridy=0;
 		draftRequestsContainer.add(listDraftScroller);
 
 
 		JButton acceptDraft=new JButton("Accept Draft");
+		acceptDraft.setForeground(Color.WHITE);
+		acceptDraft.setBackground(new Color(145,0,0));
+		acceptDraft.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
 		acceptDraft.addActionListener(new ActionListener() {
 
 			@Override
@@ -271,10 +301,14 @@ public class ProfessorNotificationPanel extends JPanel{
 		});
 		c2.gridx=1;
 		c2.gridy=0;
+		c2.insets = new Insets(0,10,40,0);
 		draftRequestsContainer.add(acceptDraft, c2);
 
 
 		JButton reject=new JButton("Reject Draft");
+		reject.setForeground(Color.WHITE);
+		reject.setBackground(new Color(145,0,0));
+		reject.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
 		reject.addActionListener(new ActionListener() {
 
 			@Override
@@ -309,14 +343,19 @@ public class ProfessorNotificationPanel extends JPanel{
 			}
 
 		});
-		c2.gridx=2;
+		c2.gridx=1;
 		c2.gridy=0;
+		c2.insets = new Insets(30,15,0,0);
 		draftRequestsContainer.add(reject, c2);
 
 
 		JList<ProfessorSwapDraft> listReminders=new JList(swapAcceptedNotifications.toArray());
 		JScrollPane listRemindersScroller = new JScrollPane(listReminders);
 		listReminders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listRemindersScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+		//listScroller.setPreferredSize(new Dimension(250, 200));
+		listRemindersScroller.setForeground(new Color(145,0,0));
+		listRemindersScroller.setBackground(new Color(145,0,0));
 		c3.gridx=0;
 		c3.gridy=0;
 		reminderContainer.add(listRemindersScroller);

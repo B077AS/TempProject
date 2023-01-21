@@ -57,11 +57,9 @@ public class ProfessorNotificationPanel extends JPanel{
 		ProfNotificationDAO dao=new ProfNotificationDAO();
 		ProfSwapNotificationDAO swapDao=new ProfSwapNotificationDAO();
 
-		try {
-
-			List<Notification> list=dao.getNotifications(new ProfessorNotification(null, null,  user.getID(), null, null, null));
-			for(int i=0; i<list.size(); i++) {
-				user.loadNotifications(list.get(i));
+			List<Notification> listNotify=dao.getNotifications(new ProfessorNotification(null, null,  user.getID(), null, null, null));
+			for(int i=0; i<listNotify.size(); i++) {
+				user.loadNotifications(listNotify.get(i));
 			}
 
 
@@ -70,10 +68,6 @@ public class ProfessorNotificationPanel extends JPanel{
 				user.loadNotifications(listSwap.get(i));
 			}
 
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		ArrayList profNotifications=new ArrayList();
 		ArrayList swapNotAcceptedNotifications=new ArrayList();
 		ArrayList swapAcceptedNotifications=new ArrayList();

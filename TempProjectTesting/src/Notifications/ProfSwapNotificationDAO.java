@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 
 public class ProfSwapNotificationDAO {
 
@@ -34,7 +35,7 @@ public class ProfSwapNotificationDAO {
 		}
 		return swapRequests;
 	}
-	
+
 	public List<Notification> getNotifications(ProfessorSwapDraft notification) {
 		List<Notification> list=new ArrayList();
 		try {
@@ -50,12 +51,32 @@ public class ProfSwapNotificationDAO {
 			}
 			conn.close();
 			return list;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
-		
+
+	}
+
+	public void acceptSwap(ProfessorSwapDraft notification) {
+		try {
+			Connection conn=DBConnection.connect();
+			String query="UPDATE swap_notifications SET Accepted = 'true' WHERE Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, notification.getSender());
+			preparedStmt.setString(2, notification.getReceiver());
+			preparedStmt.setDate(3, notification.getFirstDate());
+			preparedStmt.setDate(4, notification.getNewDate());
+			preparedStmt.setString(5, notification.getFirstSchedule());
+			preparedStmt.setString(6, notification.getNewScehudle());
+			preparedStmt.executeUpdate();
+			conn.close();
+		} catch (Exception ea) {
+			ea.printStackTrace();
+			new ExceptionFrame("\u274C No Notification Selected!");
+			return;
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 
 public class ProfNotificationDAO {
 
@@ -50,6 +51,29 @@ public class ProfNotificationDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	public Date selectDate(ProfessorNotification notification) {
+		try {
+			Connection conn=DBConnection.connect();
+			
+			String query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, notification.getScheduleID());
+			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setString(3, notification.getSender());
+			ResultSet result=preparedStmt.executeQuery();
+			result.next();
+			Date date=result.getDate(1);
+			return date;
+			
+		} catch (Exception ea) {
+			ea.printStackTrace();
+			new ExceptionFrame("\u274C No Notification Selected!");
+			return null;
+		}
+		
 	}
 
 }

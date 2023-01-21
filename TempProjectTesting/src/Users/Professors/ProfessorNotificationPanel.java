@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import DataBase.DBConnection;
@@ -196,8 +195,10 @@ public class ProfessorNotificationPanel extends JPanel{
 
 				try {
 					ProfessorSwapDraft swap=listDraft.getSelectedValue();
+					swap.setReceiver(user.getID());
+					swapDao.acceptSwap(swap);
 					Connection conn=DBConnection.connect();
-					String query="UPDATE swap_notifications SET Accepted = 'true' WHERE Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=?";
+					/*String query="UPDATE swap_notifications SET Accepted = 'true' WHERE Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=?";
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 					preparedStmt.setString(1, swap.getSender());
 					preparedStmt.setString(2, user.getID());
@@ -205,10 +206,10 @@ public class ProfessorNotificationPanel extends JPanel{
 					preparedStmt.setDate(4, swap.getNewDate());
 					preparedStmt.setString(5, swap.getFirstSchedule());
 					preparedStmt.setString(6, swap.getNewScehudle());
-					preparedStmt.executeUpdate();
+					preparedStmt.executeUpdate();*/
 
-					query="select Start_Time, End_Time from schedule where Schedule_ID=?";
-					preparedStmt = conn.prepareStatement(query);
+					String query="select Start_Time, End_Time from schedule where Schedule_ID=?";
+					PreparedStatement preparedStmt = conn.prepareStatement(query);
 					preparedStmt.setString(1, swap.getFirstSchedule());
 					ResultSet result=preparedStmt.executeQuery();
 
@@ -216,7 +217,11 @@ public class ProfessorNotificationPanel extends JPanel{
 					String from=result.getString(1);
 					String to=result.getString(2);
 
-					query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
+					ProfessorNotification profNotify=new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate().toString(), swap.getReceiver(), null, null, null);
+					Date dateSelected=dao.selectDate(profNotify);
+					String date=dateSelected.toString();
+					
+					/*query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
 					preparedStmt = conn.prepareStatement(query);
 					preparedStmt.setString(1, swap.getFirstSchedule());
 					preparedStmt.setDate(2, swap.getFirstDate());
@@ -224,7 +229,7 @@ public class ProfessorNotificationPanel extends JPanel{
 					result=preparedStmt.executeQuery();
 
 					result.next();
-					String date=result.getString(1);
+					String date=result.getString(1);*/
 
 					if(date==null) {
 						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";

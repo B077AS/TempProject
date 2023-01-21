@@ -13,15 +13,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
 import Notifications.AcceptRejectFrame;
-import Notifications.Notification;
+import Notifications.ProfNotificationDAO;
+import Notifications.ProfSwapNotificationDAO;
 import Notifications.ProfessorNotification;
 import Notifications.ProfessorSwapDraft;
 import Rooms.Rooms;
@@ -51,32 +50,26 @@ public class ProfessorNotificationPanel extends JPanel{
 		GridBagConstraints c3=new GridBagConstraints();
 
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.setPreferredSize(new Dimension(500, 300));
-
+		//tabbedPane.setPreferredSize(new Dimension(500, 300));
+		ProfNotificationDAO dao=new ProfNotificationDAO();
+		ProfSwapNotificationDAO swapDao=new ProfSwapNotificationDAO();
 
 		try {
-
-			Connection conn=DBConnection.connect();
-			String query="select * from prof_notifications where Sender!=?";
-			PreparedStatement statement = conn.prepareStatement(query);
-			statement.setString(1, user.getID());
-			ResultSet result=statement.executeQuery();
-
+			
+			
+			ResultSet result=dao.getNotifications(new ProfessorNotification(null, null,  user.getID(), null, null, null));
 			while(result.next()) {
 				user.loadNotifications(new ProfessorNotification(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
 			}
-
-			query="select * from swap_notifications where Receiver=? or Sender=?";
-			statement = conn.prepareStatement(query);
-			statement.setString(1, user.getID());
-			statement.setString(2, user.getID());
-			result=statement.executeQuery();
+			
+			
+			result=swapDao.getNotifications(new ProfessorSwapDraft(user.getID(), user.getID(), null, null, null, null, null));
 
 			while(result.next()) {
 				user.loadNotifications(new ProfessorSwapDraft(result.getString(1), result.getString(2), result.getDate(3), result.getDate(4), result.getString(5), result.getString(6), result.getString(7)));
 			}
-
-			conn.close();
+			
+			//result.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +79,6 @@ public class ProfessorNotificationPanel extends JPanel{
 		ArrayList swapAcceptedNotifications=new ArrayList();
 
 		int i=0;
-
 		for(i=0; i<user.getNotifications().size(); i++) {
 			try {
 				ProfessorNotification swap=(ProfessorNotification)user.getNotifications().get(i);
@@ -111,34 +103,16 @@ public class ProfessorNotificationPanel extends JPanel{
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() ==1){
+				if (e.getClickCount()==1){
 					try {
 						Connection conn=DBConnection.connect();
 						if(list.getSelectedValue().getNewDate()==null) {
-							String query="select * from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
-							PreparedStatement preparedStmt = conn.prepareStatement(query);
-							preparedStmt.setString(1, list.getSelectedValue().getScheduleID());
-							preparedStmt.setDate(2, Date.valueOf(list.getSelectedValue().getDate()));
-							preparedStmt.setString(3, list.getSelectedValue().getSender());
-							ResultSet result=preparedStmt.executeQuery();
-							result.next();
-
-							notificationDetails.setText("Notification Deatils: Swap "+result.getDate(2));
-
-							conn.close();
+							ProfessorNotification notificationDate=dao.getNotificationNoSuggestion(new ProfessorNotification(list.getSelectedValue().getScheduleID(), list.getSelectedValue().getDate(), list.getSelectedValue().getSender(), null, null, null));
+							notificationDetails.setText("Notification Deatils: Swap "+notificationDate.getDate());
 						}
 						else {
-							String query="select * from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
-							PreparedStatement preparedStmt = conn.prepareStatement(query);
-							preparedStmt.setString(1, list.getSelectedValue().getScheduleID());
-							preparedStmt.setDate(2, Date.valueOf(list.getSelectedValue().getDate()));
-							preparedStmt.setString(3, list.getSelectedValue().getSender());
-							preparedStmt.setDate(4, Date.valueOf(list.getSelectedValue().getNewDate()));
-							preparedStmt.setString(5, list.getSelectedValue().getNewFrom());
-							preparedStmt.setString(6, list.getSelectedValue().getNewTo());
-							ResultSet result=preparedStmt.executeQuery();
-							result.next();
-							notificationDetails.setText("Notification Deatils: Swap "+result.getDate(2)+" into "+result.getDate(4)+" between "+result.getString(5)+"-"+result.getString(6));
+							ProfessorNotification notificationDate=dao.getNotificationSuggestion(new ProfessorNotification(list.getSelectedValue().getScheduleID(), list.getSelectedValue().getDate(), list.getSelectedValue().getSender(), list.getSelectedValue().getNewDate(), list.getSelectedValue().getNewFrom(), list.getSelectedValue().getNewTo()));
+							notificationDetails.setText("Notification Deatils: Swap "+notificationDate.getDate()+" into "+notificationDate.getNewDate()+" between "+notificationDate.getNewTo()+"-"+notificationDate.getNewFrom());
 							conn.close();
 						}
 

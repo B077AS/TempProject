@@ -42,9 +42,9 @@ public class Professor extends Users{
 	public JButton checkNotifications() {
 		ProfNotificationDAO daoProfNotification=new ProfNotificationDAO();
 		ProfSwapNotificationDAO daoProfSwap=new ProfSwapNotificationDAO();
-		boolean profRequests=daoProfNotification.checkNotification(new ProfessorNotification(null, this.ID, null, null, null, null));;
+		boolean profRequests=daoProfNotification.checkNotification(new ProfessorNotification(null, this.ID, null, null, null, null));
 		boolean swapRequests=daoProfSwap.checkNotification(new ProfessorSwapDraft(null, this.ID, null, null, null, null, "false"));
-		boolean reminders=daoProfSwap.checkNotification(new ProfessorSwapDraft(null, this.ID, null, null, null, null, "true"));;
+		boolean reminders=daoProfSwap.checkNotification(new ProfessorSwapDraft(null, this.ID, null, null, null, null, "true"));
 		deleteOldNotifications();
 		
 			if (profRequests==true || swapRequests==true) {

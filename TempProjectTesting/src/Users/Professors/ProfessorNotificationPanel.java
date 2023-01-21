@@ -13,12 +13,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
 import Notifications.AcceptRejectFrame;
+import Notifications.Notification;
 import Notifications.ProfNotificationDAO;
 import Notifications.ProfSwapNotificationDAO;
 import Notifications.ProfessorNotification;
@@ -55,21 +58,18 @@ public class ProfessorNotificationPanel extends JPanel{
 		ProfSwapNotificationDAO swapDao=new ProfSwapNotificationDAO();
 
 		try {
-			
-			
-			ResultSet result=dao.getNotifications(new ProfessorNotification(null, null,  user.getID(), null, null, null));
-			while(result.next()) {
-				user.loadNotifications(new ProfessorNotification(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
-			}
-			
-			
-			result=swapDao.getNotifications(new ProfessorSwapDraft(user.getID(), user.getID(), null, null, null, null, null));
 
-			while(result.next()) {
-				user.loadNotifications(new ProfessorSwapDraft(result.getString(1), result.getString(2), result.getDate(3), result.getDate(4), result.getString(5), result.getString(6), result.getString(7)));
+			List<Notification> list=dao.getNotifications(new ProfessorNotification(null, null,  user.getID(), null, null, null));
+			for(int i=0; i<list.size(); i++) {
+				user.loadNotifications(list.get(i));
 			}
-			
-			//result.close();
+
+
+			List<Notification> listSwap=swapDao.getNotifications(new ProfessorSwapDraft(user.getID(), user.getID(), null, null, null, null, null));
+			for(int i=0; i<listSwap.size(); i++) {
+				user.loadNotifications(listSwap.get(i));
+			}
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,10 +78,10 @@ public class ProfessorNotificationPanel extends JPanel{
 		ArrayList swapNotAcceptedNotifications=new ArrayList();
 		ArrayList swapAcceptedNotifications=new ArrayList();
 
-		int i=0;
-		for(i=0; i<user.getNotifications().size(); i++) {
+		for(int i=0; i<user.getNotifications().size(); i++) {
 			try {
 				ProfessorNotification swap=(ProfessorNotification)user.getNotifications().get(i);
+
 				profNotifications.add(swap);
 			}
 			catch(Exception selectType) {
@@ -94,6 +94,7 @@ public class ProfessorNotificationPanel extends JPanel{
 				}
 			}
 		}
+
 		JList<ProfessorNotification> list=new JList(profNotifications.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
@@ -104,19 +105,11 @@ public class ProfessorNotificationPanel extends JPanel{
 		list.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount()==1){
-					try {
-						Connection conn=DBConnection.connect();
-						if(list.getSelectedValue().getNewDate()==null) {
-							ProfessorNotification notificationDate=dao.getNotificationNoSuggestion(new ProfessorNotification(list.getSelectedValue().getScheduleID(), list.getSelectedValue().getDate(), list.getSelectedValue().getSender(), null, null, null));
-							notificationDetails.setText("Notification Deatils: Swap "+notificationDate.getDate());
-						}
-						else {
-							ProfessorNotification notificationDate=dao.getNotificationSuggestion(new ProfessorNotification(list.getSelectedValue().getScheduleID(), list.getSelectedValue().getDate(), list.getSelectedValue().getSender(), list.getSelectedValue().getNewDate(), list.getSelectedValue().getNewFrom(), list.getSelectedValue().getNewTo()));
-							notificationDetails.setText("Notification Deatils: Swap "+notificationDate.getDate()+" into "+notificationDate.getNewDate()+" between "+notificationDate.getNewTo()+"-"+notificationDate.getNewFrom());
-							conn.close();
-						}
-
-					} catch (Exception ex) {
+					if(list.getSelectedValue().getNewDate()==null) {
+						notificationDetails.setText("Notification Deatils: Swap "+list.getSelectedValue().getDate());
+					}
+					else {
+						notificationDetails.setText("Notification Deatils: Swap "+list.getSelectedValue().getDate()+" into "+list.getSelectedValue().getNewDate()+" between "+list.getSelectedValue().getNewTo()+"-"+list.getSelectedValue().getNewFrom());	
 					}
 				}
 			}
@@ -268,7 +261,7 @@ public class ProfessorNotificationPanel extends JPanel{
 					return;
 				}
 				new AcceptRejectFrame("Swap Request Accepted!", user, frame);
-				
+
 
 			}
 
@@ -300,7 +293,7 @@ public class ProfessorNotificationPanel extends JPanel{
 					preparedStmt.setString(5, swap.getFirstSchedule());
 					preparedStmt.setString(6, swap.getNewScehudle());
 					preparedStmt.executeUpdate();
-					
+
 					conn.close();
 					frame.removePanel();
 					frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));

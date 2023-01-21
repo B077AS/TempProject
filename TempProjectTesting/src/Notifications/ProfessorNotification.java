@@ -76,7 +76,6 @@ public class ProfessorNotification implements Notification{
 			preparedStmt.setString(1, this.scheduleID);
 			result=preparedStmt.executeQuery();
 			result.next();
-			
 			String startTime=result.getString(2);
 			String endTime=result.getString(3);
 			String room=result.getString(5);
@@ -87,7 +86,7 @@ public class ProfessorNotification implements Notification{
 			return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+startTime+" to: "+endTime+" in: "+room+" with no preference";
 			}
 			else {
-				return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+startTime+" to: "+endTime+" in: "+room+" with preference";	
+				return name+" "+lastName+" requested a Schedule Swap the day: "+this.date+" from: "+this.newTo+" to: "+this.newFrom+" in: "+room+" with preference";	
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +94,4 @@ public class ProfessorNotification implements Notification{
 
 		return null;
 	}
-	
-	
-
 }

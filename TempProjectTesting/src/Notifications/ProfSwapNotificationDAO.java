@@ -1,6 +1,7 @@
 package Notifications;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,6 +85,20 @@ public class ProfSwapNotificationDAO {
 		preparedStmt.setString(5, notification.getFirstSchedule());
 		preparedStmt.setString(6, notification.getNewScehudle());
 		preparedStmt.executeUpdate();
+	}
+	
+	public void insertNotification(ProfessorSwapDraft notification) throws Exception {
+		Connection conn=DBConnection.connect();
+		String query="insert into swap_notifications (Sender, Receiver, First_Date, New_Date, First_Schedule, New_Schedule, Accepted)"+"values(?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setString(1, notification.getReceiver());
+		preparedStmt.setString(2, notification.getSender());
+		preparedStmt.setDate(3, notification.getFirstDate());
+		preparedStmt.setDate(4, notification.getNewDate());
+		preparedStmt.setString(5, notification.getFirstSchedule());
+		preparedStmt.setString(6, notification.getNewScehudle());
+		preparedStmt.setString(7, Boolean.toString(notification.isAccepted()));
+		preparedStmt.execute();
 	}
 
 }

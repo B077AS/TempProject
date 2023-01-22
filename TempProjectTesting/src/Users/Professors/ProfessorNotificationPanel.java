@@ -330,26 +330,11 @@ class RoomChooser extends JFrame{
 							result.next();
 							String newSchedule=result.getString(1);
 
-							query="insert into swap_notifications (Sender, Receiver, First_Date, New_Date, First_Schedule, New_Schedule, Accepted)"+"values(?, ?, ?, ?, ?, ?, ?)";
-							preparedStmt = conn.prepareStatement(query);
-							preparedStmt.setString(1, user.getID());
-							preparedStmt.setString(2, notification.getSender());
-							preparedStmt.setDate(3, Date.valueOf(notification.getDate()));
-							preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
-							preparedStmt.setString(5, notification.getScheduleID());
-							preparedStmt.setString(6, newSchedule);
-							preparedStmt.setString(7, "true");
-							preparedStmt.execute();
-
-							query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
-							preparedStmt = conn.prepareStatement(query);
-							preparedStmt.setString(1, notification.getScheduleID());
-							preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
-							preparedStmt.setString(3, notification.getSender());
-							preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
-							preparedStmt.setString(5, notification.getNewFrom());
-							preparedStmt.setString(6, notification.getNewTo());
-							preparedStmt.executeUpdate();
+							ProfSwapNotificationDAO swapDao=new ProfSwapNotificationDAO();
+							ProfessorSwapDraft swap=new ProfessorSwapDraft(user.getID(), notification.getSender(), Date.valueOf(notification.getDate()), Date.valueOf(notification.getNewDate()),  notification.getScheduleID(), newSchedule, "true");
+							swapDao.insertNotification(swap);
+							ProfNotificationDAO dao=new ProfNotificationDAO();
+							dao.deleteWithNewDate(notification);
 
 							conn.close();
 

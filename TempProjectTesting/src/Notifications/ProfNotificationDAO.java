@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ public class ProfNotificationDAO {
 
 	public boolean checkNotification(ProfessorNotification notification) {
 		boolean resultFull=false;
-
 		try {
 			Connection conn=DBConnection.connect();
 			String query="select * from prof_notifications where Sender!=?";
@@ -54,8 +54,7 @@ public class ProfNotificationDAO {
 	}
 	
 	
-	public Date selectDate(ProfessorNotification notification) {
-		try {
+	public Date selectDate(ProfessorNotification notification) throws Exception {
 			Connection conn=DBConnection.connect();
 			
 			String query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
@@ -66,14 +65,35 @@ public class ProfNotificationDAO {
 			ResultSet result=preparedStmt.executeQuery();
 			result.next();
 			Date date=result.getDate(1);
-			return date;
-			
-		} catch (Exception ea) {
-			ea.printStackTrace();
-			new ExceptionFrame("\u274C No Notification Selected!");
-			return null;
-		}
+			conn.close();
+			return date;		
+	}
+	
+	public void deleteNotificationNoNewDate(ProfessorNotification notification) throws Exception {
+			Connection conn=DBConnection.connect();
+			String query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, notification.getScheduleID());
+			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setString(3, notification.getSender());
+			System.out.println(preparedStmt);
+			preparedStmt.executeUpdate();
+			conn.close();
 		
+	}
+	
+	public void deleteWithNewDate(ProfessorNotification notification) throws Exception {
+			Connection conn=DBConnection.connect();
+			String query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, notification.getScheduleID());
+			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setString(3, notification.getSender());
+			preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+			preparedStmt.setString(5, notification.getNewFrom());
+			preparedStmt.setString(6, notification.getNewTo());
+			preparedStmt.executeUpdate();
+			conn.close();
 	}
 
 }

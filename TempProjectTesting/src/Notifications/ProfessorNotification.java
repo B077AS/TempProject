@@ -41,9 +41,31 @@ public class ProfessorNotification implements Notification{
 
 	public String getDate() {
 		return this.date;
+	}	
+
+	public void setScheduleID(String scheduleID) {
+		this.scheduleID = scheduleID;
 	}
-	
-	
+
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setNewDate(String newDate) {
+		this.newDate = newDate;
+	}
+
+	public void setNewFrom(String newFrom) {
+		this.newFrom = newFrom;
+	}
+
+	public void setNewTo(String newTo) {
+		this.newTo = newTo;
+	}
 
 	public String getNewDate() {
 		return newDate;

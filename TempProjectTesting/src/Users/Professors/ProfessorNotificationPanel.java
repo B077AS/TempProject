@@ -129,7 +129,10 @@ public class ProfessorNotificationPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ProfessorNotification notification=list.getSelectedValue();
-
+				if(notification==null) {
+					new ExceptionFrame("\u274C No Notification Selected!");
+					return;
+				}
 				RoomChooser choose=new RoomChooser(notification, user, frame);
 				frame.removePanel();
 				frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));
@@ -197,71 +200,13 @@ public class ProfessorNotificationPanel extends JPanel{
 					ProfessorSwapDraft swap=listDraft.getSelectedValue();
 					swap.setReceiver(user.getID());
 					swapDao.acceptSwap(swap);
-					Connection conn=DBConnection.connect();
-					/*String query="UPDATE swap_notifications SET Accepted = 'true' WHERE Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=?";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, swap.getSender());
-					preparedStmt.setString(2, user.getID());
-					preparedStmt.setDate(3, swap.getFirstDate());
-					preparedStmt.setDate(4, swap.getNewDate());
-					preparedStmt.setString(5, swap.getFirstSchedule());
-					preparedStmt.setString(6, swap.getNewScehudle());
-					preparedStmt.executeUpdate();*/
-
-					String query="select Start_Time, End_Time from schedule where Schedule_ID=?";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, swap.getFirstSchedule());
-					ResultSet result=preparedStmt.executeQuery();
-
-					result.next();
-					String from=result.getString(1);
-					String to=result.getString(2);
-
-					ProfessorNotification profNotify=new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate().toString(), swap.getReceiver(), null, null, null);
-					Date dateSelected=dao.selectDate(profNotify);
-					String date=dateSelected.toString();
-					
-					/*query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
-					preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, swap.getFirstSchedule());
-					preparedStmt.setDate(2, swap.getFirstDate());
-					preparedStmt.setString(3, swap.getReceiver());
-					result=preparedStmt.executeQuery();
-
-					result.next();
-					String date=result.getString(1);*/
-
-					if(date==null) {
-						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
-						preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setString(1, swap.getFirstSchedule());
-						preparedStmt.setDate(2, swap.getFirstDate());
-						preparedStmt.setString(3, swap.getReceiver());
-						preparedStmt.executeUpdate();
-						conn.close();
-					}
-					else {
-
-						query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
-						preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setString(1, swap.getFirstSchedule());
-						preparedStmt.setDate(2, swap.getFirstDate());
-						preparedStmt.setString(3, swap.getReceiver());
-						preparedStmt.setDate(4, swap.getNewDate());
-						preparedStmt.setString(5, from);
-						preparedStmt.setString(6, to);
-						preparedStmt.executeUpdate();
-						conn.close();
-					}
-
+					swapDao.deleteSwap(swap);
+					dao.deleteNotificationNoNewDate(new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate().toString(), swap.getReceiver(), null, null, null));
 				} catch (Exception ea) {
 					ea.printStackTrace();
-					new ExceptionFrame("\u274C No Notification Selected!");
 					return;
 				}
 				new AcceptRejectFrame("Swap Request Accepted!", user, frame);
-
-
 			}
 
 		});
@@ -282,18 +227,8 @@ public class ProfessorNotificationPanel extends JPanel{
 
 				try {
 					ProfessorSwapDraft swap=listDraft.getSelectedValue();
-					Connection conn=DBConnection.connect();
-					String query="delete from swap_notifications where Sender=? and Receiver=? and First_Date=? and New_Date=? and First_Schedule=? and New_Schedule=? and Accepted='false'";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, swap.getSender());
-					preparedStmt.setString(2, user.getID());
-					preparedStmt.setDate(3, swap.getFirstDate());
-					preparedStmt.setDate(4, swap.getNewDate());
-					preparedStmt.setString(5, swap.getFirstSchedule());
-					preparedStmt.setString(6, swap.getNewScehudle());
-					preparedStmt.executeUpdate();
+					swapDao.deleteSwap(swap);
 
-					conn.close();
 					frame.removePanel();
 					frame.addSecondPanel(new ProfessorNotificationPanel(user, frame));
 					frame.revalidate();

@@ -1,6 +1,7 @@
 package Users.Professors;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -51,14 +52,15 @@ public class SwapPanel extends JPanel{
 		
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		this.calendarLabel=new JLabel("(Requiered) Select a day to Swap");
-		calendarLabel.setFont(new Font("Comic Sans MS", Font.PLAIN,25));
+		calendarLabel.setFont(new Font("Comic Sans MS", Font.BOLD,25));
 		calendarLabel.setForeground(new Color(145,0,0));
-		c.gridx=0;
+		c.gridx=1;
 		c.gridy=0;
-		c.insets= new Insets (0,0,100,100);
+		c.insets= new Insets (0,0,100,0);
 		add(calendarLabel, c);
 		//
 		SqlDateModel model= new SqlDateModel();
+	
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
@@ -66,13 +68,27 @@ public class SwapPanel extends JPanel{
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		c.gridx=1;
 		c.gridy=1;
+		c.insets= new Insets(0,100,50,0);
 		add(datePanel, c);
+		//
 		JButton firstDateButton=new JButton("Next");
+		firstDateButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		firstDateButton.setForeground(Color.WHITE);
+		firstDateButton.setBackground(new Color(145,0,0));		
+		firstDateButton.setOpaque(true);
+		firstDateButton.setBorderPainted(false);
 		firstDateButton.addActionListener(new SaveDatesListener(this, datePanel, mainGUI, user));
 		c.gridx=2;
 		c.gridy=1;
 		add(firstDateButton, c);
+		//
 		JButton skipSecondDate=new JButton("Skip");
+		skipSecondDate.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		skipSecondDate.setForeground(Color.WHITE);
+		skipSecondDate.setBackground(new Color(145,0,0));		
+		skipSecondDate.setOpaque(true);
+		skipSecondDate.setBorderPainted(false);
+		
 		skipSecondDate.addActionListener(new ActionListener() {
 
 			@Override
@@ -91,8 +107,9 @@ public class SwapPanel extends JPanel{
 			}
 
 		});
-		c.gridx=3;
+		c.gridx=2;
 		c.gridy=1;
+		c.insets= new Insets(50,100,0,0);
 		add(skipSecondDate, c);
 
 
@@ -169,15 +186,22 @@ class ConfirmSwapPanel extends JPanel{
 		GridBagConstraints c=new GridBagConstraints();
 
 		JLabel firstDateLabel=new JLabel("Swappable date: "+firstDate.toString()+" ");
+		firstDateLabel.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		firstDateLabel.setForeground(new Color(145,0,0));
+		c.insets= new Insets (5,0,0,0);
 		c.gridx=0;
 		c.gridy=0;
 		add(firstDateLabel, c);
 		JLabel secondDateLabel;
 		if(secondDate==null) {
 			secondDateLabel=new JLabel("No preference specified");
+			secondDateLabel.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+			secondDateLabel.setForeground(new Color(145,0,0));
 		}
 		else {
 			secondDateLabel=new JLabel("Substitute date: "+secondDate.toString()+" ");
+			secondDateLabel.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+			secondDateLabel.setForeground(new Color(145,0,0));
 		}
 		c.gridx=0;
 		c.gridy=1;
@@ -187,14 +211,22 @@ class ConfirmSwapPanel extends JPanel{
 		JComboBox<String> endTimeBox=new JComboBox<String>();
 		endTimeBox.addItem("To");
 		endTimeBox.setFocusable(false);
+		endTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		endTimeBox.setForeground(new Color(145,0,0));
+		endTimeBox.setBackground(Color.WHITE);
+		c.insets= new Insets (0,5,0,0);
 		c.gridx=2;
 		c.gridy=0;
 		add(endTimeBox, c);
 
 		JComboBox<String> startTimeBox=new JComboBox<String>(startHours);
 		ToActionListener sl=new ToActionListener(startTimeBox, endTimeBox);
+		startTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		startTimeBox.setForeground(new Color(145,0,0));
+		startTimeBox.setBackground(Color.WHITE);
 		startTimeBox.addActionListener(sl);
 		startTimeBox.setFocusable(false);
+		
 		c.gridx=1;
 		c.gridy=0;
 		add(startTimeBox, c);
@@ -206,6 +238,9 @@ class ConfirmSwapPanel extends JPanel{
 			secondEndTimeBox=new JComboBox<String>();
 			secondEndTimeBox.addItem("To");
 			secondEndTimeBox.setFocusable(false);
+			secondEndTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			secondEndTimeBox.setForeground(new Color(145,0,0));
+			secondEndTimeBox.setBackground(Color.WHITE);
 			c.gridx=2;
 			c.gridy=1;
 			add(secondEndTimeBox, c);
@@ -214,6 +249,9 @@ class ConfirmSwapPanel extends JPanel{
 			sl=new ToActionListener(secondStartTimeBox, secondEndTimeBox);
 			secondStartTimeBox.addActionListener(sl);
 			secondStartTimeBox.setFocusable(false);
+			secondStartTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			secondStartTimeBox.setForeground(new Color(145,0,0));
+			secondStartTimeBox.setBackground(Color.WHITE);
 			c.gridx=1;
 			c.gridy=1;
 			add(secondStartTimeBox, c);
@@ -234,6 +272,9 @@ class ConfirmSwapPanel extends JPanel{
 
 
 			possibleRooms=new JComboBox(roomsList.toArray());
+			possibleRooms.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			possibleRooms.setForeground(new Color(145,0,0));
+			possibleRooms.setBackground(Color.WHITE);
 			c.gridx=3;
 			c.gridy=0;
 			add(possibleRooms, c);
@@ -242,6 +283,12 @@ class ConfirmSwapPanel extends JPanel{
 		}
 		
 		JButton swapButton=new JButton("Send Swap Request");
+		swapButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		swapButton.setForeground(Color.WHITE);
+		swapButton.setBackground(new Color(145,0,0));
+		
+		swapButton.setOpaque(true);
+		swapButton.setBorderPainted(false);
 		swapButton.addActionListener(new SwapListener(firstDate, secondDate, User, mainGUI, possibleRooms, startTimeBox, endTimeBox, secondStartTimeBox, secondEndTimeBox, skip));
 		c.gridx=4;
 		c.gridy=0;

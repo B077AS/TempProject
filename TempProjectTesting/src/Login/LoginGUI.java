@@ -58,53 +58,7 @@ public class LoginGUI extends JFrame{
 }
 
 class MainPanel extends JPanel{
-/*	public MainPanel(LoginGUI mainGUI) {
-		setLayout (new GridBagLayout());
-		GridBagConstraints c=new GridBagConstraints();
 
-		c.anchor = GridBagConstraints.EAST;
-		JLabel emailLabel=new JLabel("Email/ID: ");
-		c.gridx=0;
-		c.gridy=0;
-		add(emailLabel, c);
-		c.anchor = GridBagConstraints.CENTER;
-		JTextField emailField=new JTextField(25);
-		c.gridx=1;
-		c.gridy=0;
-		add(emailField, c);
-		c.anchor = GridBagConstraints.EAST;
-		JLabel passwordLabel=new JLabel("Password: ");
-		c.gridx=0;
-		c.gridy=1;
-		add(passwordLabel, c);
-		c.anchor = GridBagConstraints.CENTER;
-		JPasswordField passwordField=new JPasswordField(25);
-		LoginListener login=new LoginListener(emailField, passwordField, mainGUI);
-		c.gridx=1;
-		c.gridy=1;
-		passwordField.addActionListener(login);
-		add(passwordField, c);
-		JButton loginButton=new JButton("Login");
-		c.gridx=1;
-		c.gridy=2;
-		loginButton.addActionListener(login);
-		add(loginButton, c);
-		JButton registerButton=new JButton("Register");
-		c.gridx=1;
-		c.gridy=3;
-		
-		//
-		registerButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				RegisterGUI register=new RegisterGUI();
-				mainGUI.dispose();
-
-			}
-		});
-		add(registerButton, c);
-
-	}*/
 	
 	public MainPanel(LoginGUI mainGUI) {
 

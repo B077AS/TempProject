@@ -22,8 +22,7 @@ public class UserGUI extends JFrame{
 		setTitle("UserProfile");
 		setBackground(Color.WHITE);
 		
-	//	JPanel p=mainPanel(name, lastName);
-	//	add(p, BorderLayout.BEFORE_LINE_BEGINS);
+	
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -62,11 +61,12 @@ public class UserGUI extends JFrame{
 	public Users getUser() {
 		return user;
 	}
-/*	
-	public JPanel mainPanel(String name, String lastName) {
+	
+/*	public JPanel mainPanel(String name, String lastName) {
 		
 		JPanel p= new JPanel();
 		p.setLayout (new GridBagLayout());
+		p.setSize(40,40);
 		GridBagConstraints c=new GridBagConstraints();
 		
 		p.setBackground(new Color(145,0,0));
@@ -78,6 +78,7 @@ public class UserGUI extends JFrame{
 		c.insets= new Insets(0,10,250,0);
 		c.gridx=0;
 		c.gridy=0;
+		
 		p.add(Label, c);
 		
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -115,7 +116,22 @@ public class UserGUI extends JFrame{
 		p.add(studentLastName, c);
 		
 		return p;
+	}*/
+	
+
+	public JPanel downPanel() {
+		
+		JPanel p= new JPanel();
+		p.setLayout(new BorderLayout());
+		p.setBackground(new Color(77, 77, 77));
+		JLabel down = new JLabel("For any problems contact: findme.verify@outlook.com");
+		down.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
+		down.setForeground(Color.white);
+		p.add(down, BorderLayout.EAST);
+		
+		return p;
+		
 	}
 	
-	*/
+	
 }

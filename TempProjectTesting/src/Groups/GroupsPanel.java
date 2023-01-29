@@ -39,19 +39,35 @@ public class GroupsPanel extends JPanel{
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
+		setBackground (Color.white);
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
+		
+		c.anchor= GridBagConstraints.PAGE_START;
+		JLabel intro=new JLabel("Your groups: ");
+		intro.setFont(new Font("Comic Sans MS", Font.BOLD,19));
+		intro.setForeground(new Color(145,0,0));
+		c.gridx=0;
+		c.gridy=0;
+		c.insets= new Insets(0,0,50,0);
+		add(intro, c);
+		
 
 		JButton createGroup=new JButton("Add Group");
+		createGroup.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		createGroup.setBackground(new Color(145,0,0));
+		createGroup.setForeground(Color.white);
+		createGroup.setOpaque(true);
+		createGroup.setBorderPainted(false);
 		createGroup.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				NewGroupNameFrame group=new NewGroupNameFrame(user, studentsGUI);
 			}
 		});
-		c.gridx=0;
-		c.gridy=0;
+		c.gridx=1;
+		c.gridy=1;
+		c.insets= new Insets(0,20,0,0);
 		add(createGroup, c);
 
 		List<Group> filteredGroups = new ArrayList<Group>();
@@ -68,14 +84,20 @@ public class GroupsPanel extends JPanel{
 
 		if(this.userSpecificGroups.isEmpty()==false) {
 			JButton addUser=new JButton("Add User");
+			addUser.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			addUser.setBackground(new Color(145,0,0));
+			addUser.setForeground(Color.white);
+			addUser.setOpaque(true);
+			addUser.setBorderPainted(false);
 			addUser.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					UserAdderFrame add=new UserAdderFrame(list, studentsGUI, user);
 				}
 			});
-			c.gridx=0;
-			c.gridy=2;
+			c.gridx=1;
+			c.gridy=1;
+			c.insets= new Insets(60,20,0,0);
 			add(addUser, c);
 		}
 

@@ -67,6 +67,7 @@ public class FinderMainPanel extends JPanel{
 		filterSeats100.setSeats(100);
 		filterSeats100.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		filterSeats100.setForeground(new Color(145,0,0));
+		filterSeats100.setBackground(Color.white);
 		this.allFilters.add(filterSeats100);
 		c.gridx=0;
 		c.gridy=1;
@@ -79,6 +80,7 @@ public class FinderMainPanel extends JPanel{
 		this.allFilters.add(filterSeats50);
 		filterSeats50.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		filterSeats50.setForeground(new Color(145,0,0));
+		filterSeats50.setBackground(Color.white);
 		c.gridx=1;
 		c.gridy=1;
 		add(filterSeats50, c);
@@ -89,6 +91,7 @@ public class FinderMainPanel extends JPanel{
 		this.allFilters.add(filterLab);
 		filterLab.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		filterLab.setForeground(new Color(145,0,0));
+		filterLab.setBackground(Color.white);
 		c.gridx=2;
 		c.gridy=1;
 		add(filterLab, c);

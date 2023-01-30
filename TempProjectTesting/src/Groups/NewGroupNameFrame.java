@@ -22,21 +22,30 @@ public class NewGroupNameFrame extends JFrame{
 		GridBagConstraints c=new GridBagConstraints();
 
 		JLabel insertName=new JLabel("Insert Group Name");
+		insertName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		insertName.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
+		c.insets= new Insets(0,0,10,0);
 		add(insertName, c);
 
 		JTextField nameField=new JTextField(10);
 		ConfirmListener confirm=new ConfirmListener(user, nameField, this, studentsGUI);
 		nameField.addActionListener(confirm);
-		c.gridx=1;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=1;
 		add(nameField, c);
 
 		JButton okButton=new JButton("OK");
 		okButton.addActionListener(confirm);
-		c.gridx=2;
-		c.gridy=0;
+		okButton.setFont(new Font("Comic Sans MS", Font.BOLD,10));
+		okButton.setBackground(new Color(145,0,0));
+		okButton.setForeground(Color.white);
+		okButton.setOpaque(true);
+		okButton.setBorderPainted(false);
+		c.gridx=0;
+		c.gridy=2;
+		c.insets= new Insets(10,0,0,0);
 		add(okButton, c);
 
 		setLocationRelativeTo(null);

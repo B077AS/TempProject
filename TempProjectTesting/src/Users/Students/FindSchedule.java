@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 
 import DataBase.DBConnection;
 import Groups.GroupsPanel;
@@ -33,14 +34,14 @@ public class FindSchedule extends JPanel{
 		String[] columnsNames= {" ", "Monday", "Tuesday", "Thursday", "Wednesday", "Friday"};
 
 		JTable newTable=new JTable(schedule, columnsNames);
+		newTable.setBackground(Color.white);
 		newTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		newTable.setDefaultEditor(Object.class, null);
 
 		JButton selectSchedule=new JButton("Find Schedule");
-		selectSchedule.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		selectSchedule.setFont(new Font("Comic Sans MS", Font.PLAIN,13));
 		selectSchedule.setForeground(Color.WHITE);
 		selectSchedule.setBackground(new Color(145,0,0));
-		
 		selectSchedule.setOpaque(true);
 		selectSchedule.setBorderPainted(false);
 		selectSchedule.addActionListener(new ActionListener() {
@@ -96,6 +97,9 @@ public class FindSchedule extends JPanel{
 					mainGUI.revalidate();
 					mainGUI.repaint();
 					JScrollPane listScroller = new JScrollPane(newTable);
+					listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+					listScroller.setForeground(new Color(145,0,0));
+					listScroller.setBackground(new Color(145,0,0));
 					add(listScroller, BorderLayout.NORTH);
 					mainGUI.revalidate();
 					mainGUI.repaint();

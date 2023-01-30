@@ -30,7 +30,10 @@ public class ViewCoursesPanel extends JPanel{
 		table.setDefaultEditor(Object.class, null);
 
 		JPanel tablePanel = new JPanel(new BorderLayout());
-		tablePanel.add(new JLabel("Filter:"),BorderLayout.WEST);
+		JLabel filter= new JLabel("Filter:");
+		filter.setForeground(new Color(145,0,0));
+		filter.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		tablePanel.add(filter,BorderLayout.WEST);
 		tablePanel.add(filterField, BorderLayout.CENTER);
 		
 		JScrollPane listScroller = new JScrollPane(table);

@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.util.*;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.sql.*;
 import DataBase.DBConnection;
 import Users.GeneralUser.Users;
@@ -78,6 +80,7 @@ public class GroupsPanel extends JPanel{
 		JList<Group> list=new JList(filteredGroups.toArray());
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setPreferredSize(new Dimension(200, 300));
+		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
 		c.gridx=0;
 		c.gridy=1;
 		add(listScroller, c);

@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import DataBase.DBConnection;
 import Groups.GroupsPanel;
+import Login.LoginGUI;
 import MyTimer.MyTimer;
 import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
@@ -116,5 +117,26 @@ public class StudentsMainPanel extends JPanel{
 			c.insets= new Insets(0,0,5,0);
 			add(scheduleButton, c);
 			
+			JButton LogButton=new JButton("Sign out");
+			LogButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+			LogButton.setBackground(Color.white);
+			LogButton.setForeground(new Color(145,0,0));
+			LogButton.setOpaque(true);
+			LogButton.setBorderPainted(false);
+			LogButton.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					LoginGUI l=new LoginGUI();
+					mainGUI.dispose();
+				}
+			});
+			
+			c.gridx=0;
+			c.gridy=5;
+			c.insets= new Insets(0,0,5,0);
+			add(LogButton, c);
+			
 		}
+		
 }

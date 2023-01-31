@@ -120,14 +120,27 @@ public class Students extends Users{
 			groupsArray.add(group.getValue());
 		}
 		JLabel selectGroup=new JLabel("Select Group: ");
+		selectGroup.setFont(new Font("Comic Sans MS", Font.BOLD,25));
+		selectGroup.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
+		c.insets= new Insets (0,0,50,0);
 		bookPanel.add(selectGroup, c);
 		JComboBox<Group> goupsBox=new JComboBox(groupsArray.toArray());
-		c.gridx=1;
-		c.gridy=0;
+		goupsBox.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
+		goupsBox.setForeground(new Color(145,0,0));
+		goupsBox.setFocusable(false);
+		goupsBox.setBackground(Color.WHITE);
+		c.gridx=0;
+		c.gridy=1;
 		bookPanel.add(goupsBox, c);
+		//
 		JButton groupButton=new JButton("Book as a Group");
+		groupButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		groupButton.setForeground(Color.WHITE);
+		groupButton.setBackground(new Color(145,0,0));
+		groupButton.setOpaque(true);
+		groupButton.setBorderPainted(false);
 		groupButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -146,10 +159,17 @@ public class Students extends Users{
 			}
 			
 		});
-		c.gridx=2;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=2;
 		bookPanel.add(groupButton, c);
+		//
 		JButton soloButton=new JButton("Book as an Individual");
+		soloButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		soloButton.setForeground(Color.WHITE);
+		soloButton.setBackground(new Color(145,0,0));
+		soloButton.setOpaque(true);
+		soloButton.setBorderPainted(false);
+		
 		soloButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -175,8 +195,9 @@ public class Students extends Users{
 			}
 			
 		});
-		c.gridx=2;
-		c.gridy=1;
+		c.gridx=0;
+		c.gridy=3;
+		c.insets= new Insets (0,0,40,0);
 		bookPanel.add(soloButton, c);
 		return bookPanel;
 		

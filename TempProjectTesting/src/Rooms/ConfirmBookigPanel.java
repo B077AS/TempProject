@@ -13,6 +13,8 @@ import javax.swing.border.LineBorder;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import Finder.FinderMainPanel;
+import Login.LoginGUI;
 import MyTimer.DateHolder;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
@@ -149,17 +151,25 @@ public class ConfirmBookigPanel extends JPanel{
 		c.gridy=1;
 		lowerPanel.add(bookingButton, c);
 		//
-		JButton backButton=new JButton("Back");
+	/*	JButton backButton=new JButton("Back");
 		backButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		backButton.setForeground(Color.WHITE);
 		backButton.setBackground(new Color(145,0,0));
 		
 		backButton.setOpaque(true);
 		backButton.setBorderPainted(false);
+		backButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FinderMainPanel l=new FinderMainPanel();
+				frame.dispose();
+			}
+		});
 		c.insets= new Insets(50,0,0,0);
 		c.gridx=2;
 		c.gridy=1;
-		lowerPanel.add(backButton, c);
+		lowerPanel.add(backButton, c);*/
 
 		add(lowerPanel, BorderLayout.CENTER);
 

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import Users.Students.StudentsMainPanel;
@@ -18,7 +19,6 @@ public class UsersHeadPanel extends JPanel{
 		add(new NotificationRightPanel(user, gui), BorderLayout.EAST);
 		
 		
-	
 		
 	}	
 }

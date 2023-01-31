@@ -62,62 +62,7 @@ public class UserGUI extends JFrame{
 		return user;
 	}
 	
-/*	public JPanel mainPanel(String name, String lastName) {
-		
-		JPanel p= new JPanel();
-		p.setLayout (new GridBagLayout());
-		p.setSize(40,40);
-		GridBagConstraints c=new GridBagConstraints();
-		
-		p.setBackground(new Color(145,0,0));
-		
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		JLabel Label=new JLabel("PROFILE");
-		Label.setFont(new Font("Comic Sans MS", Font.BOLD,25));
-		Label.setForeground(Color.white);
-		c.insets= new Insets(0,10,250,0);
-		c.gridx=0;
-		c.gridy=0;
-		
-		p.add(Label, c);
-		
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		JLabel studentNameLabel=new JLabel("Name: ");
-		studentNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		studentNameLabel.setForeground(Color.white);
-		c.insets= new Insets(10,10,0,0);
-		c.gridx=0;
-		c.gridy=1;
-		p.add(studentNameLabel, c);
-		//
-		c.anchor = GridBagConstraints.FIRST_LINE_END;
-		JLabel studentName=new JLabel(name);
-		studentName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		studentName.setForeground(new Color(217, 217, 217));
-		c.gridx=1;
-		c.gridy=1;
-		p.add(studentName, c);
-		//
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		JLabel studentLastNameLabel=new JLabel("Last Name: ");
-		studentLastNameLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		studentLastNameLabel.setForeground(Color.white);
-		c.insets= new Insets(10,10,0,0);
-		c.gridx=0;
-		c.gridy=2;
-		p.add(studentLastNameLabel, c);
-		//
-		c.anchor = GridBagConstraints.FIRST_LINE_END;
-		JLabel studentLastName=new JLabel(lastName);
-		studentLastName.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		studentLastName.setForeground(new Color(217, 217, 217));
-		c.gridx=1;
-		c.gridy=2;
-		p.add(studentLastName, c);
-		
-		return p;
-	}*/
-	
+
 
 	public JPanel downPanel() {
 		

@@ -1,5 +1,6 @@
 package Users.LabManager;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -61,7 +62,9 @@ public class Lab_Manager extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton button= new JButton(notificationIcon);
+				button.setBackground(Color.white);
+				return button;
 			}
 			else {
 				conn.close();
@@ -69,7 +72,9 @@ public class Lab_Manager extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton button= new JButton(notificationIcon);
+				button.setBackground(Color.white);
+				return button;
 			}
 			
 			

@@ -1,6 +1,8 @@
 package Rooms;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -32,11 +34,18 @@ public class ReasonFrame extends JFrame{
 
 		headerPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
+		headerPanel.setBackground(new Color(145,0,0));
 		
 		footerPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c1=new GridBagConstraints();
+		//footerPanel.setBackground(new Color(145,0,0));
+		mainPanel.setBackground(new Color(145,0,0));
+		secondPanel.setBackground(new Color(145,0,0));
 
 		JLabel info=new JLabel("Explain why you are requesting to book this room");
+		info.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		info.setForeground(Color.white);
+		
 		c.gridx=0;
 		c.gridy=0;
 		headerPanel.add(info, c);
@@ -54,6 +63,11 @@ public class ReasonFrame extends JFrame{
 		mainPanel.add(secondPanel, BorderLayout.CENTER);
 		
 		JButton send=new JButton("Send");
+		send.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		send.setBackground(Color.white);
+		send.setForeground(new Color(145,0,0));
+		send.setOpaque(true);
+		send.setBorderPainted(false);
 		send.addActionListener(new ActionListener() {
 
 			@Override
@@ -71,7 +85,7 @@ public class ReasonFrame extends JFrame{
 
 
 		add(mainPanel);
-		setSize(600,420);
+		setSize(700,460);
 		setTitle("Write your Request");
 
 		setLocationRelativeTo(null);

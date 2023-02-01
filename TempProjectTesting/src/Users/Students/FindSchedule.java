@@ -17,7 +17,7 @@ import Users.GeneralUser.*;
 
 public class FindSchedule extends JPanel{
 	
-	
+
 
 	public FindSchedule(ViewCoursesPanel tablePanel, UserGUI mainGUI) {
 		
@@ -91,7 +91,7 @@ public class FindSchedule extends JPanel{
 					
 
 					}
-
+					
 					remove(tablePanel);
 					remove(buttonPanel);
 					mainGUI.revalidate();
@@ -104,6 +104,7 @@ public class FindSchedule extends JPanel{
 					mainGUI.revalidate();
 					mainGUI.repaint();
 					conn.close();
+					
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -168,6 +169,6 @@ public class FindSchedule extends JPanel{
 		}
 	}
 	
-			
+		
 
 }

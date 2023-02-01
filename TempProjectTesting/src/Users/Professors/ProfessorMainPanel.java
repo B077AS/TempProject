@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Groups.GroupsPanel;
+import Login.LoginGUI;
 import Users.GeneralUser.FindPanel;
 import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UserGUI;
@@ -102,8 +103,28 @@ public class ProfessorMainPanel extends JPanel{
 		});
 		c.gridx=0;
 		c.gridy=4;
-		c.insets= new Insets(35,70,30,0);
+		c.insets= new Insets(0,0,20,0);
 		add(swapButton, c);
+		
+		JButton LogButton=new JButton("Sign out");
+		LogButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+		LogButton.setBackground(Color.white);
+		LogButton.setForeground(new Color(145,0,0));
+		LogButton.setOpaque(true);
+		LogButton.setBorderPainted(false);
+		LogButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LoginGUI l=new LoginGUI();
+				mainGUI.dispose();
+			}
+		});
+		
+		c.gridx=0;
+		c.gridy=4;
+		c.insets= new Insets(70,20,10,0);
+		add(LogButton, c);
 	}
 
 }

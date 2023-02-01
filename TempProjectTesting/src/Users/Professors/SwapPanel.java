@@ -48,6 +48,7 @@ public class SwapPanel extends JPanel{
 		this.secondDate=secondDate;
 
 		setLayout (new GridBagLayout());
+		setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
 		
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
@@ -183,6 +184,7 @@ class ConfirmSwapPanel extends JPanel{
 
 
 		setLayout (new GridBagLayout());
+		setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
 
 		JLabel firstDateLabel=new JLabel("Swappable date: "+firstDate.toString()+" ");

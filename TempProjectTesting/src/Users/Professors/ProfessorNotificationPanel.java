@@ -36,6 +36,7 @@ public class ProfessorNotificationPanel extends JPanel{
 	public ProfessorNotificationPanel(Users user, UserGUI frame) {
 		user.getNotifications().clear();
 		setLayout (new GridBagLayout());
+		setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
 
 		JPanel swapRequestsContainer=new JPanel();

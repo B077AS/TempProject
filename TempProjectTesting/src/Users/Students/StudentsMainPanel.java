@@ -84,7 +84,7 @@ public class StudentsMainPanel extends JPanel{
 					mainGUI.repaint();
 				}
 			});
-			c.insets= new Insets(30,0,35,10);
+			c.insets= new Insets(10,0,35,10);
 			c.gridx=0;
 			c.gridy=4;
 			add(groupsButton, c);
@@ -114,7 +114,7 @@ public class StudentsMainPanel extends JPanel{
 			});
 			c.gridx=1;
 			c.gridy=4;
-			c.insets= new Insets(0,0,5,0);
+			c.insets= new Insets(0,0,50,0);
 			add(scheduleButton, c);
 			
 			JButton LogButton=new JButton("Sign out");
@@ -133,8 +133,8 @@ public class StudentsMainPanel extends JPanel{
 			});
 			
 			c.gridx=0;
-			c.gridy=5;
-			c.insets= new Insets(0,0,5,0);
+			c.gridy=4;
+			c.insets= new Insets(70,0,10,7);
 			add(LogButton, c);
 			
 		}

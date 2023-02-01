@@ -1,5 +1,7 @@
 package Users.Professors;
 
+import java.awt.*;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -52,21 +54,27 @@ public class Professor extends Users{
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton button= new JButton(notificationIcon);
+				button.setBackground(Color.white);
+				return button;
 			}
 			else if(profRequests==false && swapRequests==false && reminders==false){
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton button= new JButton(notificationIcon);
+				button.setBackground(Color.white);
+				return button;
 			}
 			else {
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-reminder.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
-				return new JButton(notificationIcon);
+				JButton button= new JButton(notificationIcon);
+				button.setBackground(Color.white);
+				return button;
 
 			}
 
@@ -85,16 +93,25 @@ public class Professor extends Users{
 		int day=DateHolder.getDay();
 
 		JPanel bookPanel=new JPanel();
-
+		bookPanel.setBackground(Color.white);
 		bookPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 
 		Booking booking=(Booking)objects[0];
 
-
-		JLabel bookingSummary=new JLabel("Booking Summary: "+booking.getRoom()+" from: "+booking.getStartTime()+" to "+booking.getEndTime());
+		JLabel book= new JLabel ("Booking Summary :");
+		book.setFont(new Font("Comic Sans MS", Font.BOLD,25));
+		book.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
+		c.insets= new Insets(0,0,50,0);
+		bookPanel.add(book, c);
+		//
+		JLabel bookingSummary=new JLabel("Room: "+booking.getRoom()+" from: "+booking.getStartTime()+" to "+booking.getEndTime());
+		bookingSummary.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		bookingSummary.setForeground(new Color(145,0,0));
+		c.gridx=0;
+		c.gridy=1;
 		bookPanel.add(bookingSummary, c);
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -105,6 +122,11 @@ public class Professor extends Users{
 		LocalDate bookingDate=date.toLocalDate();
 
 		JButton claimButton=new JButton("Claim Room");
+		claimButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		claimButton.setForeground(Color.WHITE);
+		claimButton.setBackground(new Color(145,0,0));	
+		claimButton.setOpaque(true);
+		claimButton.setBorderPainted(false);
 		claimButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -147,6 +169,9 @@ public class Professor extends Users{
 						conn.close();
 						
 						new BookingSuccessful();
+					
+						
+						
 
 					}
 					else if(firstCheck==false && secondCheck==false) {
@@ -162,6 +187,7 @@ public class Professor extends Users{
 						preparedStmt.execute();
 						conn.close();
 						new BookingSuccessful();
+					
 					}
 					else {
 						throw new Exception();
@@ -175,12 +201,13 @@ public class Professor extends Users{
 			}
 
 		});
-		c.gridx=1;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=2;
 		bookPanel.add(claimButton, c);
 
 		return bookPanel;
 	}
+	
 
 	@Override
 	public JPanel notificationPanel(Users user, UserGUI frame) {

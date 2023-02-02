@@ -1,6 +1,7 @@
 package Users.LabManager;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -12,13 +13,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
@@ -99,6 +101,7 @@ public class Lab_Manager extends Users{
 	@Override
 	public JPanel notificationPanel(Users user, UserGUI frame) {
 		JPanel requestsPanel=new JPanel();
+		requestsPanel.setBackground(Color.white);
 		requestsPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
@@ -120,14 +123,29 @@ public class Lab_Manager extends Users{
 			e1.printStackTrace();
 		}
 		
-		JList<LabNotification> notificationsList=new JList(notificationsArray.toArray());
-		JScrollPane listScroller = new JScrollPane(notificationsList);
-		notificationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		c.anchor = GridBagConstraints.CENTER;
+		JLabel intro = new JLabel("Select the notification:");
+		intro.setFont(new Font("Comic Sans MS", Font.BOLD,20));
+		intro.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
-		requestsPanel.add(listScroller, c);
+		c.insets= new Insets(20,0,0,0);
+		requestsPanel.add(intro, c);
 		
+		JList<LabNotification> notificationsList=new JList(notificationsArray.toArray());
+		JScrollPane listScroller = new JScrollPane(notificationsList);
+		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+		notificationsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		c.gridx=0;
+		c.gridy=1;
+		requestsPanel.add(listScroller, c);
+		//
 		JButton expandButton=new JButton("Expand");
+		expandButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		expandButton.setForeground(Color.white);
+		expandButton.setBackground(new Color(145,0,0));
+		expandButton.setOpaque(true);
+		expandButton.setBorderPainted(false);
 		expandButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -136,11 +154,17 @@ public class Lab_Manager extends Users{
 			}
 			
 		});
-		c.gridx=1;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=2;
+		c.insets= new Insets(20,0,0,250);
 		requestsPanel.add(expandButton, c);
 		
 		JButton acceptButton=new JButton("Accept");
+		acceptButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		acceptButton.setForeground(Color.white);
+		acceptButton.setBackground(new Color(145,0,0));
+		acceptButton.setOpaque(true);
+		acceptButton.setBorderPainted(false);
 		acceptButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -179,11 +203,17 @@ public class Lab_Manager extends Users{
 				
 			}
 		});
-		c.gridx=2;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=2;
+		c.insets= new Insets(20,0,0,0);
 		requestsPanel.add(acceptButton, c);
-		
+		//
 		JButton rejectButton=new JButton("Reject");
+		rejectButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		rejectButton.setForeground(Color.white);
+		rejectButton.setBackground(new Color(145,0,0));
+		rejectButton.setOpaque(true);
+		rejectButton.setBorderPainted(false);
 		rejectButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -223,8 +253,9 @@ public class Lab_Manager extends Users{
 			}
 			
 		});
-		c.gridx=3;
-		c.gridy=0;
+		c.gridx=0;
+		c.gridy=2;
+		c.insets= new Insets(20,250,0,0);
 		requestsPanel.add(rejectButton, c);
 		
 		return requestsPanel;

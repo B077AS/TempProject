@@ -163,22 +163,40 @@ class ButtonsPanel extends JPanel{
 	public ButtonsPanel(UserGUI frame, JTable table) {
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
+		setBackground(Color.white);
 
-		c.anchor = GridBagConstraints.WEST;
+	/*	c.anchor = GridBagConstraints.WEST;
 		JLabel addCourseInfo=new JLabel("Add New Course to the DataBase: ");
+		addCourseInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
+		addCourseInfo.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
-		add(addCourseInfo, c);
+		c.insets= new Insets(0,20,0,0);
+		add(addCourseInfo, c);*/
 		JButton addCourseButton=new JButton("Add Course");
+		addCourseButton.setFont(new Font("Comic Sans MS", Font.BOLD,13));
+		addCourseButton.setForeground(Color.white);
+		addCourseButton.setBackground(new Color(145,0,0));
+		addCourseButton.setOpaque(true);
+		addCourseButton.setBorderPainted(false);
 		addCourseButton.addActionListener(new NewPanelListener(frame, new AddCoursePanel(frame)));
-		c.gridx=1;
-		c.gridy=0;
-		add(addCourseButton, c);
-		JLabel addScheduleInfo=new JLabel("Update the schedule of an existing Course: ");
 		c.gridx=0;
 		c.gridy=1;
-		add(addScheduleInfo, c);
+		c.insets= new Insets(10,20,0,0);
+		add(addCourseButton, c);
+	/*	JLabel addScheduleInfo=new JLabel("Update the schedule of an existing Course: ");
+		addScheduleInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
+		addScheduleInfo.setForeground(new Color(145,0,0));	
+		c.gridx=1;
+		c.gridy=0;
+		c.insets= new Insets(0,20,0,0);
+		add(addScheduleInfo, c);*/
 		JButton addSchedule=new JButton("Update Schedule");
+		addSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,13));
+		addSchedule.setForeground(Color.white);
+		addSchedule.setBackground(new Color(145,0,0));
+		addSchedule.setOpaque(true);
+		addSchedule.setBorderPainted(false);
 		addSchedule.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -194,18 +212,29 @@ class ButtonsPanel extends JPanel{
 		});
 		c.gridx=1;
 		c.gridy=1;
+		c.insets= new Insets(10,20,0,0);
 		add(addSchedule, c);
-		JLabel removeInfo=new JLabel("Remove existing Course: ");
-		c.gridx=0;
-		c.gridy=2;
-		add(removeInfo, c);
+	/*	JLabel removeInfo=new JLabel("Remove existing Course: ");
+		removeInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
+		removeInfo.setForeground(new Color(145,0,0));	
+		c.gridx=2;
+		c.gridy=0;
+		c.insets= new Insets(0,20,0,0);
+		add(removeInfo, c);*/
+		//
 		JButton removeButton=new JButton("Remove");
 		RemoveListener remove=new RemoveListener(frame, table);
+		removeButton.setFont(new Font("Comic Sans MS", Font.BOLD,13));
+		removeButton.setForeground(Color.white);
+		removeButton.setBackground(new Color(145,0,0));
+		removeButton.setOpaque(true);
+		removeButton.setBorderPainted(false);
 		removeButton.addActionListener(remove);
-		c.gridx=1;
-		c.gridy=2;
+		c.insets= new Insets(10,20,0,0);
+		c.gridx=2;
+		c.gridy=1;
 		add(removeButton, c);
-		JButton back=new JButton("Back");
+	/*	JButton back=new JButton("Back");
 		c.gridx=1;
 		c.gridy=3;
 		back.addActionListener(new ActionListener() {
@@ -214,7 +243,7 @@ class ButtonsPanel extends JPanel{
 				frame.removePanel();
 			}
 		});
-		add(back, c);
+		add(back, c);*/
 	}
 }
 

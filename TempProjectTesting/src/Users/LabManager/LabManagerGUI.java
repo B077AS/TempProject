@@ -2,6 +2,8 @@ package Users.LabManager;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JLabel;
+
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 import Users.GeneralUser.UsersHeadPanel;
@@ -13,6 +15,9 @@ public class LabManagerGUI extends UserGUI{
 		UsersHeadPanel head=new UsersHeadPanel(name, lastName, email, user, this);
 		northPanel=head;
 		this.add(northPanel, BorderLayout.NORTH);
+		this.add(downPanel(), BorderLayout.SOUTH);
+		
+
 	}
 	
 	@Override

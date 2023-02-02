@@ -111,6 +111,7 @@ public class Students extends Users{
 		JPanel bookPanel=new JPanel();
 		
 		bookPanel.setLayout (new GridBagLayout());
+		bookPanel.setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
 		
 		GroupsPanel groupsPanel=new GroupsPanel(this, frame);

@@ -24,24 +24,38 @@ public class ConfirmFilePanel extends JPanel{
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
 		
+		setBackground(Color.white);
+		
 		c.anchor = GridBagConstraints.WEST;
 		JLabel pathLabelInfo=new JLabel("Selected file: ");
+		pathLabelInfo.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		pathLabelInfo.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=0;
+		c.insets= new Insets(0,0,20,0);
 		add(pathLabelInfo, c);
 		
 		c.anchor = GridBagConstraints.EAST;
 		JLabel pathLabel=new JLabel(path);
+		pathLabel.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 		c.gridx=1;
 		c.gridy=0;
 		add(pathLabel, c);
 		
 		c.anchor = GridBagConstraints.WEST;
 		JLabel changeInfo=new JLabel("Change Info: ");
+		changeInfo.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		changeInfo.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=2;
 		add(changeInfo, c);
+		//
 		JButton changeFile=new JButton("Change");
+		changeFile.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		changeFile.setForeground(Color.white);
+		changeFile.setBackground(new Color(145,0,0));
+		changeFile.setOpaque(true);
+		changeFile.setBorderPainted(false);
 		changeFile.addActionListener(new NewPanelListener(frame, new ViewCoursesPanel(frame)));
 		c.gridx=1;
 		c.gridy=2;
@@ -50,21 +64,31 @@ public class ConfirmFilePanel extends JPanel{
 		int row=table.getSelectedRow();
 		String code=(String) table.getValueAt(row, 0);
 		JLabel selectedReplace=new JLabel("Selected Course to be Updated: ");
+		selectedReplace.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		selectedReplace.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=1;
 		add(selectedReplace, c);
 		
 		c.anchor = GridBagConstraints.WEST;
 		JLabel codeLabel=new JLabel(code);
+		codeLabel.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 		c.gridx=1;
 		c.gridy=1;
 		add(codeLabel, c);
 		
 		JLabel addSchedule=new JLabel("Add Schedule: ");
+		addSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		addSchedule.setForeground(new Color(145,0,0));
 		c.gridx=0;
 		c.gridy=3;
 		add(addSchedule, c);
 		JButton addScheduleButton=new JButton("Add");
+		addScheduleButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		addScheduleButton.setForeground(Color.white);
+		addScheduleButton.setBackground(new Color(145,0,0));
+		addScheduleButton.setOpaque(true);
+		addScheduleButton.setBorderPainted(false);
 		addScheduleButton.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent evt) {
@@ -76,10 +100,18 @@ public class ConfirmFilePanel extends JPanel{
 		add(addScheduleButton, c);
 		
 		JLabel updateSchedule=new JLabel("Update Schedule: ");
+		updateSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+		updateSchedule.setForeground(new Color(145,0,0));
+		
 		c.gridx=0;
 		c.gridy=4;
 		add(updateSchedule, c);
 		JButton updateButton=new JButton("Update");
+		updateButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		updateButton.setForeground(Color.white);
+		updateButton.setBackground(new Color(145,0,0));
+		updateButton.setOpaque(true);
+		updateButton.setBorderPainted(false);
 		UpdateLinstener update=new UpdateLinstener(code, path);
 		updateButton.addActionListener(update);
 		c.gridx=1;

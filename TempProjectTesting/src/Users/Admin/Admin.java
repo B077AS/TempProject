@@ -9,6 +9,7 @@ import Courses.CourseDAO;
 import Login.*;
 import Rooms.*;
 import Users.GeneralUser.Users;
+import Users.Students.StudentsMainPanel;
 import Users.GeneralUser.UserGUI;
 
 public class Admin extends Users {
@@ -34,8 +35,8 @@ public class Admin extends Users {
 
 	@Override
 	public JPanel getMainPanel(UserGUI gui) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdminMainPanel(name, lastName, email, gui);
+		
 	}
 
 	@Override

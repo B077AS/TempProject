@@ -40,8 +40,14 @@ public class MyTimer {
 		return this.year;
 	}
 	
-	public String getDate() {
+	public String getStringDate() {
 		return this.date;
 	}
-
+	
+	public LocalDateTime getDate() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		return now;
+	}
+	
 }

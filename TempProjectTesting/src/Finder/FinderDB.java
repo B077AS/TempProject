@@ -2,12 +2,15 @@ package Finder;
 
 import java.io.FileInputStream;
 import java.sql.*;
+import java.sql.Date;
 import java.time.*;
 import java.util.*;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
 import MyTimer.DateHolder;
 import MyTimer.Months;
+import MyTimer.MyTimer;
 import Rooms.Booking;
 import Rooms.Rooms;
 
@@ -16,13 +19,16 @@ public class FinderDB {
 	private List<Booking> free;
 
 
-	public FinderDB(int year, String month, int day, String start, String end) {
+	public FinderDB(int year, String month, int day, String start, String end) throws Exception {
 		this.free= new ArrayList<Booking>();
-		
+
 		int monthNumber=Months.getMonths().get(month);
 		DateHolder.DateHolder(day, monthNumber, year);
 		LocalDate myDate = LocalDate.of(year, monthNumber, day);
 		DayOfWeek dayOfWeek=myDate.getDayOfWeek();
+
+
+		semesterChceck(myDate, dayOfWeek.toString());
 
 		try {
 			RoomLoader load=new RoomLoader();
@@ -75,6 +81,7 @@ public class FinderDB {
 						}
 
 					}
+					conn.close();
 				}
 			}
 			checkAvailability(this.allRooms, endNumber, startNumber, loopCount, start, end);
@@ -119,6 +126,36 @@ public class FinderDB {
 
 	public List<Booking> getFreeRooms(){
 		return this.free;
+	}
+
+	public void semesterChceck(LocalDate myDate, String dayOfWeek) throws Exception {
+		Connection conn=DBConnection.connect();
+		String query="select * from semester";
+		Statement preparedStmt=conn.createStatement();
+		ResultSet result=preparedStmt.executeQuery(query);
+		result.next();
+
+		Date start=result.getDate(1);
+		Date end=result.getDate(2);
+		
+		
+		MyTimer currentTime=new MyTimer();
+		
+		
+		if(myDate.compareTo(currentTime.getDate().toLocalDate())<0) {
+			throw new Exception();
+		}
+
+		if(dayOfWeek.equals("SUNDAY")) {
+			throw new Exception();
+		}
+		
+
+		if(myDate.compareTo(start.toLocalDate())>0 && myDate.compareTo(end.toLocalDate())>0) {
+			throw new Exception();
+		}
+		conn.close();
+
 	}
 
 }

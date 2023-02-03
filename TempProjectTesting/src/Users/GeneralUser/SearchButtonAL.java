@@ -54,6 +54,7 @@ public class SearchButtonAL implements ActionListener{
 			return;
 		}
 
+		
 		FinderDB f=new FinderDB(year, month, day, start, end);
 
 		this.userMainGUI.removePanel();
@@ -63,7 +64,7 @@ public class SearchButtonAL implements ActionListener{
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
-			new ExceptionFrame("\u274C Not Valid Parameters!");
+			new ExceptionFrame("Not Valid Parameters!");
 			return;
 		}
 	}

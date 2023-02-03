@@ -1,8 +1,12 @@
 package Users.LabManager;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
@@ -16,7 +20,9 @@ public class LabManagerGUI extends UserGUI{
 		northPanel=head;
 		this.add(northPanel, BorderLayout.NORTH);
 		this.add(downPanel(), BorderLayout.SOUTH);
-		
+		this.setBackground(Color.white);
+		JLayeredPane pane = this.getLayeredPane();
+
 
 	}
 	

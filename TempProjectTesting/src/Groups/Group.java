@@ -48,8 +48,8 @@ public class Group {
 			
 			GroupNotificationDAO notifyDAO=new GroupNotificationDAO();
 			notifyDAO.insertGroup(group, student);
-			EmailTemplate eTemp=new EmailTemplate(student.getEmail(), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
-			eTemp.start();
+			//EmailTemplate eTemp=new EmailTemplate(student.getEmail(), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
+			//eTemp.start();
 
 		} catch (Exception e) {
 			new ExceptionFrame("User Already invited to the Group!");

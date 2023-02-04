@@ -17,7 +17,7 @@ public class GroupNotificationDAO {
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		preparedStmt.setString(1, group.getGroupAdmin());
 		preparedStmt.setString(2, user.getID());
-		preparedStmt.setString(3, group.getGroupAdmin());
+		preparedStmt.setString(3, group.getGroupID());
 		preparedStmt.execute();
 		conn.close();
 

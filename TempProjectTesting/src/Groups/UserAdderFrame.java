@@ -90,7 +90,7 @@ class OkListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(this.emailOrID.getText().equals(this.user.getID()) || this.emailOrID.getText().equals(this.user.getEmail())) {
-			new ExceptionFrame("\u274C You are already part of this Group!");
+			new ExceptionFrame("You are already part of this Group!");
 			return;
 		}
 	
@@ -103,7 +103,7 @@ class OkListener implements ActionListener{
 			this.frame.dispose();
 			
 		} catch (Exception e1) {
-			new ExceptionFrame("\u274C No Groupd Selected!");
+			new ExceptionFrame("No Groupd Selected!");
 			return;
 		}
 	}

@@ -296,7 +296,7 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 		try {
 			CheckDuplicate(this.emailString, this.idNumber.getText());
 		} catch (Exception e1) {
-			new ExceptionFrame("\u274C Email already registered");
+			new ExceptionFrame("\u274C User already registered");
 			return;
 		}
 

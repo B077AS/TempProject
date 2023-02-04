@@ -66,6 +66,8 @@ public class StudentNotificationPanel extends JPanel{
 		accept.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		accept.setForeground(Color.WHITE);
 		accept.setBackground(new Color(145,0,0));
+		accept.setOpaque(true);
+		accept.setBorderPainted(false);
 		c.gridx=1;
 		c.gridy=1;
 		c.insets= new Insets (0,20,0,0);
@@ -102,6 +104,8 @@ public class StudentNotificationPanel extends JPanel{
 		reject.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
 		reject.setForeground(Color.WHITE);
 		reject.setBackground(new Color(145,0,0));
+		reject.setOpaque(true);
+		reject.setBorderPainted(false);
 		c.gridx=1;
 		c.gridy=1;
 		c.insets= new Insets (50,20,0,0);

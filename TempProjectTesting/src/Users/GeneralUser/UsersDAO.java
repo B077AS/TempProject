@@ -4,10 +4,12 @@ import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import Users.Students.Students;
 
 public class UsersDAO {
 	
@@ -86,6 +88,17 @@ public class UsersDAO {
 
 	public Users getUser() {
 		return user;
+	}
+	
+	public Users checkUser(Users user) throws Exception {
+			Connection conn=DBConnection.connect();
+			String query="select User_Code, Email from users where User_Code=? or Email=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, Integer.parseInt(user.getEmail()));
+			preparedStmt.setString(2, user.getEmail());
+			ResultSet result=preparedStmt.executeQuery();
+			result.next();
+			return new Students(null, null, result.getString(1), result.getString(1), null, null);
 	}
 	
 	

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import javax.swing.*;
 
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 import Users.Students.Students;
@@ -71,11 +72,25 @@ class ConfirmListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-				this.user.createGroup(this.name.getText());
-				this.studentsGUI.removePanel();
-				this.studentsGUI.addSecondPanel(new GroupsPanel(this.user, this.studentsGUI));
-				this.studentsGUI.revalidate();
-				this.studentsGUI.repaint();
-				frame.dispose();
+		try {
+			checkName(this.name.getText());
+		}catch(IllegalArgumentException ex) {
+			new ExceptionFrame("Field can't be empty");
+			return;
+		}
+
+		this.user.createGroup(this.name.getText());
+		this.studentsGUI.removePanel();
+		this.studentsGUI.addSecondPanel(new GroupsPanel(this.user, this.studentsGUI));
+		this.studentsGUI.revalidate();
+		this.studentsGUI.repaint();
+		frame.dispose();
 	}
+
+	public void checkName(String nameGroup){
+		if(nameGroup.isEmpty()==true) {
+			throw new IllegalArgumentException();
+		}
+	}
+
 }

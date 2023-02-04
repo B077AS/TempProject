@@ -6,6 +6,8 @@ import java.util.HashMap;
 import DataBase.DBConnection;
 import Email.EmailTemplate;
 import Exceptions.ExceptionFrame;
+import Notifications.GroupNotificationDAO;
+import Users.GeneralUser.UsersDAO;
 import Users.Students.Students;
 
 public class Group {
@@ -27,39 +29,30 @@ public class Group {
 	public void addStudent(String ID, Students user){
 		this.studentsList.put(ID, user);
 		this.studentsNumber++;
-
-
 	}
 
 	public void addNewStudent(String emailOrID, Group group){
 
+		UsersDAO daoUser=new UsersDAO();
+		Students student;
+
 		try {
+			student=(Students)daoUser.checkUser(new Students(null, null, null, emailOrID, null, null));
+		}
+		catch(Exception e){
+			new ExceptionFrame("Invalid User!");
+			return;
+		}
 
-			Connection conn=DBConnection.connect();
-			String query="select User_Code, Email from users where User_Code=? or Email=?";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setInt(1, Integer.parseInt(emailOrID));
-			preparedStmt.setString(2, emailOrID);
-			ResultSet result=preparedStmt.executeQuery();
-
-			if (result.next() == true) {
-
-				query="insert into group_notifications (Sender, Receiver, Group_ID)"+"values (?, ?, ?)";
-				preparedStmt = conn.prepareStatement(query);
-
-				preparedStmt.setString(1, group.getGroupAdmin());
-				preparedStmt.setString(2, result.getString(1));
-				preparedStmt.setString(3, group.getGroupAdmin());
-				preparedStmt.execute();
-				EmailTemplate eTemp=new EmailTemplate(result.getString(2), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
-				eTemp.start(); // da aggiungere parte mancante
-			}
+		try {
 			
-			conn.close();
+			GroupNotificationDAO notifyDAO=new GroupNotificationDAO();
+			notifyDAO.insertGroup(group, student);
+			EmailTemplate eTemp=new EmailTemplate(student.getEmail(), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
+			eTemp.start();
 
 		} catch (Exception e) {
-			new ExceptionFrame("\u274C User Already invited to the Group!");
-			e.printStackTrace();
+			new ExceptionFrame("User Already invited to the Group!");
 			return;
 		}	
 

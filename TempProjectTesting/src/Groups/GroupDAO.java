@@ -3,37 +3,40 @@ package Groups;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import DataBase.DBConnection;
+import Users.Students.Students;
 
 public class GroupDAO {
 	
-	public String check(String emailOrID,Group group) throws Exception  {
+	public void insertGroup(Group group) throws Exception {
+		Connection conn=DBConnection.connect();
 		
-		Connection conn=DBConnection.connect();  //DAO users
-		String query="select User_Code, Email from users where User_Code=? or Email=?";
+		String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
-		preparedStmt.setInt(1, Integer.parseInt(emailOrID));
-		preparedStmt.setString(2, emailOrID);
-		ResultSet result=preparedStmt.executeQuery();
-		
-		
 
-		if (result.next() == true) {  // DAO Notifications
-			
-			String email= result.getString(2);
-			query="insert into group_notifications (Sender, Receiver, Group_ID)"+"values (?, ?, ?)";
-			preparedStmt = conn.prepareStatement(query);
-
-			preparedStmt.setString(1, group.getGroupAdmin());
-			preparedStmt.setString(2, result.getString(1));
-			preparedStmt.setString(3, group.getGroupID());
-			preparedStmt.execute();
+		preparedStmt.setString(1, group.getGroupID());
+		preparedStmt.setString(2, group.getGroupAdmin());
+		preparedStmt.setString(3, group.getGroupAdmin());
 		
-			return email;
-		}
-		
+		preparedStmt.execute();
 		conn.close();
-		return null; 
+	}
+	
+	
+	public void check(Group group, Students student) throws Exception {
+		Connection conn=DBConnection.connect();
+		String query="select * from allgroups where Group_ID=? and Admin=? and Partecipant=?";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setString(1, group.getGroupID());
+		preparedStmt.setString(2, group.getGroupAdmin());
+		preparedStmt.setString(3, student.getID());
+		ResultSet result=preparedStmt.executeQuery();
+		if(result.next()==true) {
+			conn.close();
+			throw new Exception();
+		}
+		conn.close();
 	}
 }

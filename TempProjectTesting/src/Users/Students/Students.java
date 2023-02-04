@@ -35,22 +35,10 @@ public class Students extends Users{
 
 	public void createGroup(String groupName){
 		try {
-
-			Connection conn=DBConnection.connect();
-			
-			String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-
-			preparedStmt.setString(1, groupName+"-"+this.ID);
-			preparedStmt.setString(2, this.ID);
-			preparedStmt.setString(3, this.ID);
-			
-			preparedStmt.execute();
-			conn.close();
-			
-			
+			GroupDAO dao=new GroupDAO();
+			dao.insertGroup(new Group(groupName+"-"+this.ID, this.ID));			
 		} catch (Exception e) {
-			new ExceptionFrame("\u274C Group Name not Valid!");
+			new ExceptionFrame("Group Name not Valid!");
 			return;
 		}	
 	}

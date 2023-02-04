@@ -45,6 +45,16 @@ public class Group {
 		}
 
 		try {
+		GroupDAO daoGroup=new GroupDAO();
+		daoGroup.check(group, student);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			new ExceptionFrame("User already part of the Group!");
+			return;
+		}
+
+		try {
 			
 			GroupNotificationDAO notifyDAO=new GroupNotificationDAO();
 			notifyDAO.insertGroup(group, student);

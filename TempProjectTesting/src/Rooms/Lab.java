@@ -26,7 +26,7 @@ public class Lab extends Rooms{
 		Date selectedDate=Date.valueOf(date);
 
 		
-		LabNotification notification=new LabNotification(group.getID(), this.code, selectedDate, startTime, endTime, null, false);
+		LabNotification notification=new LabNotification(group.getGroupID(), this.code, selectedDate, startTime, endTime, null, false);
 		ReasonFrame reasonFrame=new ReasonFrame(notification);
 		
 	}

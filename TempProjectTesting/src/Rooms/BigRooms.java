@@ -23,15 +23,15 @@ public class BigRooms extends Rooms{
 
 	@Override
 	public void book(Group group, String date, String startTime, String endTime) {
-		String bookingID=date+"-"+startTime.split(":")[0]+"-"+endTime.split(":")[0]+"-"+this.code+"-"+group.getAdmin();
+		String bookingID=date+"-"+startTime.split(":")[0]+"-"+endTime.split(":")[0]+"-"+this.code+"-"+group.getGroupAdmin();
 
 		try {
 			Connection conn=DBConnection.connect();
 			
 			String query ="select count(Partecipant) from allgroups where Group_ID=? and Admin=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, group.getID());
-			preparedStmt.setString(2, group.getAdmin());
+			preparedStmt.setString(1, group.getGroupID());
+			preparedStmt.setString(2, group.getGroupAdmin());
 			ResultSet result=preparedStmt.executeQuery();
 			result.next();
 			
@@ -64,7 +64,7 @@ public class BigRooms extends Rooms{
 			preparedStmt.setString(1, bookingID);
 			preparedStmt.setDate(2, Date.valueOf(date));
 			preparedStmt.setString(3, this.code);
-			preparedStmt.setString(4, group.getID());
+			preparedStmt.setString(4, group.getGroupID());
 			preparedStmt.setString(5, startTime);
 			preparedStmt.setString(6, endTime);
 			preparedStmt.setString(7, "false");

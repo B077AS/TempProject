@@ -47,11 +47,11 @@ public class Group {
 				query="insert into group_notifications (Sender, Receiver, Group_ID)"+"values (?, ?, ?)";
 				preparedStmt = conn.prepareStatement(query);
 
-				preparedStmt.setString(1, group.getAdmin());
+				preparedStmt.setString(1, group.getGroupAdmin());
 				preparedStmt.setString(2, result.getString(1));
-				preparedStmt.setString(3, group.getID());
+				preparedStmt.setString(3, group.getGroupAdmin());
 				preparedStmt.execute();
-				EmailTemplate eTemp=new EmailTemplate(result.getString(2), "Notification", "You have been invited by "+group.getAdmin()+" to join the Group: "+group.getID());
+				EmailTemplate eTemp=new EmailTemplate(result.getString(2), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
 				eTemp.start(); // da aggiungere parte mancante
 			}
 			
@@ -70,16 +70,32 @@ public class Group {
 		return this.studentsList;
 	}
 
-	public int getNumberOfStudents() {
-		return this.studentsNumber;
+	public String getGroupID() {
+		return groupID;
 	}
 
-	public String getAdmin() {
-		return this.groupAdmin;
+	public void setGroupID(String groupID) {
+		this.groupID = groupID;
 	}
 
-	public String getID() {
-		return this.groupID;
+	public String getGroupAdmin() {
+		return groupAdmin;
+	}
+
+	public void setGroupAdmin(String groupAdmin) {
+		this.groupAdmin = groupAdmin;
+	}
+
+	public int getStudentsNumber() {
+		return studentsNumber;
+	}
+
+	public void setStudentsNumber(int studentsNumber) {
+		this.studentsNumber = studentsNumber;
+	}
+
+	public int getStudentsLimit() {
+		return studentsLimit;
 	}
 
 	@Override

@@ -289,14 +289,14 @@ class RegisterButtonListener implements ActionListener{//il bottone si occupera 
 		try {
 			PasswordCheck(this.password.getPassword(), this.confirmPassword.getPassword());//controllo che le due password siano uguali (prima verifico la loro lunghezza e poi il loro contenuto)
 		}catch(IllegalArgumentException e2) {
-			new ExceptionFrame("\u274C Password Mismatch");
+			new ExceptionFrame("\u274C Password Mismatched");
 			return;
 		}
 
 		try {
 			CheckDuplicate(this.emailString, this.idNumber.getText());
 		} catch (Exception e1) {
-			new ExceptionFrame("\u274C Email already registered");
+			new ExceptionFrame("\u274C User already registered");
 			return;
 		}
 

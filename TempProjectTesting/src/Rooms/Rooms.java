@@ -20,7 +20,6 @@ public abstract class Rooms implements Bookable, Comparable<Rooms>{
 	protected boolean outlets;
 	protected boolean disabledAccess;
 	protected boolean soloBookable;
-	//protected LinkedList<Booking> schedules;
 	protected HashMap<String, Booking> availability;
 	protected int maxOccupiedSeats;
 

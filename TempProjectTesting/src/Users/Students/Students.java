@@ -71,7 +71,7 @@ public class Students extends Users{
 
 			if (result.next() == true) {
 				conn.close();
-				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-active.png");
+				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
@@ -81,7 +81,7 @@ public class Students extends Users{
 			}
 			else {
 				conn.close();
-				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
+				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-active.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);

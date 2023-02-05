@@ -49,7 +49,6 @@ public class Group {
 		daoGroup.check(group, student);
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			new ExceptionFrame("User already part of the Group!");
 			return;
 		}

@@ -24,7 +24,6 @@ public class Lab extends Rooms{
 	public void book(Group group, String date, String startTime, String endTime) {
 		
 		Date selectedDate=Date.valueOf(date);
-
 		
 		LabNotification notification=new LabNotification(group.getGroupID(), this.code, selectedDate, startTime, endTime, null, false);
 		ReasonFrame reasonFrame=new ReasonFrame(notification);

@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class ExceptionFrame {
 	
-	public ExceptionFrame(String message) {// \u274C
+	public ExceptionFrame(String message) {
 		ExceptionHandler(message);
 	}
 
@@ -41,7 +41,7 @@ public class ExceptionFrame {
 		f.add(p);
 		
 		f.setSize(400,200);
-		f.setTitle("Error");
+		f.setTitle("Message");
 
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

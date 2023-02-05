@@ -47,4 +47,26 @@ public class CourseDAO {
 	}
 
 
+	public void deleteCourse(Course course) {
+
+		try {
+			Connection conn=DBConnection.connect();
+			String query="delete from schedule where Course_ID=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, course.getID());
+			preparedStmt.execute();
+
+			query="delete from courses where Course_ID=?";
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, course.getID());
+			preparedStmt.execute();
+
+			conn.close();
+		}catch (Exception e1) {
+			System.out.println("errore query");
+			e1.printStackTrace();	
+		}
+
+
+	}
 }

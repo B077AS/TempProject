@@ -8,7 +8,6 @@ import java.util.Properties;
 import javax.swing.*;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.SqlDateModel;
-import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Users.GeneralUser.UserGUI;
 
@@ -53,64 +52,23 @@ public class EditSemesterPanel extends JPanel{
 		updateSemesterButton.setBackground(new Color(145,0,0));
 		updateSemesterButton.setOpaque(true);
 		updateSemesterButton.setBorderPainted(false);
-		updateSemesterButton.addActionListener(new UpdateActionListener(startCalendar, endCalendar));
+		updateSemesterButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Date startDate=(Date)startCalendar.getModel().getValue();
+				Date endDate=(Date)endCalendar.getModel().getValue();
+				
+				Admin user=(Admin)frame.getUser();
+				user.updateSemester(startDate, endDate);
+				
+				new ExceptionFrame("Semester Updated");
+				
+			}});
 		c.gridx=0;
 		c.gridy=2;
 		c.insets= new Insets(30,300,0,0);
 		add(updateSemesterButton, c);
 
-	}
-
-
-	public void updateCourse() {
-		Connection conn=DBConnection.connect();
-
-		try {
-
-			conn.close();
-		} catch (SQLException e1) {
-			System.out.println("errore query");
-			e1.printStackTrace();
-		}
-	}
-
-}
-
-
-class UpdateActionListener implements ActionListener{
-
-	private JDatePanelImpl start;
-	private JDatePanelImpl end;
-
-	public UpdateActionListener(JDatePanelImpl start, JDatePanelImpl end) {
-		this.start=start;
-		this.end=end;
-
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		Date startDate=(Date)this.start.getModel().getValue();
-		Date endDate=(Date)this.end.getModel().getValue();
-		
-		Connection conn=DBConnection.connect();
-		try {
-			String query="delete from semester";
-			Statement statement=conn.prepareStatement(query);
-			statement.execute(query);
-			
-			PreparedStatement preparedStmt=conn.prepareStatement(query);
-			query="insert into semester (Start_Date, End_Date)"+"values (?, ?)";
-			preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setDate(1, startDate);
-			preparedStmt.setDate(2, endDate);
-			preparedStmt.execute();
-				
-			conn.close();
-
-		}catch (Exception e1) {
-			System.out.println("errore query");
-			e1.printStackTrace();
-		}
 	}
 }

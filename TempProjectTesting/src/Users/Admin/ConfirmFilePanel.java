@@ -15,6 +15,7 @@ import javax.swing.*;
 
 import CSVConverter.CSVtoDB;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UserGUI;
 
@@ -77,7 +78,7 @@ public class ConfirmFilePanel extends JPanel{
 		c.gridy=1;
 		add(codeLabel, c);
 		
-		JLabel addSchedule=new JLabel("Add Schedule: ");
+		/*JLabel addSchedule=new JLabel("Add Schedule: ");
 		addSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));
 		addSchedule.setForeground(new Color(145,0,0));
 		c.gridx=0;
@@ -97,7 +98,7 @@ public class ConfirmFilePanel extends JPanel{
 		});
 		c.gridx=1;
 		c.gridy=3;
-		add(addScheduleButton, c);
+		add(addScheduleButton, c);*/
 		
 		JLabel updateSchedule=new JLabel("Update Schedule: ");
 		updateSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));
@@ -144,6 +145,7 @@ class UpdateLinstener implements ActionListener{
 		CSVtoDB converter=new CSVtoDB(this.code, this.path);
 		
 		conn.close();
+		new ExceptionFrame("Course Updated");
 			
 		}catch (Exception e1) {
 		System.out.println("errore query");

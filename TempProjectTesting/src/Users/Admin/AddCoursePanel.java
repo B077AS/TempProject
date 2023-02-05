@@ -82,6 +82,13 @@ public class AddCoursePanel extends JPanel{
 				Admin user=(Admin)frame.getUser();
 				user.addCourse(courseCode, courseFullName, years);
 				
+				frame.removePanel();
+				frame.addSecondPanel(new ViewCoursesPanel(frame));
+				frame.revalidate();
+				frame.repaint();
+				
+				new ExceptionFrame("Course Added Successfully!");
+				
 			}
 			
 		});

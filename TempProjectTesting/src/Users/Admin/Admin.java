@@ -1,15 +1,19 @@
 package Users.Admin;
 
 import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import Courses.Course;
 import Courses.CourseDAO;
+import DataBase.DBConnection;
 import Login.*;
 import Rooms.*;
 import Users.GeneralUser.Users;
-import Users.Students.StudentsMainPanel;
 import Users.GeneralUser.UserGUI;
 
 public class Admin extends Users {
@@ -73,4 +77,32 @@ public class Admin extends Users {
 			e.printStackTrace();
 		}
 	}
+	
+	public void removeCourse(String code) {
+		CourseDAO daoCourse=new CourseDAO();
+		daoCourse.deleteCourse(new Course(code, null, 0));
+	}
+	
+	
+	public void updateSemester(Date start, Date end) {
+
+		Connection conn=DBConnection.connect();
+		try {
+			String query="delete from semester";
+			Statement statement=conn.prepareStatement(query);
+			statement.execute(query);
+			
+			PreparedStatement preparedStmt=conn.prepareStatement(query);
+			query="insert into semester (Start_Date, End_Date)"+"values (?, ?)";
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setDate(1, start);
+			preparedStmt.setDate(2, end);
+			preparedStmt.execute();
+				
+			conn.close();
+
+		}catch (Exception e1) {
+		}
+	}
+	
 }

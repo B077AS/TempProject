@@ -8,7 +8,11 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.*;
+
+import Courses.Course;
+import Courses.CourseDAO;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.NewPanelListener;
 import Users.GeneralUser.UserGUI;
 
@@ -262,29 +266,15 @@ class RemoveListener implements ActionListener{
 		int row=table.getSelectedRow();
 		String code=(String) table.getValueAt(row, 0);
 		
-		Connection conn=DBConnection.connect();
-		try {
-			
-		String query="delete from schedule where Course_ID=?";
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
-		preparedStmt.setString(1, code);
-		preparedStmt.execute();
+		Admin user=(Admin)frame.getUser();
+		user.removeCourse(code);
 		
-		query="delete from courses where Course_ID=?";
-		preparedStmt = conn.prepareStatement(query);
-		preparedStmt.setString(1, code);
-		preparedStmt.execute();
-		
-		conn.close();
-		
-		}catch (Exception e1) {
-		System.out.println("errore query");
-		e1.printStackTrace();	
-	}
 		this.frame.removePanel();
 		this.frame.addSecondPanel(new ViewCoursesPanel(this.frame));
 		this.frame.revalidate();
 		this.frame.repaint();
+		
+		new ExceptionFrame("Course Removed Successfully!");
 		
 	}
 	

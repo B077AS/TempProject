@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Groups.Group;
+import Groups.GroupDAO;
+import Users.Students.Students;
 
 public class JoinGroupNotification implements Notification{
 
@@ -21,21 +23,19 @@ public class JoinGroupNotification implements Notification{
 	}
 
 
-	public void accept() {
+	public void accept(){
+		GroupDAO daoGroup=new GroupDAO();
+		Group group=new Group(this.groupID, this.sender);
+
+		if(daoGroup.countPartecipant(group)==group.getStudentsLimit()) {
+			throw new IllegalArgumentException();
+		}
+
 		try {
-			Connection conn=DBConnection.connect();
-			String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ? , ?)";
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, this.groupID);
-			preparedStmt.setString(2, this.sender);
-			preparedStmt.setInt(3, Integer.parseInt(this.receiver));
-			preparedStmt.execute();
-			
-			conn.close();
-			
-			} catch (Exception ea) {
-				ea.printStackTrace();
-			}
+			daoGroup.insertPartecipant(group, new Students(null, null, this.receiver, null, null, null));
+		} catch (Exception ea) {
+			ea.printStackTrace();
+		}
 
 	}
 
@@ -76,7 +76,7 @@ public class JoinGroupNotification implements Notification{
 	public String getGroupID() {
 		return groupID;
 	}
-	
-	
+
+
 
 }

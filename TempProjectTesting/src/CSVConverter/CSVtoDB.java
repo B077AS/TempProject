@@ -138,19 +138,4 @@ public class CSVtoDB {
 			e1.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		Connection conn=DBConnection.connect();
-		try {
-			String query="delete from schedule where Course_ID='E-ENG-SCS2'";
-			Statement statement=conn.prepareStatement(query);
-			statement.execute(query);
-			conn.close();
-			
-		}catch (Exception e1) {
-			System.out.println("errore query");
-			e1.printStackTrace();
-		}
-	
-	}
 }

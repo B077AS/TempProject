@@ -60,5 +60,19 @@ public class GroupDAO {
 		}
 		return 0;
 	}
+	
+	public void insertPartecipant(Group group, Students student) throws Exception {
+		Connection conn=DBConnection.connect();
+
+		String query="insert into allgroups (Group_ID, Admin, Partecipant)"+"values (?, ?, ?)";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+		preparedStmt.setString(1, group.getGroupID());
+		preparedStmt.setString(2, group.getGroupAdmin());
+		preparedStmt.setString(3, student.getID());
+
+		preparedStmt.execute();
+		conn.close();
+	}
 
 }

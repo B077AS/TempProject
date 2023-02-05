@@ -10,7 +10,7 @@ import Users.GeneralUser.Users;
 
 public class GroupNotificationDAO {
 
-	public void insertGroup(Group group, Users user) throws Exception {
+	public void insertNotification(Group group, Users user) throws Exception {
 
 		Connection conn=DBConnection.connect();
 		String query="insert into group_notifications (Sender, Receiver, Group_ID)"+"values (?, ?, ?)";
@@ -21,6 +21,17 @@ public class GroupNotificationDAO {
 		preparedStmt.execute();
 		conn.close();
 
+	}
+	
+	public void deleteNotification(JoinGroupNotification notification) throws Exception {
+		Connection conn=DBConnection.connect();
+		String query="delete from group_notifications where Sender=? and Receiver=? and Group_ID=?";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setInt(1, Integer.parseInt(notification.getSender()));
+		preparedStmt.setInt(2, Integer.parseInt(notification.getReceiver()));
+		preparedStmt.setString(3, notification.getGroupID());
+		preparedStmt.execute();
+		conn.close();
 	}
 
 }

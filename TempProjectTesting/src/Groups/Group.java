@@ -33,6 +33,17 @@ public class Group {
 
 	public void addNewStudent(String emailOrID, Group group){
 
+		try {
+			if(this.studentsNumber==this.studentsLimit) {
+				throw new IllegalArgumentException();
+			}
+
+		}catch(IllegalArgumentException e) {
+			new ExceptionFrame("Group Limit Reached!");
+			return;
+		}
+
+
 		UsersDAO daoUser=new UsersDAO();
 		Students student;
 
@@ -45,8 +56,8 @@ public class Group {
 		}
 
 		try {
-		GroupDAO daoGroup=new GroupDAO();
-		daoGroup.check(group, student);
+			GroupDAO daoGroup=new GroupDAO();
+			daoGroup.check(group, student);
 		}
 		catch(Exception e){
 			new ExceptionFrame("User already part of the Group!");
@@ -54,9 +65,9 @@ public class Group {
 		}
 
 		try {
-			
+
 			GroupNotificationDAO notifyDAO=new GroupNotificationDAO();
-			notifyDAO.insertGroup(group, student);
+			notifyDAO.insertNotification(group, student);
 			//EmailTemplate eTemp=new EmailTemplate(student.getEmail(), "Notification", "You have been invited by "+group.getGroupAdmin()+" to join the Group: "+group.getGroupID());
 			//eTemp.start();
 

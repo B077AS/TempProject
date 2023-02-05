@@ -16,16 +16,17 @@ import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 import Notifications.AcceptRejectFrame;
+import Notifications.GroupNotificationDAO;
 
 public class StudentNotificationPanel extends JPanel{
 
 	public StudentNotificationPanel(Users user, UserGUI frame) {
-		
+
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
-		
+
 		setBackground(Color.white);
-	//	setBackground(new Color(0,0,0,0));
+		//	setBackground(new Color(0,0,0,0));
 		try {
 
 			Connection conn=DBConnection.connect();
@@ -37,12 +38,12 @@ public class StudentNotificationPanel extends JPanel{
 			while(result.next()) {
 				user.loadNotifications(new JoinGroupNotification(result.getString(1), result.getString(2), result.getString(3)));
 			}
-			
+
 			conn.close();
 
 		} catch (Exception e) {
 		}
-		
+
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel notLabel= new JLabel("Check your notifications:");
 		notLabel.setFont(new Font("Comic Sans MS", Font.BOLD,25));
@@ -75,30 +76,28 @@ public class StudentNotificationPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JoinGroupNotification notification=list.getSelectedValue();
 				try {
-				Connection conn=DBConnection.connect();
-				String query="delete from group_notifications where Sender=? and Receiver=? and Group_ID=?";
-				PreparedStatement preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setInt(1, Integer.parseInt(notification.getSender()));
-				preparedStmt.setInt(2, Integer.parseInt(notification.getReceiver()));
-				preparedStmt.setString(3, notification.getGroupID());
-				preparedStmt.execute();
-				
-				conn.close();
-				
+					notification.accept();
+				}catch(IllegalArgumentException ex) {
+					new ExceptionFrame("Group Limit Reached!");
+					return;
+				}
+				try {
+					GroupNotificationDAO notificationDAO=new GroupNotificationDAO();
+					notificationDAO.deleteNotification(notification);
 				} catch (Exception ea) {
 					new ExceptionFrame("\u274C No Invite Selected!");
 					return;
 				}
-				notification.accept();
+
 				new AcceptRejectFrame("Invite Accepted!", user, frame);
 			}
-			
+
 		});
 		add(accept,c);
-		
+
 		c.anchor = GridBagConstraints.FIRST_LINE_END;
 		JButton reject=new JButton("Reject");
 		reject.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
@@ -109,37 +108,29 @@ public class StudentNotificationPanel extends JPanel{
 		c.gridx=1;
 		c.gridy=1;
 		c.insets= new Insets (50,20,0,0);
-		
+
 		reject.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JoinGroupNotification notification=list.getSelectedValue();
 				try {
-				Connection conn=DBConnection.connect();
-				String query="delete from group_notifications where Sender=? and Receiver=? and Group_ID=?";
-				PreparedStatement preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setInt(1, Integer.parseInt(notification.getSender()));
-				preparedStmt.setInt(2, Integer.parseInt(notification.getReceiver()));
-				preparedStmt.setString(3, notification.getGroupID());
-				preparedStmt.execute();
-				
-				
-				conn.close();
-				
+					GroupNotificationDAO notificationDAO=new GroupNotificationDAO();
+					notificationDAO.deleteNotification(notification);
+
 				} catch (Exception ea) {
 					new ExceptionFrame("\u274C No Invite Selected!");
 					return;
 				}
 				new AcceptRejectFrame("Invite Rejected!", user, frame);			
 			}
-			
+
 		});
-		
+
 		//setBackground(new Color(0,0,0,0));
-		
-		
+
+
 		add(reject,c);
 	}
 

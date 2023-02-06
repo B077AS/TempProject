@@ -73,6 +73,7 @@ public class ReasonFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sendRequest(notification, reason.getText());
+				new ExceptionFrame("Booking Request sent Successfully");
 				dispose();
 			}
 			

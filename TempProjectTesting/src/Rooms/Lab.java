@@ -13,6 +13,7 @@ import Users.GeneralUser.UserGUI;
 public class Lab extends Rooms{
 
 
+	private final int minimumGroupSize=3;
 
 	public Lab(String code, String type, String seats, String LIM, String outlets, String disabledAccess) {
 		super(code, type, seats, LIM, outlets, disabledAccess);
@@ -25,9 +26,18 @@ public class Lab extends Rooms{
 		
 		Date selectedDate=Date.valueOf(date);
 		
-		LabNotification notification=new LabNotification(group.getGroupID(), this.code, selectedDate, startTime, endTime, null, false);
-		ReasonFrame reasonFrame=new ReasonFrame(notification);
+		try {
+			if(group.getStudentsNumber()<minimumGroupSize) {
+				throw new IllegalArgumentException();
+			}
+		}catch(IllegalArgumentException e) {
+			new ExceptionFrame("Required at least 3 Students to book this Room!");
+			return;
+		}		
 		
+		
+		LabNotification notification=new LabNotification(group.getGroupID(), this.code, selectedDate, startTime, endTime, null, false);
+		ReasonFrame reasonFrame=new ReasonFrame(notification);		
 	}
 
 }

@@ -28,6 +28,7 @@ import Groups.Group;
 import Login.*;
 import Notifications.LabNotification;
 import Notifications.Notification;
+import Rooms.Booking;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 import Users.Professors.ProfessorGUI;
@@ -56,7 +57,7 @@ public class Lab_Manager extends Users{
 			String query="select * from lab_booking where Locked='false'";
 			Statement statement = conn.createStatement();
 			ResultSet result=statement.executeQuery(query);
-			
+
 			if (result.next() == true) {
 				conn.close();
 				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
@@ -77,8 +78,8 @@ public class Lab_Manager extends Users{
 				button.setBackground(Color.white);
 				return button;
 			}
-			
-			
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,7 +88,7 @@ public class Lab_Manager extends Users{
 
 	@Override
 	public JPanel getMainPanel(UserGUI gui) {
-		
+
 		return new LabManagerMainPanel(name, lastName, email, gui, this);
 	}
 
@@ -103,9 +104,9 @@ public class Lab_Manager extends Users{
 		requestsPanel.setBackground(Color.white);
 		requestsPanel.setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();
-		
+
 		ArrayList<LabNotification> notificationsArray=new ArrayList<LabNotification>();
-		
+
 		try {
 
 
@@ -116,12 +117,12 @@ public class Lab_Manager extends Users{
 			while(result.next()) {
 				notificationsArray.add(new LabNotification(result.getString(2), result.getString(6), result.getDate(3), result.getString(4), result.getString(5), result.getString(7), Boolean.parseBoolean(result.getString(8))));
 			}
-			
+
 			conn.close();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
+
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel intro = new JLabel("Select the notification:");
 		intro.setFont(new Font("Comic Sans MS", Font.BOLD,20));
@@ -130,7 +131,7 @@ public class Lab_Manager extends Users{
 		c.gridy=0;
 		c.insets= new Insets(20,0,0,0);
 		requestsPanel.add(intro, c);
-		
+
 		JList<LabNotification> notificationsList=new JList(notificationsArray.toArray());
 		JScrollPane listScroller = new JScrollPane(notificationsList);
 		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
@@ -151,13 +152,13 @@ public class Lab_Manager extends Users{
 			public void actionPerformed(ActionEvent e) {
 				ExpandedRequest expandFrame=new ExpandedRequest(notificationsList.getSelectedValue());
 			}
-			
+
 		});
 		c.gridx=0;
 		c.gridy=2;
 		c.insets= new Insets(20,0,0,250);
 		requestsPanel.add(expandButton, c);
-		
+
 		JButton acceptButton=new JButton("Accept");
 		acceptButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		acceptButton.setForeground(Color.white);
@@ -165,41 +166,23 @@ public class Lab_Manager extends Users{
 		acceptButton.setOpaque(true);
 		acceptButton.setBorderPainted(false);
 		acceptButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
-
-					Connection conn=DBConnection.connect();
-					String query="select Booking_ID from lab_booking where Group_ID=? and Date=? and Start_Time=? and End_Time=? and Room=? and Reason=? and Locked='false'";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, notificationsList.getSelectedValue().getGroupID());
-					preparedStmt.setDate(2, notificationsList.getSelectedValue().getDate());
-					preparedStmt.setString(3, notificationsList.getSelectedValue().getStartTime());
-					preparedStmt.setString(4, notificationsList.getSelectedValue().getEndTime());
-					preparedStmt.setString(5, notificationsList.getSelectedValue().getRoom());
-					preparedStmt.setString(6, notificationsList.getSelectedValue().getReason());
-					ResultSet result=preparedStmt.executeQuery();							
-					result.next();
-					String bookingID=result.getString(1);
-					
-					query="UPDATE lab_booking SET Locked='true' WHERE Booking_ID=?";
-					preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, bookingID);
-					preparedStmt.executeUpdate();
-					conn.close();
-					new ExceptionFrame("Booking Request ACCEPTED!");
-					frame.removePanel();
-					user.getNotifications().clear();
-			    	frame.addSecondPanel(user.notificationPanel(user, frame));
-			    	frame.revalidate();
-			    	frame.repaint();
-					
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+				LabNotification notification=notificationsList.getSelectedValue();
+				Lab_Manager manager=(Lab_Manager)user;
+				manager.accept(notification);
 				
+				new ExceptionFrame("Booking Request ACCEPTED!");
+				frame.removePanel();
+				user.getNotifications().clear();
+				frame.addSecondPanel(user.notificationPanel(user, frame));
+				frame.revalidate();
+				frame.repaint();
+
+
+
 			}
 		});
 		c.gridx=0;
@@ -218,45 +201,41 @@ public class Lab_Manager extends Users{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
+				LabNotification notification=notificationsList.getSelectedValue();
+				Lab_Manager manager=(Lab_Manager)user;
+				manager.reject(notification);		
 
-					Connection conn=DBConnection.connect();
-					String query="select Booking_ID from lab_booking where Group_ID=? and Date=? and Start_Time=? and End_Time=? and Room=? and Reason=? and Locked='false'";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, notificationsList.getSelectedValue().getGroupID());
-					preparedStmt.setDate(2, notificationsList.getSelectedValue().getDate());
-					preparedStmt.setString(3, notificationsList.getSelectedValue().getStartTime());
-					preparedStmt.setString(4, notificationsList.getSelectedValue().getEndTime());
-					preparedStmt.setString(5, notificationsList.getSelectedValue().getRoom());
-					preparedStmt.setString(6, notificationsList.getSelectedValue().getReason());
-					ResultSet result=preparedStmt.executeQuery();							
-					result.next();
-					String bookingID=result.getString(1);
-					
-					query="delete from lab_booking where Booking_ID=?";
-					preparedStmt = conn.prepareStatement(query);
-					preparedStmt.setString(1, bookingID);
-					preparedStmt.executeUpdate();
-					conn.close();
-					new ExceptionFrame("Booking Request REJECTED!");
-					frame.removePanel();
-					user.getNotifications().clear();
-			    	frame.addSecondPanel(user.notificationPanel(user, frame));
-			    	frame.revalidate();
-			    	frame.repaint();
-					
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-				
+				new ExceptionFrame("Booking Request REJECTED!");
+				frame.removePanel();
+				user.getNotifications().clear();
+				frame.addSecondPanel(user.notificationPanel(user, frame));
+				frame.revalidate();
+				frame.repaint();
+
 			}
-			
+
 		});
 		c.gridx=0;
 		c.gridy=2;
 		c.insets= new Insets(20,250,0,0);
 		requestsPanel.add(rejectButton, c);
-		
+
 		return requestsPanel;
 	}
+	
+	public void accept(LabNotification notification) {
+		
+		LabBookingDAO labDAO=new LabBookingDAO();
+		String bookingID=labDAO.selectID(notification);
+		labDAO.update(new Booking(null, null, null, null, bookingID, null, null));
+		
+	}
+	
+	public void reject(LabNotification notification) {
+		LabBookingDAO labDAO=new LabBookingDAO();
+		String bookingID=labDAO.selectID(notification);
+		labDAO.delete(new Booking(null, null, null, null, bookingID, null, null));		
+		
+	}
+	
 }

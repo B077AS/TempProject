@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
 
 import DataBase.DBConnection;
@@ -71,8 +74,8 @@ class MainPanel extends JPanel{
 		setLayout (new GridBagLayout());//crea una griglia cartesiana, uso le coordinate per mettere i componenti
 		GridBagConstraints c=new GridBagConstraints();
 		setBackground(new Color (0,0,0,0));
-		
-		
+
+
 		c.anchor = GridBagConstraints.CENTER;
 		JLabel introLabel=new JLabel("Fill in below");
 		introLabel.setFont(new Font("Comic Sans MS", Font.BOLD,20));
@@ -81,9 +84,9 @@ class MainPanel extends JPanel{
 		c.gridx=1;
 		c.gridy=0;
 		add(introLabel, c);
-		
-		
-		
+
+
+
 
 		c.anchor = GridBagConstraints.EAST;
 		JLabel nameLabel=new JLabel("Name: ");
@@ -216,11 +219,52 @@ class MainPanel extends JPanel{
 		registerButton.setBackground(new Color(145,0,0));
 		registerButton.setOpaque(true);
 		registerButton.setBorderPainted(false);
-	
+
 		c.gridx=1;
 		c.gridy=8;
-		RegisterButtonListener rbl=new RegisterButtonListener(nameField, lastNameField, idNumberField,emailField, emailSelect, passwordField, confirmPasswordField, userTypeSelect, frame);
-		registerButton.addActionListener(rbl);
+		registerButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Registration registration=new Registration(nameField.getText(), lastNameField.getText(), idNumberField.getText(), emailField.getText(), (String)emailSelect.getSelectedItem(), passwordField.getPassword(), confirmPasswordField.getPassword(), userTypeSelect.getSelectedItem().toString());
+				try {
+					registration.namesCheck();
+				} catch (Exception e1) {
+					new ExceptionFrame("Name not Valid!");
+					return;
+				}
+				
+				try {
+					registration.emailCheck();
+				} catch (Exception e1) {
+					new ExceptionFrame("Email not Valid");
+					return;
+				}
+				
+				try {
+					registration.passwordCheck();
+				} catch (Exception e1) {
+					new ExceptionFrame("Password not Valid!");
+					return;
+				}
+
+				try {
+					registration.checkDuplicate();
+				} catch (Exception e1) {
+					new ExceptionFrame("User already registered");
+					return;
+				}
+				
+				int number=new GenerateRandom().getRandom();
+				
+				registration.emailVerification(number);
+				
+				VerificationPanel v=new VerificationPanel(number, registration, frame);
+				
+			}
+
+		});
+
 		add(registerButton, c);
 		//
 		JButton backButton=new JButton("Back");
@@ -241,128 +285,6 @@ class MainPanel extends JPanel{
 		});
 		add(backButton, c);
 
-	}
-
-}
-
-class RegisterButtonListener implements ActionListener{//il bottone si occupera di tutti i controlli, la registrazione la fara la finestra del codice conferma
-	private RegisterGUI frame;
-	private JTextField name;
-	private JTextField lastName;
-	private  JTextField idNumber;
-	private JTextField email;
-	private JComboBox<String> emailTermination;
-	private JPasswordField password;
-	private JPasswordField confirmPassword;
-	private JComboBox<UserType> userType;
-
-	private UserType type;
-	private String emailString;
-	private char[] passwordString;
-
-	public RegisterButtonListener(JTextField name, JTextField lastName, JTextField idNumber,JTextField email, JComboBox<String> emailTermination, JPasswordField password, JPasswordField confirmPassword, JComboBox<UserType> userType, RegisterGUI frame) {
-		this.name=name;
-		this.lastName=lastName;
-		this.email=email;
-		this.idNumber=idNumber;
-		this.emailTermination=emailTermination;
-		this.password=password;
-		this.userType=userType;
-		this.confirmPassword=confirmPassword;
-		this.userType=userType;
-		this.frame=frame;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.type=(UserType)this.userType.getSelectedItem();
-		this.passwordString=this.password.getPassword();
-		this.emailString=this.email.getText()+this.emailTermination.getSelectedItem();
-		int number=new GenerateRandom().getRandom();
-
-		try {
-			EmailCheck(this.email.getText());
-		} catch (IllegalArgumentException e1) {
-			new ExceptionFrame("\u274C Email not Valid");
-			return;
-		}
-
-		try {
-			PasswordCheck(this.password.getPassword(), this.confirmPassword.getPassword());//controllo che le due password siano uguali (prima verifico la loro lunghezza e poi il loro contenuto)
-		}catch(IllegalArgumentException e2) {
-			new ExceptionFrame("\u274C Password Mismatched");
-			return;
-		}
-
-		try {
-			CheckDuplicate(this.emailString, this.idNumber.getText());
-		} catch (Exception e1) {
-			new ExceptionFrame("\u274C User already registered");
-			return;
-		}
-
-
-		try {
-			TypeCheck((String)this.emailTermination.getSelectedItem(), this.type);
-		}
-		catch(IllegalArgumentException e4) {
-			NotAllowedToRegisterEx na=new NotAllowedToRegisterEx(this.type);
-			return;
-		}
-
-		EmailVerification(number, frame, this.name.getText(), this.lastName.getText(), this.idNumber.getText(),this.emailString, this.passwordString, this.type);//metodo di verifica mail, devo passare i paramtrei dell'utente che verranno poi passati al metodo di registrazione
-
-	}
-
-	public void EmailCheck(String email) throws IllegalArgumentException {
-		for(int i=0; i<email.length(); i++) {
-			if(email.charAt(i)=='@') {
-				throw new IllegalArgumentException();
-			}
-		}
-	}
-
-	public void PasswordCheck(char[] password, char[] confirmPassword) throws IllegalArgumentException {
-		if(password.length!=confirmPassword.length) {
-			throw new IllegalArgumentException();
-		}
-
-		for(int i=0; i<password.length; i++) {
-			if(password[i]!=(confirmPassword[i])) {
-				throw new IllegalArgumentException();
-			}
-		}
-
-	}
-
-	public void CheckDuplicate(String email, String ID) throws Exception{
-		Connection conn=DBConnection.connect();
-
-		String query="select * from users where User_Code=? or Email=?";
-		PreparedStatement preparedStmt = conn.prepareStatement(query);
-		preparedStmt.setString(1, ID);
-		preparedStmt.setString(2, email);
-		ResultSet result=preparedStmt.executeQuery();
-		if(result.next()==true) {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	public void EmailVerification(int number, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber,String email, char[] password, UserType type){
-
-		try {
-			EmailTemplate eTemp=new EmailTemplate(this.emailString, "Verify your Account", "Verification Code: "+number);
-			eTemp.start();
-		} catch (Exception e) {
-			return;
-		}
-		VerificationPanel v=new VerificationPanel(number, mainRegisterFrame, name, lastName, idNumber, email, password, type);
-	}
-
-
-	public void TypeCheck(String emailTermination, UserType type) throws IllegalArgumentException{
-		if(emailTermination=="@universitadipavia.it" && type!=UserType.STUDENT) {
-			throw new IllegalArgumentException();
-		}
 	}
 
 }

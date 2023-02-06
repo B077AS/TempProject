@@ -12,7 +12,7 @@ public class Login {
 
 	public Login(String emailOrID, char[] password, LoginGUI frame) {
 		
-		String passwordString=new String(password);
+			String passwordString=new String(password);
 
 			UsersDAO dao=new UsersDAO();
 			dao.selectUser(new Students(null, null, null, emailOrID, passwordString, null));

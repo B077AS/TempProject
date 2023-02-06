@@ -11,7 +11,7 @@ import Login.LoginGUI;
 
 
 public class VerificationPanel{
-	public VerificationPanel(int number, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber, String email, char[] password, UserType type) {
+	public VerificationPanel(int number, Registration registration, RegisterGUI frame) {
 		JFrame mainFrame=new JFrame();
 		JPanel mainPanel=new JPanel();
 
@@ -43,8 +43,21 @@ public class VerificationPanel{
 		//
 		secondPanel.add(l);
 		secondPanel.add(t);
-		ButtonListener bl=new ButtonListener(mainFrame, t, number, mainPanel, mainRegisterFrame, name, lastName, idNumber, email, password, type);
-		b.addActionListener(bl);
+		b.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(t.getText().equals(Integer.toString(number))) {
+				registration.register();
+				VerificationSuccess v=new VerificationSuccess(frame);
+				}
+				else {
+					new ExceptionFrame("Wronge Code!");
+				}
+				
+			}
+			
+		});
 		secondPanel.add(b);
 
 
@@ -59,49 +72,6 @@ public class VerificationPanel{
 		mainFrame.setVisible(true);
 	}
 }
-
-class ButtonListener implements ActionListener{
-	private JFrame frame;
-	private JTextField code;
-	private String number;
-	private JPanel panel;
-	private RegisterGUI mainRegisterFrame;
-	private String name;
-	private String lastName;
-	private String idNumber;
-	private String email;
-	private char[] password;
-	private UserType type;
-	public ButtonListener(JFrame frame, JTextField code, int number, JPanel panel, RegisterGUI mainRegisterFrame, String name, String lastName, String idNumber, String email, char[] password, UserType type) {
-		this.frame=frame;
-		this.code=code;
-		this.number=Integer.toString(number);
-		this.panel=panel;
-		this.mainRegisterFrame=mainRegisterFrame;
-		this.name=name;
-		this.lastName=lastName;
-		this.idNumber=idNumber;
-		this.email=email;
-		this.password=password;
-		this.type=type;
-
-	}
-	@Override
-	public void actionPerformed(ActionEvent e){
-		if(this.number.equals(code.getText())) {
-			VerificationSuccess v=new VerificationSuccess(mainRegisterFrame);
-			this.frame.dispose();
-			Registration r=new Registration(this.name, this.lastName, this.idNumber, this.email, this.password, this.type);
-
-		}
-		else {
-			new ExceptionFrame("\u274C Wronge Code!");
-		}
-
-	}
-
-}
-
 
 class VerificationSuccess extends JFrame{
 

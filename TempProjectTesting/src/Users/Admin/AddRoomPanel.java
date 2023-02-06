@@ -2,12 +2,16 @@ package Users.Admin;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import Rooms.Rooms;
 import Users.GeneralUser.UserGUI;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class AddRoomPanel extends JPanel{
 
@@ -121,8 +125,18 @@ public class AddRoomPanel extends JPanel{
 				String disabled=(String)yesNoDisabledAccess.getSelectedItem();
 				
 				Admin user=(Admin)frame.getUser();
-				user.addRoom(code, type, seatsNumber, limString, outlets, disabled);
-				
+				Properties config= new Properties();
+				try {
+					FileInputStream fis;
+					fis = new FileInputStream("Property/config.properties");
+					config.load(fis);
+
+				String roomClassName=config.getProperty(type);
+				Rooms r=(Rooms)Class.forName(roomClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(code, type, seatsNumber, limString, outlets, disabled);
+				user.addRoom(r);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 			
 		});

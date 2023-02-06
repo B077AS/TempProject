@@ -169,14 +169,6 @@ class ButtonsPanel extends JPanel{
 		GridBagConstraints c=new GridBagConstraints();
 		setBackground(Color.white);
 
-	/*	c.anchor = GridBagConstraints.WEST;
-		JLabel addCourseInfo=new JLabel("Add New Course to the DataBase: ");
-		addCourseInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
-		addCourseInfo.setForeground(new Color(145,0,0));
-		c.gridx=0;
-		c.gridy=0;
-		c.insets= new Insets(0,20,0,0);
-		add(addCourseInfo, c);*/
 		JButton addCourseButton=new JButton("Add Course");
 		addCourseButton.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 		addCourseButton.setForeground(Color.white);
@@ -188,13 +180,6 @@ class ButtonsPanel extends JPanel{
 		c.gridy=1;
 		c.insets= new Insets(10,20,0,0);
 		add(addCourseButton, c);
-	/*	JLabel addScheduleInfo=new JLabel("Update the schedule of an existing Course: ");
-		addScheduleInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
-		addScheduleInfo.setForeground(new Color(145,0,0));	
-		c.gridx=1;
-		c.gridy=0;
-		c.insets= new Insets(0,20,0,0);
-		add(addScheduleInfo, c);*/
 		JButton addSchedule=new JButton("Update Schedule");
 		addSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 		addSchedule.setForeground(Color.white);
@@ -209,8 +194,7 @@ class ButtonsPanel extends JPanel{
 					frame.addSecondPanel(new UpdateSchedulePanel(frame, table));
 					frame.revalidate();
 					frame.repaint();
-				}else {
-					//TODO eccezione non hai selezionato nulla		
+				}else {	
 				}
 			}
 		});
@@ -218,14 +202,6 @@ class ButtonsPanel extends JPanel{
 		c.gridy=1;
 		c.insets= new Insets(10,20,0,0);
 		add(addSchedule, c);
-	/*	JLabel removeInfo=new JLabel("Remove existing Course: ");
-		removeInfo.setFont(new Font("Comic Sans MS", Font.PLAIN,17));
-		removeInfo.setForeground(new Color(145,0,0));	
-		c.gridx=2;
-		c.gridy=0;
-		c.insets= new Insets(0,20,0,0);
-		add(removeInfo, c);*/
-		//
 		JButton removeButton=new JButton("Remove");
 		RemoveListener remove=new RemoveListener(frame, table);
 		removeButton.setFont(new Font("Comic Sans MS", Font.BOLD,13));
@@ -238,7 +214,12 @@ class ButtonsPanel extends JPanel{
 		c.gridx=2;
 		c.gridy=1;
 		add(removeButton, c);
-	/*	JButton back=new JButton("Back");
+		JButton back=new JButton("Back");
+		back.setFont(new Font("Comic Sans MS", Font.BOLD,13));
+		back.setForeground(Color.white);
+		back.setBackground(new Color(145,0,0));
+		back.setOpaque(true);
+		back.setBorderPainted(false);
 		c.gridx=1;
 		c.gridy=3;
 		back.addActionListener(new ActionListener() {
@@ -247,7 +228,7 @@ class ButtonsPanel extends JPanel{
 				frame.removePanel();
 			}
 		});
-		add(back, c);*/
+		add(back, c);
 	}
 }
 
@@ -267,7 +248,7 @@ class RemoveListener implements ActionListener{
 		String code=(String) table.getValueAt(row, 0);
 		
 		Admin user=(Admin)frame.getUser();
-		user.removeCourse(code);
+		user.removeCourse(new Course(code, null, 0));
 		
 		this.frame.removePanel();
 		this.frame.addSecondPanel(new ViewCoursesPanel(this.frame));

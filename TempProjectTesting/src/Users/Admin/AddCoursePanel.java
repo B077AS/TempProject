@@ -7,6 +7,7 @@ import java.sql.*;
 
 import javax.swing.*;
 
+import Courses.Course;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Users.GeneralUser.UserGUI;
@@ -80,7 +81,7 @@ public class AddCoursePanel extends JPanel{
 				String courseCode=courseCodeFiled.getText();
 				
 				Admin user=(Admin)frame.getUser();
-				user.addCourse(courseCode, courseFullName, years);
+				user.addCourse(new Course(courseCode, courseFullName, Integer.parseInt(years)));
 				
 				frame.removePanel();
 				frame.addSecondPanel(new ViewCoursesPanel(frame));

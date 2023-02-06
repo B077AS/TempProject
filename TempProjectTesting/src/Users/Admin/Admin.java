@@ -56,31 +56,20 @@ public class Admin extends Users {
 	}
 
 
-	public void addCourse(String courseCode, String courseFullName, String yearsSelect) {
+	public void addCourse(Course course) {
 		CourseDAO dao=new CourseDAO();
-		dao.insertCourse(new Course(courseCode, courseFullName, Integer.parseInt(yearsSelect)));
+		dao.insertCourse(course);
 	}
 
 
-	public void addRoom(String code, String type, String seatsNumber, String limString, String outlets, String disabled) {
+	public void addRoom(Rooms room) {
 		RoomDAO dao=new RoomDAO();
-		Properties config= new Properties();
-		try {
-			FileInputStream fis;
-			fis = new FileInputStream("Property/config.properties");
-			config.load(fis);
-
-		String roomClassName=config.getProperty(type);
-		Rooms r=(Rooms)Class.forName(roomClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(code, type, seatsNumber, limString, outlets, disabled);
-		dao.insertRoom(r);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		dao.insertRoom(room);
 	}
 	
-	public void removeCourse(String code) {
+	public void removeCourse(Course course) {
 		CourseDAO daoCourse=new CourseDAO();
-		daoCourse.deleteCourse(new Course(code, null, 0));
+		daoCourse.deleteCourse(course);
 	}
 	
 	

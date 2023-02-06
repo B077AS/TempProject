@@ -68,7 +68,7 @@ public class UsersDAO {
 			email=result.getString(5);
 
 		} catch (Exception e1) {
-			new ExceptionFrame("\u274C Wrong Email or Password");
+			new ExceptionFrame("Wrong Email or Password");
 			return;
 		}
 		
@@ -80,8 +80,6 @@ public class UsersDAO {
 			Users u=(Users)Class.forName(userClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(name, lastName, Integer.toString(ID), email, user.getPassword(), type);
 			this.user=u;
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("errore lettura properties");
 		}
 
 	}

@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+
+import Exceptions.ExceptionFrame;
 import Register.GUI.RegisterGUI;
 
 
@@ -205,8 +207,16 @@ class LoginListener implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Login l=new Login(this.email.getText(), this.password.getPassword(), this.frame);
-
+		Login logger=new Login(this.email.getText(), this.password.getPassword(), this.frame);
+		
+		try {
+			logger.fieldCheck();
+		}catch(IllegalArgumentException ex) {
+			new ExceptionFrame("Fields can't be empty");
+			return;
+		}
+		
+		logger.login();
 	}
 
 }

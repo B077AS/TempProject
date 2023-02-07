@@ -3,6 +3,7 @@ package Users.Students;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import Groups.*;
 
 
 public class Students extends Users{
-	
+
 	private HashMap<String, Group> groups;
 
 	public Students(String name, String lastName, String ID, String email, String password, String type) {
@@ -46,7 +47,7 @@ public class Students extends Users{
 	public HashMap<String, Group> getGroups(){
 		return this.groups;
 	}
-	
+
 	public JButton checkNotifications() {
 
 		try {
@@ -89,19 +90,19 @@ public class Students extends Users{
 	public JPanel getMainPanel(UserGUI gui) {
 		return new StudentsMainPanel(name, lastName, email, gui, this);
 	}
-	
-	
+
+
 	public JPanel book(Object[] objects, UserGUI frame) {
 		int year=DateHolder.getYear();
 		int month=DateHolder.getMonth();
 		int day=DateHolder.getDay();
-		
+
 		JPanel bookPanel=new JPanel();
-		
+
 		bookPanel.setLayout (new GridBagLayout());
 		bookPanel.setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
-		
+
 		GroupsPanel groupsPanel=new GroupsPanel(this, frame);
 		HashMap<String, Group> groups=groupsPanel.getUserSpecificGroups();
 		ArrayList<Group> groupsArray=new ArrayList<Group>();
@@ -139,14 +140,14 @@ public class Students extends Users{
 					RoomLoader rooms=new RoomLoader();
 					rooms.getRooms().get(booking.getRoom().getCode());
 					Group myGroup=(Group)goupsBox.getSelectedItem();
-					booking.getRoom().book(myGroup, year+"-"+month+"-"+day, booking.getStartTime(), booking.getEndTime());
+					booking.getRoom().book(myGroup, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
 					frame.removePanel();
 				} catch (Exception e1) {
 					new ExceptionFrame("No Group Selected!");
 				}
-		
+
 			}
-			
+
 		});
 		c.gridx=0;
 		c.gridy=2;
@@ -158,7 +159,7 @@ public class Students extends Users{
 		soloButton.setBackground(new Color(145,0,0));
 		soloButton.setOpaque(true);
 		soloButton.setBorderPainted(false);
-		
+
 		soloButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -168,7 +169,7 @@ public class Students extends Users{
 					RoomLoader rooms=new RoomLoader();
 					rooms.getRooms().get(booking.getRoom().getCode());
 					try {
-					booking.getRoom().soloBook(ID, year+"-"+month+"-"+day, booking.getStartTime(), booking.getEndTime());
+						booking.getRoom().soloBook(ID, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
 					}catch(IllegalAccessError notAllowed) {
 						new ExceptionFrame("Not Allowed to Register as and Individual");
 						return;
@@ -180,18 +181,18 @@ public class Students extends Users{
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-		
+
 			}
-			
+
 		});
 		c.gridx=0;
 		c.gridy=3;
 		c.insets= new Insets (0,0,40,0);
 		bookPanel.add(soloButton, c);
 		return bookPanel;
-		
+
 	}
-	
+
 	@Override
 	public List<Notification> getNotifications(){
 		return this.notifications;

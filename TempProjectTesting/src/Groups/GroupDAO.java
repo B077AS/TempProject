@@ -27,7 +27,7 @@ public class GroupDAO {
 	}
 
 
-	public void check(Group group, Students student) throws Exception {
+	public void checkPartecipant(Group group, Students student) throws Exception {
 		Connection conn=DBConnection.connect();
 		String query="select * from allgroups where Group_ID=? and Admin=? and Partecipant=?";
 		PreparedStatement preparedStmt = conn.prepareStatement(query);

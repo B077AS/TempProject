@@ -16,7 +16,6 @@ public abstract class Users {
 	protected String password;
 	protected String type;
 	protected List<Notification> notifications;
-	//protected List<Notification> notifications; //questo non c'è
 	
 	public Users(String name, String lastName, String ID, String email, String password, String type) {
 		this.name=name;
@@ -26,7 +25,6 @@ public abstract class Users {
 		this.password=password;
 		this.notifications=new ArrayList();
 		this.type= type;
-		this.notifications=new ArrayList(); //non c'è
 	}
 	
 	public String getPassword() {

@@ -57,7 +57,7 @@ public class Group {
 
 		try {
 			GroupDAO daoGroup=new GroupDAO();
-			daoGroup.check(group, student);
+			daoGroup.checkPartecipant(group, student);
 		}
 		catch(Exception e){
 			new ExceptionFrame("User already part of the Group!");

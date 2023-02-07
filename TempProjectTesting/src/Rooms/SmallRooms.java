@@ -15,7 +15,7 @@ public class SmallRooms extends Rooms{
 
 
 	@Override
-	public void book(Group group, String date, String startTime, String endTime) {
+	public void book(Group group, Booking booking) {
 		
 		try {
 			if(group.getStudentsNumber()<minimumGroupSize) {
@@ -26,10 +26,10 @@ public class SmallRooms extends Rooms{
 			return;
 		}			
 		
-		String bookingID=date+"-"+startTime.split(":")[0]+"-"+endTime.split(":")[0]+"-"+this.code+"-"+group.getGroupAdmin();		
+		String bookingID=booking.getDate()+"-"+booking.getStartTime().split(":")[0]+"-"+booking.getEndTime().split(":")[0]+"-"+this.code+"-"+group.getGroupAdmin();		
 
 		RoomsBookingDAO bookingDAO=new RoomsBookingDAO();
-		bookingDAO.insert(new Booking(startTime, endTime, Date.valueOf(date), this, bookingID, group.getGroupID(), "true"));
+		bookingDAO.insert(new Booking(booking.getStartTime(), booking.getEndTime(), booking.getDate(), this, bookingID, group.getGroupID(), "true"));
 		
 		new BookingSuccessful();
 

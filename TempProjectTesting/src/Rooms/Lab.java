@@ -22,9 +22,8 @@ public class Lab extends Rooms{
 
 
 	@Override
-	public void book(Group group, String date, String startTime, String endTime) {
+	public void book(Group group, Booking booking) {
 		
-		Date selectedDate=Date.valueOf(date);
 		
 		try {
 			if(group.getStudentsNumber()<minimumGroupSize) {
@@ -36,7 +35,7 @@ public class Lab extends Rooms{
 		}		
 		
 		
-		LabNotification notification=new LabNotification(group.getGroupID(), this.code, selectedDate, startTime, endTime, null, false);
+		LabNotification notification=new LabNotification(group.getGroupID(), this.code, booking.getDate(), booking.getStartTime(), booking.getEndTime(), null, false);
 		ReasonFrame reasonFrame=new ReasonFrame(notification);		
 	}
 

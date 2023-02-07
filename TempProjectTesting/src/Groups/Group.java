@@ -14,7 +14,7 @@ public class Group {
 
 	private String groupID;
 	private String groupAdmin;
-	private final int studentsLimit=25;
+	private final int STUDENTSLIMIT=25;
 	private int studentsNumber;
 	private HashMap<String, Students> studentsList;
 
@@ -34,7 +34,7 @@ public class Group {
 	public void addNewStudent(String emailOrID, Group group){
 
 		try {
-			if(this.studentsNumber==this.studentsLimit) {
+			if(this.studentsNumber==this.STUDENTSLIMIT) {
 				throw new IllegalArgumentException();
 			}
 
@@ -108,7 +108,7 @@ public class Group {
 	}
 
 	public int getStudentsLimit() {
-		return studentsLimit;
+		return STUDENTSLIMIT;
 	}
 
 	@Override

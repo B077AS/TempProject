@@ -6,9 +6,9 @@ import java.util.*;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import java.sql.*;
 import DataBase.DBConnection;
+import Exceptions.ExceptionFrame;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
 import Users.Students.Students;
@@ -103,6 +103,73 @@ public class GroupsPanel extends JPanel{
 			c.insets= new Insets(60,20,0,0);
 			add(addUser, c);
 		}
+		
+		boolean delete=false;
+		for(HashMap.Entry<String, Group> group: userSpecificGroups.entrySet()) {
+		if(group.getValue().getGroupAdmin().equals(user.getID())) {
+			delete=true;
+			break;
+		}	
+		}
+		
+		if(delete==true) {
+			JButton deleteGroup=new JButton("Delete Group");
+			deleteGroup.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			deleteGroup.setBackground(new Color(145,0,0));
+			deleteGroup.setForeground(Color.white);
+			deleteGroup.setOpaque(true);
+			deleteGroup.setBorderPainted(false);
+			deleteGroup.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Students student=(Students)user;
+					try {
+					student.removeGroup(list.getSelectedValue());
+					} catch (Exception ex) {
+						new ExceptionFrame("No Group Selected!");
+						return;
+					}
+					studentsGUI.removePanel();
+					studentsGUI.addSecondPanel(new GroupsPanel(user, studentsGUI));
+					studentsGUI.revalidate();
+					studentsGUI.repaint();
+					new ExceptionFrame("Group Deleted Succesfully");
+				}
+			});
+			c.gridx=3;
+			c.gridy=1;
+			c.insets= new Insets(60,20,0,0);
+			add(deleteGroup, c);
+			
+			
+			
+			JButton removeUser=new JButton("Remove User");
+			removeUser.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			removeUser.setBackground(new Color(145,0,0));
+			removeUser.setForeground(Color.white);
+			removeUser.setOpaque(true);
+			removeUser.setBorderPainted(false);
+			removeUser.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Students student=(Students)user;
+					ArrayList<Students> partecipants=new ArrayList<Students>();
+					GroupDAO dao=new GroupDAO();
+					try {
+					partecipants=dao.selectPartecipantsFromGroup(list.getSelectedValue());
+					}catch(Exception ex) {
+						new ExceptionFrame("No Group Selected!");
+					}
+					UsersListFrame listFrame=new UsersListFrame(partecipants, student, list.getSelectedValue(), studentsGUI);
+				}
+			});
+			c.gridx=2;
+			c.gridy=1;
+			c.insets= new Insets(60,20,0,0);
+			add(removeUser, c);
+			
+		}
+		
 
 	}
 

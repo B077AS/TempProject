@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
+import Groups.Group;
 import Users.Students.Students;
 
 public class UsersDAO {
@@ -97,8 +98,6 @@ public class UsersDAO {
 			ResultSet result=preparedStmt.executeQuery();
 			result.next();
 			return new Students(null, null, result.getString(1), result.getString(1), null, null);
-	}
-	
-	
+	}	
 
 }

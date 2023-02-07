@@ -43,6 +43,19 @@ public class Students extends Users{
 			return;
 		}	
 	}
+	
+	
+	public void removeGroup(Group group) throws Exception {
+		GroupDAO dao=new GroupDAO();
+			dao.deleteGroup(group);
+	}
+	
+	
+	public void removeStudent(Group group, Students student) throws Exception {
+		GroupDAO dao=new GroupDAO();
+		dao.deletePartecipant(group, student);
+	}
+	
 
 	public HashMap<String, Group> getGroups(){
 		return this.groups;
@@ -201,5 +214,11 @@ public class Students extends Users{
 	@Override
 	public JPanel notificationPanel(Users user, UserGUI frame) {
 		return new StudentNotificationPanel(user, frame);
+	}
+	
+	
+	@Override
+	public String toString() {
+		return this.name+" "+this.lastName+" ID: "+this.ID;
 	}
 }

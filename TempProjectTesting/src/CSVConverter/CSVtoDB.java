@@ -10,13 +10,13 @@ public class CSVtoDB {
 
 	public CSVtoDB(String code, String path) {
 		try {
-			converter(code, path);
+			convert(code, path);
 		} catch (IOException e) {
 			System.out.println("errore");
 		}
 	}
 
-	public void converter(String code, String path) throws IOException {
+	public void convert(String code, String path) throws IOException {
 		File f = new File(path);
 		FileReader reader=new FileReader(f);
 		BufferedReader br=new BufferedReader(reader);

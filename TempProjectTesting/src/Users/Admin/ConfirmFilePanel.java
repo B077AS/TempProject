@@ -78,27 +78,6 @@ public class ConfirmFilePanel extends JPanel{
 		c.gridy=1;
 		add(codeLabel, c);
 		
-		/*JLabel addSchedule=new JLabel("Add Schedule: ");
-		addSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));
-		addSchedule.setForeground(new Color(145,0,0));
-		c.gridx=0;
-		c.gridy=3;
-		add(addSchedule, c);
-		JButton addScheduleButton=new JButton("Add");
-		addScheduleButton.setFont(new Font("Comic Sans MS", Font.BOLD,15));
-		addScheduleButton.setForeground(Color.white);
-		addScheduleButton.setBackground(new Color(145,0,0));
-		addScheduleButton.setOpaque(true);
-		addScheduleButton.setBorderPainted(false);
-		addScheduleButton.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent evt) {
-		    	CSVtoDB converter=new CSVtoDB(code, path);
-		    }
-		});
-		c.gridx=1;
-		c.gridy=3;
-		add(addScheduleButton, c);*/
 		
 		JLabel updateSchedule=new JLabel("Update Schedule: ");
 		updateSchedule.setFont(new Font("Comic Sans MS", Font.BOLD,17));

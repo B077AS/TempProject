@@ -1,7 +1,9 @@
 package Users.Admin;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 import Users.GeneralUser.Users;
@@ -18,6 +20,9 @@ public class AdminGUI extends UserGUI{
 		northPanel=head;
 		this.add(northPanel, BorderLayout.NORTH);
 		this.add(downPanel(), BorderLayout.SOUTH);
+		
+		JLayeredPane pane = this.getLayeredPane();
+		pane.add(image(), new Integer(1));
 	}
 
 }

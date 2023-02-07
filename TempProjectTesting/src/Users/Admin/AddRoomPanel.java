@@ -143,16 +143,6 @@ public class AddRoomPanel extends JPanel{
 		c.gridx=0;
 		c.gridy=6;
 		add(confirm, c);
-	/*	JButton back=new JButton("Back");
-		back.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent evt) {
-		    	frame.removePanel();
-       
-		    }
-		});
-		c.gridx=13;
-		c.gridy=0;
-		add(back, c);*/
+	
 	}
 }

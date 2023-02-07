@@ -136,9 +136,9 @@ public class GroupsPanel extends JPanel{
 					new ExceptionFrame("Group Deleted Succesfully");
 				}
 			});
-			c.gridx=3;
+			c.gridx=1;
 			c.gridy=1;
-			c.insets= new Insets(60,20,0,0);
+			c.insets= new Insets(120,20,0,0);
 			add(deleteGroup, c);
 			
 			
@@ -163,9 +163,9 @@ public class GroupsPanel extends JPanel{
 					UsersListFrame listFrame=new UsersListFrame(partecipants, student, list.getSelectedValue(), studentsGUI);
 				}
 			});
-			c.gridx=2;
+			c.gridx=1;
 			c.gridy=1;
-			c.insets= new Insets(60,20,0,0);
+			c.insets= new Insets(180,20,0,0);
 			add(removeUser, c);
 			
 		}

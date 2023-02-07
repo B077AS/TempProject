@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +43,8 @@ public class ExceptionFrame {
 		
 		f.setSize(400,200);
 		f.setTitle("Message");
+		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+		f.setIconImage(icon.getImage());
 
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

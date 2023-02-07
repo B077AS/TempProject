@@ -22,21 +22,19 @@ public class LoginGUI extends JFrame{
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 
-	/*	MainPanel p=new MainPanel(this);
-		add(p);
-
-		setSize(screenWidth,screenHeight);*/
 		setTitle("FindMe");
+		
+		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+		setIconImage(icon.getImage());
 
-		ImageIcon Icon=new ImageIcon("Immagini/background_v2.jpeg");
-		Image image = Icon.getImage();
+		ImageIcon bground=new ImageIcon("Immagini/background_v2.jpeg");
+		Image image = bground.getImage();
 		Image newimg = image.getScaledInstance(screenWidth, screenHeight, java.awt.Image.SCALE_SMOOTH);
 	
-		Icon = new ImageIcon(newimg);
+		bground = new ImageIcon(newimg);
 		
-		JLabel ll= new JLabel(Icon);
+		JLabel ll= new JLabel(bground);
 		add(ll);
-
 		
 		setSize(screenWidth,screenHeight);
 		JLayeredPane pane = this.getLayeredPane();

@@ -20,6 +20,8 @@ public class UserGUI extends JFrame{
 
 		setSize(screenWidth,screenHeight);
 		setTitle("UserProfile");
+		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+		setIconImage(icon.getImage());
 		setBackground(Color.WHITE);
 		
 	

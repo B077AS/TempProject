@@ -57,6 +57,17 @@ public class UsersListFrame extends JFrame{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			try {
+				if(list.getSelectedValue().getID().equals(user.getID())) {
+					throw new IllegalArgumentException();
+				}
+			}catch(IllegalArgumentException e1) {
+				new ExceptionFrame("You can't remove yourself");
+				return;
+			}
+			
+			
 			try {
 				user.removeStudent(group, list.getSelectedValue());
 			} catch (Exception e1) {

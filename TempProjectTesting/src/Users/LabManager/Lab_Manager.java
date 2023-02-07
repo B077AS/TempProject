@@ -150,7 +150,12 @@ public class Lab_Manager extends Users{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
 				ExpandedRequest expandFrame=new ExpandedRequest(notificationsList.getSelectedValue());
+				}catch(Exception ex) {
+					new ExceptionFrame("No Notification Selected");
+					return;
+				}
 			}
 
 		});
@@ -172,7 +177,12 @@ public class Lab_Manager extends Users{
 				
 				LabNotification notification=notificationsList.getSelectedValue();
 				Lab_Manager manager=(Lab_Manager)user;
+				try {
 				manager.accept(notification);
+				}catch(Exception ex) {
+					new ExceptionFrame("No Notification Selected");
+					return;
+				}
 				
 				new ExceptionFrame("Booking Request ACCEPTED!");
 				frame.removePanel();
@@ -203,7 +213,12 @@ public class Lab_Manager extends Users{
 				
 				LabNotification notification=notificationsList.getSelectedValue();
 				Lab_Manager manager=(Lab_Manager)user;
-				manager.reject(notification);		
+				try {
+				manager.reject(notification);
+				}catch(Exception ex) {
+					new ExceptionFrame("No Notification Selected");
+					return;
+				}
 
 				new ExceptionFrame("Booking Request REJECTED!");
 				frame.removePanel();
@@ -223,15 +238,14 @@ public class Lab_Manager extends Users{
 		return requestsPanel;
 	}
 	
-	public void accept(LabNotification notification) {
-		
+	public void accept(LabNotification notification) throws Exception {
 		LabBookingDAO labDAO=new LabBookingDAO();
 		String bookingID=labDAO.selectID(notification);
 		labDAO.update(new Booking(null, null, null, null, bookingID, null, null));
 		
 	}
 	
-	public void reject(LabNotification notification) {
+	public void reject(LabNotification notification) throws Exception {
 		LabBookingDAO labDAO=new LabBookingDAO();
 		String bookingID=labDAO.selectID(notification);
 		labDAO.delete(new Booking(null, null, null, null, bookingID, null, null));		

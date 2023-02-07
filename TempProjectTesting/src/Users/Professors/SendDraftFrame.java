@@ -90,8 +90,14 @@ public class SendDraftFrame extends JFrame{
 			send.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					Date receiverDate=null;
 					selectedRoom=(String)roomsBox.getSelectedItem().toString();
-					Date receiverDate=notification.getDate();
+					try {
+					receiverDate=notification.getDate();
+					}catch(Exception ex) {
+						new ExceptionFrame("No Notification Selected");
+						return;
+					}
 					Date draftDate=(Date)datePanel.getModel().getValue();
 
 					try {
@@ -132,7 +138,7 @@ public class SendDraftFrame extends JFrame{
 						conn.close();
 
 					} catch (Exception ea) {
-						new ExceptionFrame("\u274C Error!");
+						new ExceptionFrame("Error!");
 						return;
 					}
 					notification.accept();

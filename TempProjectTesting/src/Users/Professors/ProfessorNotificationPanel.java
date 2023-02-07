@@ -131,7 +131,7 @@ public class ProfessorNotificationPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				ProfessorNotification notification=list.getSelectedValue();
 				if(notification==null) {
-					new ExceptionFrame("\u274C No Notification Selected!");
+					new ExceptionFrame("No Notification Selected!");
 					return;
 				}
 				RoomChooser choose=new RoomChooser(notification, user, frame);
@@ -204,7 +204,7 @@ public class ProfessorNotificationPanel extends JPanel{
 					swapDao.deleteSwap(swap);
 					dao.deleteNotificationNoNewDate(new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate(), swap.getReceiver(), null, null, null));
 				} catch (Exception ea) {
-					ea.printStackTrace();
+					new ExceptionFrame("No Notification Selected");
 					return;
 				}
 				new AcceptRejectFrame("Swap Request Accepted!", user, frame);
@@ -238,7 +238,7 @@ public class ProfessorNotificationPanel extends JPanel{
 
 				catch (Exception ea) {
 					ea.printStackTrace();
-					new ExceptionFrame("\u274C No Notification Selected!");
+					new ExceptionFrame("No Notification Selected!");
 					return;
 				}
 

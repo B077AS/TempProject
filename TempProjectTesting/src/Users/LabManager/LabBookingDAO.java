@@ -3,6 +3,7 @@ package Users.LabManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import DataBase.DBConnection;
 import Notifications.LabNotification;
@@ -10,8 +11,7 @@ import Rooms.Booking;
 
 public class LabBookingDAO {
 	
-	public String selectID(LabNotification notification) {
-		try {
+	public String selectID(LabNotification notification) throws Exception {
 		Connection conn=DBConnection.connect();
 		String query="select Booking_ID from lab_booking where Group_ID=? and Date=? and Start_Time=? and End_Time=? and Room=? and Reason=? and Locked='false'";
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -26,10 +26,6 @@ public class LabBookingDAO {
 		String bookingID=result.getString(1);
 		conn.close();
 		return bookingID;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return null;
 	}
 	
 	public void delete(Booking booking) {

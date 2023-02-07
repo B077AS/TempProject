@@ -156,7 +156,7 @@ class SaveDatesListener implements ActionListener{
 			if(currentDate.compareTo((Date)this.datePanel.getModel().getValue())>0) {
 				throw new IllegalArgumentException();
 			}
-		}catch(IllegalArgumentException ex) {
+		}catch(Exception ex) {
 			new ExceptionFrame("Invalid Date");
 			return;
 		}

@@ -103,7 +103,7 @@ class OkListener implements ActionListener{
 			this.frame.dispose();
 			
 		} catch (Exception e1) {
-			new ExceptionFrame("No Groupd Selected!");
+			new ExceptionFrame("No Group Selected!");
 			return;
 		}
 	}

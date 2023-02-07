@@ -214,14 +214,16 @@ class ButtonsPanel extends JPanel{
 		c.gridx=2;
 		c.gridy=1;
 		add(removeButton, c);
+		//
 		JButton back=new JButton("Back");
 		back.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 		back.setForeground(Color.white);
 		back.setBackground(new Color(145,0,0));
 		back.setOpaque(true);
 		back.setBorderPainted(false);
-		c.gridx=1;
-		c.gridy=3;
+		c.gridx=3;
+		c.gridy=1;
+		c.insets= new Insets(10,80,0,0);
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {

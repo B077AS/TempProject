@@ -37,15 +37,7 @@ public class FinderMainPanel extends JPanel{
 		setLayout (new GridBagLayout());
 	
 		GridBagConstraints c=new GridBagConstraints();
-	/*	
-		c.anchor = GridBagConstraints.PAGE_START;
-		JLabel notLabel= new JLabel("This is free room:");
-		notLabel.setFont(new Font("Comic Sans MS", Font.BOLD,25));
-		notLabel.setForeground(new Color(145,0,0));
-		c.gridx=0;
-		c.gridy=0;
-		c.insets= new Insets (0,0,100,0);
-		add(notLabel,c);*/
+	
 
 		JList<Booking> list=new JList(freeRooms.toArray());
 		list.setForeground(Color.black);

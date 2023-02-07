@@ -27,6 +27,7 @@ import org.jdatepicker.impl.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
+import MyTimer.MyTimer;
 import Notifications.ProfNotificationDAO;
 import Notifications.ProfessorNotification;
 import Rooms.Rooms;
@@ -48,7 +49,7 @@ public class SwapPanel extends JPanel{
 		setLayout (new GridBagLayout());
 		setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
-		
+
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		this.calendarLabel=new JLabel("(Requiered) Select a day to Swap");
 		calendarLabel.setFont(new Font("Comic Sans MS", Font.BOLD,25));
@@ -59,7 +60,7 @@ public class SwapPanel extends JPanel{
 		add(calendarLabel, c);
 		//
 		SqlDateModel model= new SqlDateModel();
-	
+
 		Properties p = new Properties();
 		p.put("text.today", "Today");
 		p.put("text.month", "Month");
@@ -87,7 +88,7 @@ public class SwapPanel extends JPanel{
 		skipSecondDate.setBackground(new Color(145,0,0));		
 		skipSecondDate.setOpaque(true);
 		skipSecondDate.setBorderPainted(false);
-		
+
 		skipSecondDate.addActionListener(new ActionListener() {
 
 			@Override
@@ -147,6 +148,21 @@ class SaveDatesListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		MyTimer time=new MyTimer();
+
+		Date currentDate=Date.valueOf(time.getDate().toLocalDate().toString());	
+
+		try {
+			if(currentDate.compareTo((Date)this.datePanel.getModel().getValue())>0) {
+				throw new IllegalArgumentException();
+			}
+		}catch(IllegalArgumentException ex) {
+			new ExceptionFrame("Invalid Date");
+			return;
+		}
+
+
+
 		if(this.panel.getFirstDate()==null) {
 			this.mainGUI.removePanel();
 			SwapPanel swap=new SwapPanel(this.user, this.mainGUI, (Date)this.datePanel.getModel().getValue(), null);

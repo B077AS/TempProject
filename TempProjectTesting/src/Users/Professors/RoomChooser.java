@@ -65,7 +65,7 @@ public class RoomChooser extends JFrame {
 							Connection conn=DBConnection.connect();
 
 
-							LocalDate myDate =(Date.valueOf(notification.getDate())).toLocalDate();
+							LocalDate myDate =notification.getDate().toLocalDate();
 							DayOfWeek dayOfWeek=myDate.getDayOfWeek();
 							String query="select Schedule_ID from schedule where Start_Time=? and End_Time=? and Room=? and Day_Of_Week=?";
 							PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -78,7 +78,7 @@ public class RoomChooser extends JFrame {
 							String newSchedule=result.getString(1);
 
 							ProfSwapNotificationDAO swapDao=new ProfSwapNotificationDAO();
-							ProfessorSwapDraft swap=new ProfessorSwapDraft(user.getID(), notification.getSender(), Date.valueOf(notification.getDate()), Date.valueOf(notification.getNewDate()),  notification.getScheduleID(), newSchedule, "true");
+							ProfessorSwapDraft swap=new ProfessorSwapDraft(user.getID(), notification.getSender(), notification.getDate(), notification.getNewDate(),  notification.getScheduleID(), newSchedule, "true");
 							swapDao.insertNotification(swap);
 							ProfNotificationDAO dao=new ProfNotificationDAO();
 							dao.deleteWithNewDate(notification);

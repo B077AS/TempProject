@@ -16,9 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
 import javax.swing.*;
-
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
@@ -184,6 +182,7 @@ class SwapListener implements ActionListener{
 
 		LocalDate myDate =this.firstDate.toLocalDate();
 		DayOfWeek dayOfWeek=myDate.getDayOfWeek();
+		Date newMyDate=Date.valueOf(myDate);
 		String scheduleID="";
 			
 		Connection conn=DBConnection.connect();
@@ -226,7 +225,7 @@ class SwapListener implements ActionListener{
 				return;
 			}
 				
-			ProfessorNotification notification=new ProfessorNotification(scheduleID, myDate.toString(), user.getID(), DoW.toString(), from, to);
+			ProfessorNotification notification=new ProfessorNotification(scheduleID, newMyDate, user.getID(), DoW, from, to);
 			try {
 			Professor prof=(Professor)user;
 			prof.swapSchedule(notification);

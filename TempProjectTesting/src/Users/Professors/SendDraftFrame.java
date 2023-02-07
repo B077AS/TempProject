@@ -91,7 +91,7 @@ public class SendDraftFrame extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					selectedRoom=(String)roomsBox.getSelectedItem().toString();
-					Date receiverDate=Date.valueOf(notification.getDate());
+					Date receiverDate=notification.getDate();
 					Date draftDate=(Date)datePanel.getModel().getValue();
 
 					try {

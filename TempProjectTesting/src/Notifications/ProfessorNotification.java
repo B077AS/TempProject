@@ -1,6 +1,7 @@
 package Notifications;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -10,12 +11,12 @@ public class ProfessorNotification implements Notification{
 	
 	private String scheduleID;
 	private String sender;
-	private String date;
-	private String newDate;
+	private Date date;
+	private Date newDate;
 	private String newFrom;
 	private String newTo;
 
-	public ProfessorNotification(String scheduleID, String date, String sender, String newDate, String newFrom, String newTo) {
+	public ProfessorNotification(String scheduleID, Date date, String sender, Date newDate, String newFrom, String newTo) {
 		super();
 		this.scheduleID = scheduleID;
 		this.sender = sender;
@@ -39,7 +40,7 @@ public class ProfessorNotification implements Notification{
 		return sender;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return this.date;
 	}	
 
@@ -51,11 +52,11 @@ public class ProfessorNotification implements Notification{
 		this.sender = sender;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
-	public void setNewDate(String newDate) {
+	public void setNewDate(Date newDate) {
 		this.newDate = newDate;
 	}
 
@@ -67,7 +68,7 @@ public class ProfessorNotification implements Notification{
 		this.newTo = newTo;
 	}
 
-	public String getNewDate() {
+	public Date getNewDate() {
 		return newDate;
 	}
 

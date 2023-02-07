@@ -58,7 +58,7 @@ public class Professor extends Users{
 		deleteOldNotifications();
 		
 			if (profRequests==true || swapRequests==true) {
-				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
+				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-active.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);
@@ -67,7 +67,7 @@ public class Professor extends Users{
 				return button;
 			}
 			else if(profRequests==false && swapRequests==false && reminders==false){
-				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-active.png");
+				ImageIcon notificationIcon=new ImageIcon("Files/bell-icon-inactive.png");
 				Image image = notificationIcon.getImage();
 				Image newimg = image.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);  
 				notificationIcon = new ImageIcon(newimg);

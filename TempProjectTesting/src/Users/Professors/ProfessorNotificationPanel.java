@@ -202,7 +202,7 @@ public class ProfessorNotificationPanel extends JPanel{
 					swap.setReceiver(user.getID());
 					swapDao.acceptSwap(swap);
 					swapDao.deleteSwap(swap);
-					dao.deleteNotificationNoNewDate(new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate().toString(), swap.getReceiver(), null, null, null));
+					dao.deleteNotificationNoNewDate(new ProfessorNotification(swap.getFirstSchedule(), swap.getFirstDate(), swap.getReceiver(), null, null, null));
 				} catch (Exception ea) {
 					ea.printStackTrace();
 					return;

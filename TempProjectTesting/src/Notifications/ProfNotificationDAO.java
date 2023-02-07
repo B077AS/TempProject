@@ -43,7 +43,7 @@ public class ProfNotificationDAO {
 			statement.setString(1, notification.getSender());
 			ResultSet result=statement.executeQuery();
 			while(result.next()) {
-				list.add(new ProfessorNotification(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6)));
+				list.add(new ProfessorNotification(result.getString(1), result.getDate(2), result.getString(3), result.getDate(4), result.getString(5), result.getString(6)));
 			}
 			conn.close();
 			return list;
@@ -60,7 +60,7 @@ public class ProfNotificationDAO {
 			String query="select New_Date from prof_notifications where Schedule_ID=? and Date=? and Sender=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, notification.getScheduleID());
-			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setDate(2, notification.getDate());
 			preparedStmt.setString(3, notification.getSender());
 			ResultSet result=preparedStmt.executeQuery();
 			result.next();
@@ -74,7 +74,7 @@ public class ProfNotificationDAO {
 			String query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date is NULL";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, notification.getScheduleID());
-			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setDate(2, notification.getDate());
 			preparedStmt.setString(3, notification.getSender());
 			System.out.println(preparedStmt);
 			preparedStmt.executeUpdate();
@@ -87,9 +87,9 @@ public class ProfNotificationDAO {
 			String query="delete from prof_notifications where Schedule_ID=? and Date=? and Sender=? and New_Date=? and New_From=? and New_To=?";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, notification.getScheduleID());
-			preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+			preparedStmt.setDate(2, notification.getDate());
 			preparedStmt.setString(3, notification.getSender());
-			preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+			preparedStmt.setDate(4, notification.getNewDate());
 			preparedStmt.setString(5, notification.getNewFrom());
 			preparedStmt.setString(6, notification.getNewTo());
 			preparedStmt.executeUpdate();
@@ -102,9 +102,9 @@ public class ProfNotificationDAO {
 		String query="insert into prof_notifications (Schedule_ID, Date, Sender, New_Date, New_From, New_To)"+"values (?, ?, ?, ?, ?, ?)";
 		PreparedStatement preparedStmt = conn.prepareStatement(query);
 		preparedStmt.setString(1, notification.getScheduleID());
-		preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+		preparedStmt.setDate(2, notification.getDate());
 		preparedStmt.setString(3, notification.getSender());
-		preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+		preparedStmt.setDate(4, notification.getNewDate());
 		preparedStmt.setString(5, notification.getNewFrom());
 		preparedStmt.setString(6, notification.getNewTo());
 		

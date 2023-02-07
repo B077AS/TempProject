@@ -59,7 +59,7 @@ public class RegisterGUI extends JFrame {
 		//setSize(screenWidth,screenHeight);
 		setTitle("Register");
 		
-		ImageIcon icon=new ImageIcon("Immagini/logo2.png");
+		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
 		setIconImage(icon.getImage());
 
 		setExtendedState(JFrame.MAXIMIZED_BOTH);

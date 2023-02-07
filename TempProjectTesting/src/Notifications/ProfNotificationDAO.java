@@ -95,5 +95,21 @@ public class ProfNotificationDAO {
 			preparedStmt.executeUpdate();
 			conn.close();
 	}
+	
+	
+	public void insertNotification(ProfessorNotification notification) throws Exception{
+		Connection conn=DBConnection.connect();
+		String query="insert into prof_notifications (Schedule_ID, Date, Sender, New_Date, New_From, New_To)"+"values (?, ?, ?, ?, ?, ?)";
+		PreparedStatement preparedStmt = conn.prepareStatement(query);
+		preparedStmt.setString(1, notification.getScheduleID());
+		preparedStmt.setDate(2, Date.valueOf(notification.getDate()));
+		preparedStmt.setString(3, notification.getSender());
+		preparedStmt.setDate(4, Date.valueOf(notification.getNewDate()));
+		preparedStmt.setString(5, notification.getNewFrom());
+		preparedStmt.setString(6, notification.getNewTo());
+		
+		preparedStmt.execute();
+		conn.close();
+	}
 
 }

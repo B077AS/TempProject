@@ -16,11 +16,13 @@ import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 
 public class FindSchedule extends JPanel{
-	
+
+
+	private String[][] schedule;
 
 
 	public FindSchedule(ViewCoursesPanel tablePanel, UserGUI mainGUI) {
-		
+
 		setLayout(new BorderLayout());
 		add(tablePanel, BorderLayout.NORTH);
 
@@ -30,7 +32,7 @@ public class FindSchedule extends JPanel{
 
 		JTable table=tablePanel.getTable();
 
-		String[][] schedule=new String[9][6];
+		this.schedule=new String[9][6];
 		String[] columnsNames= {" ", "Monday", "Tuesday", "Thursday", "Wednesday", "Friday"};
 
 		JTable newTable=new JTable(schedule, columnsNames);
@@ -51,66 +53,19 @@ public class FindSchedule extends JPanel{
 				int row=table.getSelectedRow();
 				String code=(String) table.getValueAt(row, 0);
 
+				findSchedule(code);
 
-				try {
-					Connection conn=DBConnection.connect();
-
-					String query="select * from schedule where Course_ID=?";
-					PreparedStatement preparedStmt = conn.prepareStatement(query);
-
-					preparedStmt.setString(1, code);
-					ResultSet result=preparedStmt.executeQuery();
-				
-					while(result.next()) {
-						String subject;
-						subject= checkString(result, 4);
-						String room;
-						room= checkString(result, 5);
-						switch(result.getString(6)) {
-
-						case "MONDAY":
-							reconstruct(result.getString(2), result.getString(3), subject, room, 1, schedule);
-							break;
-
-						case "TUESDAY":
-							reconstruct(result.getString(2), result.getString(3), subject, room, 2, schedule);
-							break;
-
-						case "THURSDAY":
-							reconstruct(result.getString(2), result.getString(3), subject, room, 3, schedule);
-							break;
-
-						case "WEDNESDAY":
-							reconstruct(result.getString(2), result.getString(3), subject, room, 4, schedule);
-							break;
-
-						case "FRIDAY":
-							reconstruct(result.getString(2), result.getString(3), subject, room, 5, schedule);
-							break;
-						}
-					
-
-					}
-					
-					remove(tablePanel);
-					remove(buttonPanel);
-					mainGUI.revalidate();
-					mainGUI.repaint();
-					JScrollPane listScroller = new JScrollPane(newTable);
-					listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
-					listScroller.setForeground(new Color(145,0,0));
-					listScroller.setBackground(new Color(145,0,0));
-					add(listScroller, BorderLayout.NORTH);
-					mainGUI.revalidate();
-					mainGUI.repaint();
-					conn.close();
-					
-
-				} catch (Exception e1) {
-					e1.printStackTrace();
-					return;
-				}
-
+				remove(tablePanel);
+				remove(buttonPanel);
+				mainGUI.revalidate();
+				mainGUI.repaint();
+				JScrollPane listScroller = new JScrollPane(newTable);
+				listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
+				listScroller.setForeground(new Color(145,0,0));
+				listScroller.setBackground(new Color(145,0,0));
+				add(listScroller, BorderLayout.NORTH);
+				mainGUI.revalidate();
+				mainGUI.repaint();
 			}
 
 		});
@@ -123,9 +78,9 @@ public class FindSchedule extends JPanel{
 	}
 
 
-	
+
 	public String checkString(ResultSet s, int i) throws SQLException {
-		
+
 		String subject;
 		if(s.getString(i)==null) {
 			subject=" ";
@@ -133,11 +88,11 @@ public class FindSchedule extends JPanel{
 		else {
 			subject=s.getString(i);
 		}
-		
+
 		return subject;
-		
+
 	}
-	
+
 	public void reconstruct(String start, String end, String subject, String room, int dayIdentifier, String[][] schedule) {
 		if(start.equals("9:00")) {
 			schedule[0][0]=start+" - "+end;
@@ -168,7 +123,55 @@ public class FindSchedule extends JPanel{
 			schedule[8][dayIdentifier]=subject+" - "+room;
 		}
 	}
-	
-		
 
+
+	public void findSchedule(String code) {
+		try {
+			Connection conn=DBConnection.connect();
+
+			String query="select * from schedule where Course_ID=?";
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+			preparedStmt.setString(1, code);
+			ResultSet result=preparedStmt.executeQuery();
+
+			while(result.next()) {
+				String subject;
+				subject= checkString(result, 4);
+				String room;
+				room= checkString(result, 5);
+				switch(result.getString(6)) {
+
+				case "MONDAY":
+					reconstruct(result.getString(2), result.getString(3), subject, room, 1, schedule);
+					break;
+
+				case "TUESDAY":
+					reconstruct(result.getString(2), result.getString(3), subject, room, 2, schedule);
+					break;
+
+				case "THURSDAY":
+					reconstruct(result.getString(2), result.getString(3), subject, room, 3, schedule);
+					break;
+
+				case "WEDNESDAY":
+					reconstruct(result.getString(2), result.getString(3), subject, room, 4, schedule);
+					break;
+
+				case "FRIDAY":
+					reconstruct(result.getString(2), result.getString(3), subject, room, 5, schedule);
+					break;
+				}
+
+
+			}
+			conn.close();
+
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return;
+		}
+
+	}
 }

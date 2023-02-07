@@ -27,13 +27,11 @@ import org.jdatepicker.impl.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import MyLoader.RoomLoader;
+import Notifications.ProfNotificationDAO;
+import Notifications.ProfessorNotification;
 import Rooms.Rooms;
-import Rooms.Rooms.*;
-import Users.GeneralUser.TimeSpanAL;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
-import org.jdatepicker.*;
-import java.time.*;
 
 public class SwapPanel extends JPanel{
 
@@ -333,6 +331,7 @@ class SwapListener implements ActionListener{
 
 		LocalDate myDate =this.firstDate.toLocalDate();
 		DayOfWeek dayOfWeek=myDate.getDayOfWeek();
+		String scheduleID="";
 		
 		Connection conn=DBConnection.connect();
 		try {
@@ -345,11 +344,15 @@ class SwapListener implements ActionListener{
 			preparedStmt.setString(4, (String)this.possibleRooms.getSelectedItem().toString());
 			ResultSet result=preparedStmt.executeQuery();
 			result.next();
-			String scheduleID=result.getString(1);
+			scheduleID=result.getString(1);
+			conn.close();
 			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			new ExceptionFrame("Not a valid Schedule");
+			return;
+		}
 			
-			query="insert into prof_notifications (Schedule_ID, Date, Sender, New_Date, New_From, New_To)"+"values (?, ?, ?, ?, ?, ?)";
-			preparedStmt = conn.prepareStatement(query);
 			Date DoW;
 			try {
 				DoW =Date.valueOf(this.secondDate.toLocalDate());
@@ -370,22 +373,17 @@ class SwapListener implements ActionListener{
 				return;
 			}
 			
-			preparedStmt.setString(1, scheduleID);
-			preparedStmt.setDate(2, Date.valueOf(myDate));
-			preparedStmt.setString(3, user.getID());
-			preparedStmt.setDate(4, DoW);
-			preparedStmt.setString(5, from);
-			preparedStmt.setString(6, to);
+			ProfessorNotification notification=new ProfessorNotification(scheduleID, myDate.toString(), user.getID(), DoW.toString(), from, to);
+			try {
+			Professor prof=(Professor)user;
+			prof.swapSchedule(notification);
+			}catch(Exception ex) {
+				ex.printStackTrace();
+				new ExceptionFrame("A Swap Request already present");
+			}
 			
-			preparedStmt.execute();
-			conn.close();
-
-		} catch (Exception e1) {
-			e1.printStackTrace();
-			new ExceptionFrame("Not a valid Schedule");
-			return;
-		}
-
+			new ExceptionFrame("Swap Request sent Successfully");
+			this.mainGUI.removePanel();
 	}
 
 }

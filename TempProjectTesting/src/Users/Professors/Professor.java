@@ -32,6 +32,14 @@ public class Professor extends Users{
 		super(name, lastName, ID, email, password, type);
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	public void swapSchedule(ProfessorNotification notification) throws Exception{
+		ProfNotificationDAO profDAO=new ProfNotificationDAO();
+		profDAO.insertNotification(notification);
+	}
+	
+	
 
 	@Override
 	public void GUI(LoginGUI frame) {
@@ -153,39 +161,14 @@ public class Professor extends Users{
 						preparedStmt.setString(3, booking.getStartTime());
 						preparedStmt.setString(4, booking.getEndTime());
 						preparedStmt.execute();
-						
-						
-						query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
-						preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setString(1, bookingID);
-						preparedStmt.setDate(2, date);
-						preparedStmt.setString(3, booking.getRoom().getCode());
-						preparedStmt.setString(4, ID);
-						preparedStmt.setString(5, booking.getStartTime());
-						preparedStmt.setString(6, booking.getEndTime());
-						preparedStmt.setString(7, "true");
-						preparedStmt.execute();
-						
 						conn.close();
 						
+						soloDAO.insert(new Booking(booking.getStartTime(), booking.getEndTime(), date, booking.getRoom(), bookingID, ID, "true"));
 						new BookingSuccessful();
-					
-						
-						
-
 					}
+					
 					else if(firstCheck==false && secondCheck==false) {
-						String query="insert into solo_booking (Booking_ID, Date, Room, User_ID, Start_Time, End_Time, Locked)"+"values (?, ?, ?, ?, ?, ?, ?)";
-						PreparedStatement preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setString(1, bookingID);
-						preparedStmt.setDate(2, date);
-						preparedStmt.setString(3, booking.getRoom().getCode());
-						preparedStmt.setString(4, ID);
-						preparedStmt.setString(5, booking.getStartTime());
-						preparedStmt.setString(6, booking.getEndTime());
-						preparedStmt.setString(7, "true");
-						preparedStmt.execute();
-						conn.close();
+						soloDAO.insert(new Booking(booking.getStartTime(), booking.getEndTime(), date, booking.getRoom(), bookingID, ID, "true"));
 						new BookingSuccessful();
 					
 					}

@@ -103,7 +103,7 @@ public class StudentsMainPanel extends JPanel{
 					mainGUI.removePanel();
 					ViewCoursesPanel view=new ViewCoursesPanel(mainGUI);
 					view.remove(view.getButtonsPanel());
-
+					
 					FindSchedule findSchedulePanel=new FindSchedule(view, mainGUI);
 
 					mainGUI.addSecondPanel(findSchedulePanel);

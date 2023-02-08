@@ -90,11 +90,11 @@ public class StudentsMainPanel extends JPanel{
 			add(groupsButton, c);
 			//
 			c.anchor = GridBagConstraints.EAST;
-			ImageIcon calendarIcon=new ImageIcon("Files/calendar-icon.png");
-			Image calendar = calendarIcon.getImage();
-			Image temp = calendar.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
-			calendarIcon = new ImageIcon(temp);
-			JButton scheduleButton=new JButton(calendarIcon);
+			ImageIcon clockIcon=new ImageIcon("Files/clock-icon.png");
+			Image clock = clockIcon.getImage();
+			Image tempClock = clock.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
+			clockIcon = new ImageIcon(tempClock);
+			JButton scheduleButton=new JButton(clockIcon);
 			scheduleButton.setBackground(Color.WHITE);
 			scheduleButton.addActionListener(new ActionListener() {
 
@@ -116,6 +116,33 @@ public class StudentsMainPanel extends JPanel{
 			c.gridy=4;
 			c.insets= new Insets(0,0,50,0);
 			add(scheduleButton, c);
+			
+			ImageIcon calendarIcon=new ImageIcon("Files/calendar-icon.png");
+			Image calendar = calendarIcon.getImage();
+			Image temp = calendar.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);  
+			calendarIcon = new ImageIcon(temp);
+			
+			JButton bookings=new JButton(calendarIcon);
+			bookings.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+			bookings.setBackground(Color.white);
+			bookings.setForeground(new Color(145,0,0));
+			bookings.setOpaque(true);
+			bookings.setBorderPainted(false);
+			c.gridx=1;
+			c.gridy=4;
+			c.insets= new Insets(70,0,10,7);
+			bookings.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					mainGUI.removePanel();
+					BookingsPanel bookingsPanel=new BookingsPanel(mainGUI);
+					mainGUI.addSecondPanel(bookingsPanel);
+					mainGUI.revalidate();
+					mainGUI.repaint();
+					
+				}});
+			add(bookings, c);
 			
 			JButton LogButton=new JButton("Sign out");
 			LogButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));

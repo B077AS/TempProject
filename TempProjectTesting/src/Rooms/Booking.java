@@ -63,7 +63,7 @@ public class Booking implements Comparable<Booking>{
 	
 	@Override
 	public String toString() {
-		return this.room.getCode()+" From: "+this.startTime+" To: "+this.endTime;
+		return this.date+" in Room: "+this.room.getCode()+" From: "+this.startTime+" To: "+this.endTime;
 	}
 	
 }

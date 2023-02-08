@@ -17,8 +17,6 @@ public class UsersDAO {
 	private Users user;
 	
 	public void insertUser(Users user) {
-		
-		
 		Connection conn=DBConnection.connect();
 		try {
 			String query="insert into users (User_Code, User_Type, Name, Last_Name, Email, Password)"+"values (?, ?, ?, ?, ?, ?)";

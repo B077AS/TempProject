@@ -61,7 +61,9 @@ public class FinderDB {
 							+ "union\r\n"
 							+ "(select Room, Start_Time, End_Time from rooms_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(rooms_booking.Date))=?)\r\n"
 							+ "union\r\n"
-							+ "(select Room, Start_Time, End_Time from lab_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(lab_booking.Date))=?)";
+							+ "(select Room, Start_Time, End_Time from lab_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(lab_booking.Date))=?)\r\n"
+							+ "union\r\n"
+							+ "(select Room, Start_Time, End_Time from solo_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(solo_booking.Date))=?)";
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 
 					preparedStmt.setString(1, start);
@@ -73,6 +75,9 @@ public class FinderDB {
 					preparedStmt.setString(7, start);
 					preparedStmt.setString(8, end);
 					preparedStmt.setString(9, dayOfWeek.toString());
+					preparedStmt.setString(10, start);
+					preparedStmt.setString(11, end);
+					preparedStmt.setString(12, dayOfWeek.toString());
 					ResultSet result=preparedStmt.executeQuery();
 					while(result.next()) {
 						if(this.allRooms.containsKey(result.getString(1))==true) {
@@ -150,8 +155,9 @@ public class FinderDB {
 			throw new Exception();
 		}
 		
-
+		//System.out.println(myDate);
 		if(myDate.compareTo(start.toLocalDate())>0 && myDate.compareTo(end.toLocalDate())>0) {
+			
 			throw new Exception();
 		}
 		conn.close();

@@ -254,7 +254,14 @@ class MainPanel extends JPanel{
 				try {
 					registration.checkDuplicate();
 				} catch (Exception e1) {
-					new ExceptionFrame("User already registered");
+					new ExceptionFrame("User already registered!");
+					return;
+				}
+				
+				try {
+					registration.TypeCheck();
+				} catch (Exception e1) {
+					new ExceptionFrame("User Type not Valid!");
 					return;
 				}
 				

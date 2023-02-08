@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import DataBase.DBConnection;
+import ENUM.UserType;
 import Email.EmailTemplate;
 import Users.GeneralUser.UsersDAO;
 import Users.Students.Students;
@@ -103,6 +104,12 @@ public class Registration {
 			eTemp.start();
 		} catch (Exception e) {
 			return;
+		}
+	}
+	
+	public void TypeCheck() throws IllegalArgumentException{
+		if(emailTermination=="@universitadipavia.it" && !userType.equals(UserType.STUDENT.toString())) {
+			throw new IllegalArgumentException();
 		}
 	}
 }

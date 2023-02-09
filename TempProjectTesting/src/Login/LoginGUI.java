@@ -24,7 +24,7 @@ public class LoginGUI extends JFrame{
 
 		setTitle("FindMe");
 		
-		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
 		setIconImage(icon.getImage());
 
 		ImageIcon bground=new ImageIcon("Immagini/background_v2.jpeg");
@@ -83,8 +83,7 @@ class MainPanel extends JPanel{
 		JLabel intro_acc= new JLabel("Log in your account");
 		intro_acc.setFont(new Font("Comic Sans MS", Font.BOLD,25));
 		intro_acc.setForeground(new Color(145,0,0));
-	//	c.weightx= 0.5;
-		//c.weighty=0;
+	
 		c.insets= new Insets (100,0,50,0);
 		c.gridx=0;
 		c.gridy=1;
@@ -114,8 +113,7 @@ class MainPanel extends JPanel{
 		passwordLabel.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		passwordLabel.setForeground(new Color(145,0,0));
 		
-	//	c.weightx= 0.1;
-	//	c.weighty=0.1;
+
 		c.insets= new Insets (0,80,250,500);
 		c.gridx=0;
 		c.gridy=1;
@@ -152,8 +150,7 @@ class MainPanel extends JPanel{
 		JLabel intro_no= new JLabel("I don't have an account: ");
 		intro_no.setFont(new Font("Comic Sans MS", Font.BOLD,15));
 		intro_no.setForeground(new Color(145,0,0));
-	//	c.weightx= 0.1;
-	//	c.weighty=0.1;
+	
 		c.insets= new Insets (200,0,0,100);
 		c.gridx=0;
 		c.gridy=1;
@@ -170,8 +167,7 @@ class MainPanel extends JPanel{
 		registerButton.setBorderPainted(false);
 		//servono per il mac
 		
-		//c.weightx= 0.5;
-	//	c.weighty=0;
+	
 		c.insets= new Insets (200,200,0,0);
 		c.gridx=0;
 		c.gridy=1;

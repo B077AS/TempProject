@@ -14,6 +14,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,7 +34,8 @@ public class UserAdderFrame extends JFrame{
 	public UserAdderFrame(JList<Group> list, UserGUI studentsGUI, Users user) {
 		setSize(400,200);
 		setTitle("Add User");
-	
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLayout (new GridBagLayout());
 		GridBagConstraints c=new GridBagConstraints();

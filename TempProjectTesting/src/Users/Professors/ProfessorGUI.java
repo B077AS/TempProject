@@ -18,6 +18,7 @@ public class ProfessorGUI extends UserGUI{
 		northPanel=head;
 		addFindPanel(this, user);
 		this.add(northPanel, BorderLayout.NORTH);
+		this.add(downPanel(), BorderLayout.SOUTH);
 		
 		JLayeredPane pane = this.getLayeredPane();
 		pane.add(image(), new Integer(1));

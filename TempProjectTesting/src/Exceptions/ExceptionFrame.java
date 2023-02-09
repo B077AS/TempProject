@@ -43,7 +43,7 @@ public class ExceptionFrame {
 		
 		f.setSize(400,200);
 		f.setTitle("Message");
-		ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
 		f.setIconImage(icon.getImage());
 
 		f.setLocationRelativeTo(null);

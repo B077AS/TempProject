@@ -88,6 +88,9 @@ public class ReasonFrame extends JFrame{
 		add(mainPanel);
 		setSize(700,460);
 		setTitle("Write your Request");
+		
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

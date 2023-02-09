@@ -1,5 +1,7 @@
 package Notifications;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -16,8 +18,14 @@ public class AcceptRejectFrame extends JFrame{
 
 		JFrame f=new JFrame();
 		JPanel p=new JPanel();
+		p.setBackground(Color.white);
 		JLabel l=new JLabel(message);
+		l.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+		l.setForeground(new Color(145,0,0));
 		JButton b=new JButton("OK");
+		b.setFont(new Font("Comic Sans MS", Font.BOLD,10));
+		b.setForeground(Color.white);
+		b.setBackground(new Color(145,0,0));
 		b.setOpaque(true);
 		b.setBorderPainted(false);
 	
@@ -39,6 +47,9 @@ public class AcceptRejectFrame extends JFrame{
 		f.add(p);
 		
 		f.setSize(400,200);
+
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		f.setIconImage(icon.getImage());
 
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

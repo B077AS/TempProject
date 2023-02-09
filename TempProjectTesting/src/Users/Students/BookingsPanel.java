@@ -20,6 +20,7 @@ public class BookingsPanel extends JPanel{
 
 	public BookingsPanel(UserGUI mainGUI) {
 		setLayout (new GridBagLayout());
+		setBackground(Color.white);
 		GridBagConstraints c=new GridBagConstraints();
 
 		JPanel soloPanel=new JPanel();

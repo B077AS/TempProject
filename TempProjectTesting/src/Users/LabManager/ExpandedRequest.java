@@ -65,6 +65,9 @@ public class ExpandedRequest extends JFrame{
 		
 		setSize(700,500);
 		setTitle("Write your Request");
+		
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

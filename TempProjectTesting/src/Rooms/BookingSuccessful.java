@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,6 +48,9 @@ public class BookingSuccessful extends JFrame{
 		
 		f.setSize(400,200);
 		f.setTitle("Booking");
+		
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		f.setIconImage(icon.getImage());
 
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

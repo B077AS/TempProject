@@ -25,7 +25,7 @@ public class UsersListFrame extends JFrame{
 	mainPanel.setLayout (new GridBagLayout());
 	GridBagConstraints c=new GridBagConstraints();
 	
-	ImageIcon icon=new ImageIcon("Immagini/logo3.png");
+	ImageIcon icon=new ImageIcon("Immagini/logo4.png");
 	setIconImage(icon.getImage());
 	mainPanel.setBackground(Color.white);
 	

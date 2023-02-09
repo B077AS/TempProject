@@ -1,6 +1,8 @@
 package Users.Professors;
 
-import java.awt.BorderLayout;
+import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -43,6 +47,7 @@ public class SendDraftFrame extends JFrame{
 		try {
 
 			secondPanel.setLayout (new GridBagLayout());
+			secondPanel.setBackground(Color.white);
 			GridBagConstraints c=new GridBagConstraints();
 			RoomLoader loadRooms=new RoomLoader();
 
@@ -52,9 +57,15 @@ public class SendDraftFrame extends JFrame{
 				roomsList.add(entry.getValue());
 			}
 			Collections.sort(roomsList);
+			//
 			JComboBox<String> roomsBox=new JComboBox(roomsList.toArray());
+			roomsBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			roomsBox.setForeground(new Color(145,0,0));
+			roomsBox.setBackground(Color.WHITE);
 
 			JLabel label = new JLabel("Prepare your Draft Swap Proposal");
+			label.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			label.setForeground(new Color(145,0,0));
 			mainPanel.add(label, BorderLayout.NORTH);
 
 			SqlDateModel model= new SqlDateModel();
@@ -69,17 +80,26 @@ public class SendDraftFrame extends JFrame{
 
 			JComboBox<String> endTimeBox=new JComboBox<String>();
 			endTimeBox.addItem("To");
+			endTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			endTimeBox.setForeground(new Color(145,0,0));
+			endTimeBox.setBackground(Color.WHITE);
 			endTimeBox.setFocusable(false);
 			c.gridx=2;
 			c.gridy=0;
+			
 			secondPanel.add(endTimeBox, c);
 
 			JComboBox<String> startTimeBox=new JComboBox<String>(startHours);
+			startTimeBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			startTimeBox.setForeground(new Color(145,0,0));
+			//startTimeBox.setFocusable(false);
+			startTimeBox.setBackground(Color.WHITE);
 			ToActionListener sl=new ToActionListener(startTimeBox, endTimeBox);
 			startTimeBox.addActionListener(sl);
 			startTimeBox.setFocusable(false);
 			c.gridx=1;
 			c.gridy=0;
+			c.insets = new Insets(0,10,0,0);
 			secondPanel.add(startTimeBox, c);
 
 			c.gridx=3;
@@ -87,6 +107,11 @@ public class SendDraftFrame extends JFrame{
 			secondPanel.add(roomsBox, c);
 
 			JButton send=new JButton("Send");
+			send.setFont(new Font("Comic Sans MS", Font.BOLD,17));
+			send.setBackground(new Color(145,0,0));
+			send.setForeground(Color.white);
+			send.setOpaque(true);
+			send.setBorderPainted(false);
 			send.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -146,17 +171,21 @@ public class SendDraftFrame extends JFrame{
 					dispose();
 				}
 			});
-			c.gridx=4;
-			c.gridy=0;
+			c.gridx=2;
+			c.gridy=1;
 			secondPanel.add(send, c);
 
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+		mainPanel.setBackground(Color.white);
 		mainPanel.add(secondPanel, BorderLayout.CENTER);
 		add(mainPanel);
-		setSize(600,300);
+		setSize(700,400);
 		setTitle("Choose Room");
+		
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

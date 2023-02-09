@@ -84,7 +84,7 @@ public class StudentsMainPanel extends JPanel{
 					mainGUI.repaint();
 				}
 			});
-			c.insets= new Insets(10,0,35,10);
+			c.insets= new Insets(15,0,35,10);
 			c.gridx=0;
 			c.gridy=4;
 			add(groupsButton, c);
@@ -130,7 +130,7 @@ public class StudentsMainPanel extends JPanel{
 			bookings.setBorderPainted(false);
 			c.gridx=1;
 			c.gridy=4;
-			c.insets= new Insets(70,0,10,7);
+			c.insets= new Insets(70,10,10,0);
 			bookings.addActionListener(new ActionListener(){
 
 				@Override
@@ -145,7 +145,7 @@ public class StudentsMainPanel extends JPanel{
 			add(bookings, c);
 			
 			JButton LogButton=new JButton("Sign out");
-			LogButton.setFont(new Font("Comic Sans MS", Font.PLAIN,15));
+			LogButton.setFont(new Font("Comic Sans MS", Font.PLAIN,13));
 			LogButton.setBackground(Color.white);
 			LogButton.setForeground(new Color(145,0,0));
 			LogButton.setOpaque(true);
@@ -161,7 +161,7 @@ public class StudentsMainPanel extends JPanel{
 			
 			c.gridx=0;
 			c.gridy=4;
-			c.insets= new Insets(70,0,10,7);
+			c.insets= new Insets(70,0,10,10);
 			add(LogButton, c);
 			
 		}

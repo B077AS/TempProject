@@ -30,6 +30,7 @@ public class RoomChooser extends JFrame {
 		try {
 
 			p.setLayout (new GridBagLayout());
+			p.setBackground(Color.white);
 			GridBagConstraints c=new GridBagConstraints();
 			RoomLoader loadRooms=new RoomLoader();
 
@@ -40,6 +41,10 @@ public class RoomChooser extends JFrame {
 			}
 			Collections.sort(roomsList);
 			JComboBox<String> roomsBox=new JComboBox(roomsList.toArray());
+			roomsBox.setFont(new Font("Comic Sans MS", Font.BOLD,15));
+			roomsBox.setForeground(new Color(145,0,0));
+			roomsBox.setBackground(Color.WHITE);
+			roomsBox.setFocusable(false);
 
 			JLabel label = new JLabel("Which Room will the other professor have to use?");
 			label.setForeground(new Color(145,0,0));
@@ -47,9 +52,12 @@ public class RoomChooser extends JFrame {
 			c.gridx=0;
 			c.gridy=0;
 			p.add(label, c);
+			//
 			c.gridx=1;
 			c.gridy=0;
+			c.insets= new Insets(0,10,0,0);
 			p.add(roomsBox, c);
+			//
 			JButton ok=new JButton("OK");
 			ok.setFont(new Font("Comic Sans MS", Font.BOLD,13));
 			ok.setForeground(Color.white);
@@ -99,8 +107,8 @@ public class RoomChooser extends JFrame {
 					dispose();
 				}
 			});
-			c.gridx=2;
-			c.gridy=0;
+			c.gridx=0;
+			c.gridy=1;
 			p.add(ok, c);
 
 		} catch (Exception e1) {
@@ -109,6 +117,8 @@ public class RoomChooser extends JFrame {
 		add(p);
 		setSize(500,200);
 		setTitle("Choose Room");
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -48,6 +48,8 @@ public class NewGroupNameFrame extends JFrame{
 		c.gridy=2;
 		c.insets= new Insets(10,0,0,0);
 		add(okButton, c);
+		ImageIcon icon=new ImageIcon("Immagini/logo4.png");
+		setIconImage(icon.getImage());
 
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -14,6 +14,7 @@ import Rooms.Booking;
 import Rooms.RoomsBookingDAO;
 import Rooms.SoloBookingDAO;
 import Users.GeneralUser.UserGUI;
+import Users.LabManager.LabBookingDAO;
 
 public class BookingsPanel extends JPanel{
 
@@ -67,7 +68,12 @@ public class BookingsPanel extends JPanel{
 
 		RoomsBookingDAO groupsDAO=new RoomsBookingDAO();
 		ArrayList<Booking> groupBookings=groupsDAO.selectBookingsFromUser(mainGUI.getUser());
-
+		
+		LabBookingDAO labDAO=new LabBookingDAO();
+		ArrayList<Booking> labBookings=labDAO.selectBookingsFromUser(mainGUI.getUser());
+		
+		groupBookings.addAll(labBookings);
+		
 		JList<Booking> groupsList=new JList(groupBookings.toArray());
 		soloList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		JScrollPane scrollGroups = new JScrollPane(groupsList);
@@ -98,6 +104,7 @@ public class BookingsPanel extends JPanel{
 					return;
 				}
 				groupsDAO.deleteBooking(groupsList.getSelectedValue());
+				labDAO.deleteBooking(groupsList.getSelectedValue());
 				mainGUI.removePanel();
 				mainGUI.addSecondPanel(new BookingsPanel(mainGUI));
 				mainGUI.revalidate();

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import Exceptions.ExceptionFrame;
 import Finder.Filter.FilterCheckBox;
 import Finder.Filter.FilterRoomType;
 import Finder.Filter.FilterSeatsNumber;
@@ -35,20 +36,20 @@ public class FinderMainPanel extends JPanel{
 
 		setBackground(Color.white);
 		setLayout (new GridBagLayout());
-	
+
 		GridBagConstraints c=new GridBagConstraints();
-	
+
 
 		JList<Booking> list=new JList(freeRooms.toArray());
 		list.setForeground(Color.black);
 		JScrollPane listScroller = new JScrollPane(list);
 		listScroller.setBorder(new LineBorder(new Color(145,0,0),2));
 		listScroller.setPreferredSize(new Dimension(250, 200));
-	
+
 		c.insets = new Insets(0,0,20,0);
 		c.gridx=1;
 		c.gridy=0;
-		
+
 		this.scroll=listScroller;
 		add(listScroller, c);
 
@@ -97,7 +98,7 @@ public class FinderMainPanel extends JPanel{
 		filterButton.setBackground(new Color(145,0,0));
 		filterButton.setOpaque(true);
 		filterButton.setBorderPainted(false);
-	
+
 		c.gridx=3;
 		c.gridy=1;
 		c.insets = new Insets(0,20,15,0);
@@ -112,7 +113,7 @@ public class FinderMainPanel extends JPanel{
 		bookButton.setBackground(new Color(145,0,0));
 		bookButton.setOpaque(true);
 		bookButton.setBorderPainted(false);
-	
+
 		c.gridx=1;
 		c.gridy=2;
 		c.insets = new Insets(20,0,0,0);
@@ -143,6 +144,14 @@ class BookListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		try {
+			if(this.scroll.getSelectedValue()==null) {
+				throw new IllegalArgumentException();
+			}
+		}catch(IllegalArgumentException ex){
+			new ExceptionFrame("No Room Selected");
+			return;
+		}
 		this.frame.removePanel();
 		this.frame.addSecondPanel(new ConfirmBookigPanel(this.scroll, user, frame));
 		this.frame.revalidate();
@@ -171,10 +180,10 @@ class FilterListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		this.freeRooms=this.panel.getFreeRooms();
 		this.allFiltered.clear();
-		
+
 		for(FilterCheckBox singleFilter: allFilters) {
 			if(singleFilter.isSelected()==true) {
-			this.allFiltered.put(singleFilter.getLabel(), singleFilter.filter(freeRooms, singleFilter));
+				this.allFiltered.put(singleFilter.getLabel(), singleFilter.filter(freeRooms, singleFilter));
 			}
 		}
 

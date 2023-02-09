@@ -31,11 +31,13 @@ public class ConfirmBookigPanel extends JPanel{
 		this.roomsList=roomsList;
 
 		Booking selectedBooking =this.roomsList.getSelectedValue();
+		
 		for(int i = 0; i< this.roomsList.getModel().getSize();i++){
 			if(this.roomsList.getModel().getElementAt(i).getRoom().getCode().equals(selectedBooking.getRoom().getCode())) {
 				this.possibleBookings.add(this.roomsList.getModel().getElementAt(i));
 			}
 		}
+
 		Rooms room=selectedBooking.getRoom();
 		String[][] roomDetails=new String[1][5];
 		String[] columnsNames=new String[]{"Room Code", "Max Capacity", "Equipped with LIM", "Equipped with Outlets", "Disabled-Friendly"};
@@ -129,6 +131,17 @@ public class ConfirmBookigPanel extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				try {
+				if(list.getSelectedValue()==null) {
+					throw new IllegalArgumentException();
+				}
+				}catch(IllegalArgumentException ex) {
+					new ExceptionFrame("No Time Span Selected");
+					return;
+				}
+				
+				
 				if(maxed==false) {
 				frame.removePanel();
 				frame.addSecondPanel(user.book(list.getSelectedValues(), frame));

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DataBase.DBConnection;
+import MyTimer.DateHolder;
 import Users.GeneralUser.Users;
 
 public class SoloBookingDAO {
@@ -16,12 +17,14 @@ public class SoloBookingDAO {
 	public boolean checkFromDateAndTime(Booking booking) {
 
 		boolean check=false;
+		
+		Date mainDate=Date.valueOf(DateHolder.getYear()+"-"+DateHolder.getMonth()+"-"+DateHolder.getDay());
 
 		try {
 			Connection conn=DBConnection.connect();
 			String query="select * from solo_booking where Date=? and Room=? and Start_Time=? and End_Time=?";
 			PreparedStatement preparedStmt=conn.prepareStatement(query);;
-			preparedStmt.setDate(1, booking.getDate());
+			preparedStmt.setDate(1, mainDate);
 			preparedStmt.setString(2, booking.getRoom().getCode());
 			preparedStmt.setString(3, booking.getStartTime());
 			preparedStmt.setString(4, booking.getEndTime());

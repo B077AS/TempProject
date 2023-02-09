@@ -150,17 +150,23 @@ public class Professor extends Users{
 					String bookingID=ID+"-"+booking.getRoom().getCode()+"-"+booking.getStartTime().split(":")[0]+"-"+booking.getEndTime().split(":")[0]+"-"+date;
 					
 					if(firstCheck==true && bookingDate.compareTo(now.plusDays(3))>0 || secondCheck==true && bookingDate.compareTo(now.plusDays(3))>0) {
-
-						String query="delete solo_booking, rooms_booking \r\n"
-								+ "from solo_booking inner join rooms_booking where solo_booking.Date=rooms_booking.Date and\r\n"
-								+ "solo_booking.Room=rooms_booking.Room and solo_booking.Start_Time=rooms_booking.Start_Time and\r\n"
-								+ "solo_booking.End_Time=rooms_booking.End_Time and solo_booking.Date=? and solo_booking.Room=? and solo_booking.Start_Time=? and solo_booking.End_Time=? ";
+						
+						String query="delete from rooms_booking where rooms_booking.Date=? and rooms_booking.Room=? and rooms_booking.Start_Time=? and rooms_booking.End_Time=?";
 						PreparedStatement preparedStmt = conn.prepareStatement(query);
 						preparedStmt.setDate(1, date);
 						preparedStmt.setString(2, booking.getRoom().getCode());
 						preparedStmt.setString(3, booking.getStartTime());
 						preparedStmt.setString(4, booking.getEndTime());
 						preparedStmt.execute();
+						
+						query="delete from solo_booking where solo_booking.Date=? and solo_booking.Room=? and solo_booking.Start_Time=? and solo_booking.End_Time=?";
+						preparedStmt = conn.prepareStatement(query);
+						preparedStmt.setDate(1, date);
+						preparedStmt.setString(2, booking.getRoom().getCode());
+						preparedStmt.setString(3, booking.getStartTime());
+						preparedStmt.setString(4, booking.getEndTime());
+						preparedStmt.execute();
+
 						conn.close();
 						
 						soloDAO.insert(new Booking(booking.getStartTime(), booking.getEndTime(), date, booking.getRoom(), bookingID, ID, "true"));
@@ -168,6 +174,7 @@ public class Professor extends Users{
 					}
 					
 					else if(firstCheck==false && secondCheck==false) {
+						System.out.println("ciao2");
 						soloDAO.insert(new Booking(booking.getStartTime(), booking.getEndTime(), date, booking.getRoom(), bookingID, ID, "true"));
 						new BookingSuccessful();
 					

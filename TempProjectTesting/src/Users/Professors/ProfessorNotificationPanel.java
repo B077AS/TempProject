@@ -125,6 +125,8 @@ public class ProfessorNotificationPanel extends JPanel{
 		acceptSwap.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
 		acceptSwap.setForeground(Color.WHITE);
 		acceptSwap.setBackground(new Color(145,0,0));
+		acceptSwap.setOpaque(true);
+		acceptSwap.setBorderPainted(false);
 		acceptSwap.addActionListener(new ActionListener() {
 
 			@Override
@@ -151,6 +153,8 @@ public class ProfessorNotificationPanel extends JPanel{
 		draft.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
 		draft.setForeground(Color.WHITE);
 		draft.setBackground(new Color(145,0,0));
+		draft.setOpaque(true);
+		draft.setBorderPainted(false);
 		draft.addActionListener(new ActionListener() {
 
 			@Override
@@ -192,6 +196,8 @@ public class ProfessorNotificationPanel extends JPanel{
 		acceptDraft.setForeground(Color.WHITE);
 		acceptDraft.setBackground(new Color(145,0,0));
 		acceptDraft.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
+		acceptDraft.setOpaque(true);
+		acceptDraft.setBorderPainted(false);
 		acceptDraft.addActionListener(new ActionListener() {
 
 			@Override
@@ -221,6 +227,9 @@ public class ProfessorNotificationPanel extends JPanel{
 		reject.setForeground(Color.WHITE);
 		reject.setBackground(new Color(145,0,0));
 		reject.setFont(new Font("Comic Sans MS", Font.PLAIN,12));
+		reject.setOpaque(true);
+		reject.setBorderPainted(false);
+		
 		reject.addActionListener(new ActionListener() {
 
 			@Override

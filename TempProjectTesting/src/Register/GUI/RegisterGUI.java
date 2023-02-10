@@ -230,12 +230,7 @@ class MainPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Registration registration=new Registration(nameField.getText(), lastNameField.getText(), idNumberField.getText(), emailField.getText(), (String)emailSelect.getSelectedItem(), passwordField.getPassword(), confirmPasswordField.getPassword(), userTypeSelect.getSelectedItem().toString());
-				try {
-					registration.namesCheck();
-				} catch (Exception e1) {
-					new ExceptionFrame("Name not Valid!");
-					return;
-				}
+				
 				
 				try {
 					registration.emailCheck();

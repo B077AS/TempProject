@@ -93,6 +93,7 @@ public class Registration {
 		preparedStmt.setString(1, idNumber);
 		preparedStmt.setString(2, emailString);
 		ResultSet result=preparedStmt.executeQuery();
+		
 		if(result.next()==true) {
 			throw new IllegalArgumentException();
 		}

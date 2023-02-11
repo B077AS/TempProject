@@ -112,6 +112,10 @@ public class Registration {
 		if(emailTermination=="@universitadipavia.it" && !userType.equals(UserType.STUDENT.toString())) {
 			throw new IllegalArgumentException();
 		}
+		
+		if(emailTermination=="@unipv.it" && userType.equals(UserType.STUDENT.toString())) {
+			throw new IllegalArgumentException();
+		}
 	}
 }
 

@@ -2,16 +2,9 @@ package Users.Students;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import javax.swing.*;
-
-import DataBase.DBConnection;
 import Groups.GroupsPanel;
 import Login.LoginGUI;
-import MyTimer.MyTimer;
 import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 

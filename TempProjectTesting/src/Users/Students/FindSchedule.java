@@ -5,13 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
 import DataBase.DBConnection;
-import Groups.GroupsPanel;
-import MyTimer.MyTimer;
 import Users.Admin.ViewCoursesPanel;
 import Users.GeneralUser.*;
 

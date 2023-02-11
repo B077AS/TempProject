@@ -135,7 +135,7 @@ class SaveDatesListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		MyTimer time=new MyTimer();
 
-		Date currentDate=Date.valueOf(time.getDate().toLocalDate().toString());	
+		Date currentDate=Date.valueOf(time.getJavaDate().toString());	
 
 		try {
 			if(currentDate.compareTo((Date)this.datePanel.getModel().getValue())>0) {

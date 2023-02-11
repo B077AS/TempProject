@@ -147,7 +147,7 @@ public class FinderDB {
 		MyTimer currentTime=new MyTimer();
 		
 		
-		if(myDate.compareTo(currentTime.getDate().toLocalDate())<0) {
+		if(myDate.compareTo(currentTime.getJavaDate())<0) {
 			throw new Exception();
 		}
 

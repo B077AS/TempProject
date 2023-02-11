@@ -1,7 +1,8 @@
 package MyTimer;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 public class MyTimer {
 	private int day;
@@ -10,7 +11,7 @@ public class MyTimer {
 	private String date;
 	
 	public MyTimer() {
-		this.date=getTime();
+		this.date=getJavaDate().toString();
 		String[] splitted;
 		splitted=this.date.split("-");
 		this.day=Integer.parseInt(splitted[2]);
@@ -19,15 +20,6 @@ public class MyTimer {
 		
 	}
 
-	public String getTime() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime now = LocalDateTime.now();
-		return dtf.format(now);
-
-	}
-	public static void main(String[] args) {
-	}
-	
 	public int getDay() {
 		return this.day;
 	}
@@ -44,10 +36,18 @@ public class MyTimer {
 		return this.date;
 	}
 	
-	public LocalDateTime getDate() {
+	public LocalDate getJavaDate() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDateTime now = LocalDateTime.now();
-		return now;
+		dtf.format(now);
+		return now.toLocalDate();
+	}
+	
+	public Date getSqlDate() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime now = LocalDateTime.now();
+		dtf.format(now);
+		return Date.valueOf(now.toLocalDate());
 	}
 	
 }

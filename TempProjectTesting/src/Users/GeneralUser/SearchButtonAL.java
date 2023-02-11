@@ -1,23 +1,10 @@
 package Users.GeneralUser;
 
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-
 import javax.swing.*;
-
-import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Finder.FinderDB;
 import Finder.FinderMainPanel;
-import MyTimer.DateHolder;
-import MyTimer.Months;
-import MyTimer.MyTimer;
-import Users.Students.StudentsGUI;
 
 public class SearchButtonAL implements ActionListener{
 

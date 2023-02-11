@@ -6,12 +6,10 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 import java.util.List;
-
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Login.*;
-import MyLoader.RoomLoader;
 import MyTimer.DateHolder;
 import Notifications.*;
 import Rooms.*;
@@ -150,8 +148,8 @@ public class Students extends Users{
 			public void actionPerformed(ActionEvent e) {
 				Booking booking=(Booking)objects[0];
 				try {
-					RoomLoader rooms=new RoomLoader();
-					rooms.getRooms().get(booking.getRoom().getCode());
+					RoomDAO dao=new RoomDAO();
+					dao.selectAllRooms().get(booking.getRoom().getCode());
 					Group myGroup=(Group)goupsBox.getSelectedItem();
 					booking.getRoom().book(myGroup, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
 					frame.removePanel();
@@ -179,8 +177,8 @@ public class Students extends Users{
 			public void actionPerformed(ActionEvent e) {
 				Booking booking=(Booking)objects[0];
 				try {
-					RoomLoader rooms=new RoomLoader();
-					rooms.getRooms().get(booking.getRoom().getCode());
+					RoomDAO dao=new RoomDAO();
+					dao.selectAllRooms().get(booking.getRoom().getCode());
 					try {
 						booking.getRoom().soloBook(ID, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
 					}catch(IllegalAccessError notAllowed) {

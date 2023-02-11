@@ -18,7 +18,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import MyLoader.RoomLoader;
 import Notifications.AcceptRejectFrame;
 import Notifications.Notification;
 import Notifications.ProfNotificationDAO;

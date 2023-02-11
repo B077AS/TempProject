@@ -4,7 +4,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import Rooms.Booking;
 
-public class FilterCheckBox extends JCheckBox implements Filterable{
+public abstract class FilterCheckBox extends JCheckBox implements Filterable{
 
 	protected String identifier;
 	protected String start;

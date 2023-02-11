@@ -19,8 +19,8 @@ import java.util.HashMap;
 import javax.swing.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import MyLoader.RoomLoader;
 import Notifications.ProfessorNotification;
+import Rooms.RoomDAO;
 import Rooms.Rooms;
 import Users.GeneralUser.UserGUI;
 import Users.GeneralUser.Users;
@@ -110,11 +110,10 @@ public class ConfirmSwapPanel extends JPanel{
 
 		}
 		JComboBox<Rooms> possibleRooms=new JComboBox();
-		RoomLoader loadRooms;
 		try {
-			loadRooms = new RoomLoader();
+			RoomDAO dao=new RoomDAO();
 
-			HashMap<String, Rooms> allRooms=loadRooms.getRooms();
+			HashMap<String, Rooms> allRooms=dao.selectAllRooms();
 			ArrayList<Rooms> roomsList=new ArrayList<Rooms>();
 			for(HashMap.Entry<String, Rooms> entry : allRooms.entrySet()) {
 				roomsList.add(entry.getValue());

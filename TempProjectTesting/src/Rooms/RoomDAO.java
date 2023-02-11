@@ -1,9 +1,13 @@
 package Rooms;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Properties;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
@@ -48,6 +52,29 @@ public class RoomDAO {
 			System.out.println("errore query");
 			e1.printStackTrace();
 		}
+	}
+
+	public HashMap<String, Rooms> selectAllRooms() {
+		try {
+			HashMap<String, Rooms> allRooms=new HashMap<String, Rooms>();
+			Properties config= new Properties();
+			FileInputStream fis=new FileInputStream("Property/config.properties");
+			config.load(fis);
+			Connection conn=DBConnection.connect();
+
+			String query="select * from rooms";
+			Statement statement = conn.prepareStatement(query);
+			ResultSet result=statement.executeQuery(query);
+
+			while(result.next()) {
+				String roomClassName=config.getProperty(result.getString(2));
+				Rooms r=(Rooms)Class.forName(roomClassName).getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6));
+				allRooms.put(result.getString(1), r);
+			}
+			return allRooms;
+		} catch (Exception e) {
+		}
+		return null;		
 	}
 
 }

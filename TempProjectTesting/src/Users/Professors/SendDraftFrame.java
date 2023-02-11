@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Properties;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,10 +27,9 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.SqlDateModel;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import MyLoader.RoomLoader;
 import Notifications.AcceptRejectFrame;
 import Notifications.ProfessorNotification;
-import Notifications.ProfessorSwapDraft;
+import Rooms.RoomDAO;
 import Rooms.Rooms;
 import Users.GeneralUser.Users;
 import Users.GeneralUser.UserGUI;
@@ -49,9 +47,9 @@ public class SendDraftFrame extends JFrame{
 			secondPanel.setLayout (new GridBagLayout());
 			secondPanel.setBackground(Color.white);
 			GridBagConstraints c=new GridBagConstraints();
-			RoomLoader loadRooms=new RoomLoader();
+			RoomDAO dao=new RoomDAO();
 
-			HashMap<String, Rooms> allRooms=loadRooms.getRooms();
+			HashMap<String, Rooms> allRooms=dao.selectAllRooms();
 			ArrayList<Rooms> roomsList=new ArrayList<Rooms>();
 			for(HashMap.Entry<String, Rooms> entry : allRooms.entrySet()) {
 				roomsList.add(entry.getValue());

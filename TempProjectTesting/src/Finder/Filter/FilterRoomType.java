@@ -3,7 +3,7 @@ package Finder.Filter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import MyLoader.RoomLoader;
+import Rooms.RoomDAO;
 import Rooms.Booking;
 import Rooms.Rooms;
 
@@ -21,7 +21,8 @@ public class FilterRoomType extends FilterCheckBox{
 		String[] temp;
 		HashMap<String, Rooms> uniRooms;
 		try {
-			uniRooms = new RoomLoader().getRooms();
+			RoomDAO dao=new RoomDAO();
+			uniRooms = dao.selectAllRooms();
 		for(Booking book: freeRooms) {
 			String code=book.getRoom().getCode();
 			Rooms room=uniRooms.get(code);

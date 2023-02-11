@@ -7,11 +7,11 @@ import java.time.*;
 import java.util.*;
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import MyLoader.RoomLoader;
 import MyTimer.DateHolder;
 import MyTimer.Months;
 import MyTimer.MyTimer;
 import Rooms.Booking;
+import Rooms.RoomDAO;
 import Rooms.Rooms;
 
 public class FinderDB {
@@ -31,8 +31,8 @@ public class FinderDB {
 		semesterChceck(myDate, dayOfWeek.toString());
 
 		try {
-			RoomLoader load=new RoomLoader();
-			this.allRooms=load.getRooms();
+			RoomDAO dao=new RoomDAO();
+			this.allRooms=dao.selectAllRooms();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,25 +59,25 @@ public class FinderDB {
 
 					String query="(select Room, Start_Time, End_Time from schedule where Start_Time=? and End_Time=? and Day_Of_Week=?)\r\n"
 							+ "union\r\n"
-							+ "(select Room, Start_Time, End_Time from rooms_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(rooms_booking.Date))=?)\r\n"
+							+ "(select Room, Start_Time, End_Time from rooms_booking where Start_Time=? and End_Time=? and Locked='true' and rooms_booking.Date=?)\r\n"
 							+ "union\r\n"
-							+ "(select Room, Start_Time, End_Time from lab_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(lab_booking.Date))=?)\r\n"
+							+ "(select Room, Start_Time, End_Time from lab_booking where Start_Time=? and End_Time=? and Locked='true' and lab_booking.Date=?)\r\n"
 							+ "union\r\n"
-							+ "(select Room, Start_Time, End_Time from solo_booking where Start_Time=? and End_Time=? and Locked='true' and (select dayname(solo_booking.Date))=?)";
+							+ "(select Room, Start_Time, End_Time from solo_booking where Start_Time=? and End_Time=? and Locked='true' and solo_booking.Date=?)";
 					PreparedStatement preparedStmt = conn.prepareStatement(query);
 
 					preparedStmt.setString(1, start);
 					preparedStmt.setString(2, end);
-					preparedStmt.setString(3, dayOfWeek.toString());
+					preparedStmt.setDate(3, Date.valueOf(myDate));
 					preparedStmt.setString(4, start);
 					preparedStmt.setString(5, end);
-					preparedStmt.setString(6, dayOfWeek.toString());
+					preparedStmt.setDate(6, Date.valueOf(myDate));
 					preparedStmt.setString(7, start);
 					preparedStmt.setString(8, end);
-					preparedStmt.setString(9, dayOfWeek.toString());
+					preparedStmt.setDate(9, Date.valueOf(myDate));
 					preparedStmt.setString(10, start);
 					preparedStmt.setString(11, end);
-					preparedStmt.setString(12, dayOfWeek.toString());
+					preparedStmt.setDate(12, Date.valueOf(myDate));
 					ResultSet result=preparedStmt.executeQuery();
 					while(result.next()) {
 						if(this.allRooms.containsKey(result.getString(1))==true) {

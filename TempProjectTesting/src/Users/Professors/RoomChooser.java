@@ -4,19 +4,17 @@ import javax.swing.*;
 
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
-import MyLoader.RoomLoader;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.sql.Date;
 import java.time.*;
 import java.util.*;
-
 import Notifications.AcceptRejectFrame;
 import Notifications.ProfNotificationDAO;
 import Notifications.ProfSwapNotificationDAO;
 import Notifications.ProfessorNotification;
 import Notifications.ProfessorSwapDraft;
+import Rooms.RoomDAO;
 import Rooms.Rooms;
 import Users.GeneralUser.UserGUI;
 import Users.GeneralUser.Users;
@@ -32,9 +30,9 @@ public class RoomChooser extends JFrame {
 			p.setLayout (new GridBagLayout());
 			p.setBackground(Color.white);
 			GridBagConstraints c=new GridBagConstraints();
-			RoomLoader loadRooms=new RoomLoader();
+			RoomDAO dao=new RoomDAO();
 
-			HashMap<String, Rooms> allRooms=loadRooms.getRooms();
+			HashMap<String, Rooms> allRooms=dao.selectAllRooms();
 			ArrayList<Rooms> roomsList=new ArrayList<Rooms>();
 			for(HashMap.Entry<String, Rooms> entry : allRooms.entrySet()) {
 				roomsList.add(entry.getValue());

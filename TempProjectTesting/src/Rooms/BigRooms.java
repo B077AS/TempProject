@@ -5,12 +5,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Groups.Group;
 import Groups.GroupDAO;
-import MyTimer.DateHolder;
 
 public class BigRooms extends Rooms{
 
@@ -25,7 +23,6 @@ public class BigRooms extends Rooms{
 		GroupDAO daoGroup=new GroupDAO();
 		RoomsBookingDAO bookingDAO=new RoomsBookingDAO();
 
-
 		try {
 			
 			int newPartecipants=daoGroup.countPartecipant(group);
@@ -34,11 +31,11 @@ public class BigRooms extends Rooms{
 					+ "(select count(*) from allgroups where Group_ID in (select Group_ID from rooms_booking where rooms_booking.Date=? and Room=? and Start_Time=? and End_Time=?))\r\n"
 					+ "+(select count(*) from solo_booking where solo_booking.Date=? and Room=? and Start_Time=? and End_Time=?) as sum";
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setDate(1, Date.valueOf(DateHolder.getYear()+"-"+DateHolder.getMonth()+"-"+DateHolder.getDay()));
+			preparedStmt.setDate(1, booking.getDate());
 			preparedStmt.setString(2, this.code);
 			preparedStmt.setString(3, booking.getStartTime());
 			preparedStmt.setString(4, booking.getEndTime());
-			preparedStmt.setDate(5, Date.valueOf(DateHolder.getYear()+"-"+DateHolder.getMonth()+"-"+DateHolder.getDay()));
+			preparedStmt.setDate(5, booking.getDate());
 			preparedStmt.setString(6, this.code);
 			preparedStmt.setString(7, booking.getStartTime());
 			preparedStmt.setString(8, booking.getEndTime());

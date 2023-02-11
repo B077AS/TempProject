@@ -98,11 +98,11 @@ public class ConfirmBookigPanel extends JPanel{
 								+ "(select count(*) from allgroups where Group_ID in (select Group_ID from rooms_booking where rooms_booking.Date=? and Room=? and Start_Time=? and End_Time=?))\r\n"
 								+ "+(select count(*) from solo_booking where solo_booking.Date=? and Room=? and Start_Time=? and End_Time=?) as sum";
 						PreparedStatement preparedStmt = conn.prepareStatement(query);
-						preparedStmt.setDate(1, Date.valueOf(DateHolder.getYear()+"-"+DateHolder.getMonth()+"-"+DateHolder.getDay()));
+						preparedStmt.setDate(1, DateHolder.getDate());
 						preparedStmt.setString(2, list.getSelectedValue().getRoom().getCode());
 						preparedStmt.setString(3, list.getSelectedValue().getStartTime());
 						preparedStmt.setString(4, list.getSelectedValue().getEndTime());
-						preparedStmt.setDate(5, Date.valueOf(DateHolder.getYear()+"-"+DateHolder.getMonth()+"-"+DateHolder.getDay()));
+						preparedStmt.setDate(5, DateHolder.getDate());
 						preparedStmt.setString(6, list.getSelectedValue().getRoom().getCode());
 						preparedStmt.setString(7, list.getSelectedValue().getStartTime());
 						preparedStmt.setString(8, list.getSelectedValue().getEndTime());

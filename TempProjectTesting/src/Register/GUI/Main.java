@@ -9,5 +9,3 @@ public class Main {
 	} 
     
 }
-
-//william.solari01@universitadipavia.it 

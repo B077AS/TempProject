@@ -104,9 +104,6 @@ public class Students extends Users{
 
 
 	public JPanel book(Object[] objects, UserGUI frame) {
-		int year=DateHolder.getYear();
-		int month=DateHolder.getMonth();
-		int day=DateHolder.getDay();
 
 		JPanel bookPanel=new JPanel();
 
@@ -151,7 +148,7 @@ public class Students extends Users{
 					RoomDAO dao=new RoomDAO();
 					dao.selectAllRooms().get(booking.getRoom().getCode());
 					Group myGroup=(Group)goupsBox.getSelectedItem();
-					booking.getRoom().book(myGroup, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
+					booking.getRoom().book(myGroup, new Booking(booking.getStartTime(), booking.getEndTime(), DateHolder.getDate(), null, null, null, null));
 					frame.removePanel();
 				} catch (Exception e1) {
 					new ExceptionFrame("No Group Selected!");
@@ -180,7 +177,7 @@ public class Students extends Users{
 					RoomDAO dao=new RoomDAO();
 					dao.selectAllRooms().get(booking.getRoom().getCode());
 					try {
-						booking.getRoom().soloBook(ID, new Booking(booking.getStartTime(), booking.getEndTime(), Date.valueOf(year+"-"+month+"-"+day), null, null, null, null));
+						booking.getRoom().soloBook(ID, new Booking(booking.getStartTime(), booking.getEndTime(), DateHolder.getDate(), null, null, null, null));
 					}catch(IllegalAccessError notAllowed) {
 						new ExceptionFrame("Not Allowed to Register as and Individual");
 						return;

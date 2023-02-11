@@ -15,6 +15,7 @@ import DataBase.DBConnection;
 import Exceptions.ExceptionFrame;
 import Login.*;
 import MyTimer.DateHolder;
+import MyTimer.MyTimer;
 import Notifications.ProfNotificationDAO;
 import Notifications.ProfSwapNotificationDAO;
 import Notifications.ProfessorNotification;
@@ -122,11 +123,11 @@ public class Professor extends Users{
 		c.gridy=1;
 		bookPanel.add(bookingSummary, c);
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate now=LocalDate.now();
-		dtf.format(now);
 
-		Date date=Date.valueOf(year+"-"+month+"-"+day);
+		MyTimer time=new MyTimer();
+
+		LocalDate now=time.getJavaDate();
+		Date date=DateHolder.getDate();
 		LocalDate bookingDate=date.toLocalDate();
 
 		JButton claimButton=new JButton("Claim Room");
